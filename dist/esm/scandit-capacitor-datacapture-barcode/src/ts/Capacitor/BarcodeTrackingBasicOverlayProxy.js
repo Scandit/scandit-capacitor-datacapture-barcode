@@ -1,10 +1,9 @@
 import { TrackedBarcode } from '../Barcode';
-import { doReturnWithFinish } from '../../../../scandit-capacitor-datacapture-core/src/ts/Capacitor/CommonCapacitor';
 import { Capacitor, CapacitorFunction } from './Capacitor';
 var BarcodeTrackingBasicOverlayListenerEvent;
 (function (BarcodeTrackingBasicOverlayListenerEvent) {
-    BarcodeTrackingBasicOverlayListenerEvent["BrushForTrackedBarcode"] = "onBrushForTrackedBarcodeEvent";
-    BarcodeTrackingBasicOverlayListenerEvent["DidTapTrackedBarcode"] = "onDidTapTrackedBarcodeEvent";
+    BarcodeTrackingBasicOverlayListenerEvent["BrushForTrackedBarcode"] = "BarcodeTrackingBasicOverlayListener.brushForTrackedBarcode";
+    BarcodeTrackingBasicOverlayListenerEvent["DidTapTrackedBarcode"] = "BarcodeTrackingBasicOverlayListener.didTapTrackedBarcode";
 })(BarcodeTrackingBasicOverlayListenerEvent || (BarcodeTrackingBasicOverlayListenerEvent = {}));
 export class BarcodeTrackingBasicOverlayProxy {
     static forOverlay(overlay) {
@@ -35,31 +34,30 @@ export class BarcodeTrackingBasicOverlayProxy {
             .addListener(BarcodeTrackingBasicOverlayListenerEvent.DidTapTrackedBarcode, this.notifyListeners.bind(this));
     }
     notifyListeners(event) {
-        if (!event || !this.overlay.listener) {
-            // The event could be undefined/null in case the plugin result did not pass a "message",
-            // which could happen e.g. in case of "ok" results, which could signal e.g. successful
-            // listener subscriptions.
-            return doReturnWithFinish(event.name, null);
-        }
+        var _a, _b;
         event = Object.assign(Object.assign(Object.assign({}, event), event.argument), { argument: undefined });
         switch (event.name) {
             case BarcodeTrackingBasicOverlayListenerEvent.BrushForTrackedBarcode:
-                if (this.overlay.listener.brushForTrackedBarcode) {
+                if ((_a = this.overlay.listener) === null || _a === void 0 ? void 0 : _a.brushForTrackedBarcode) {
                     const trackedBarcode = TrackedBarcode
                         .fromJSON(JSON.parse(event.trackedBarcode));
                     const brush = this.overlay.listener.brushForTrackedBarcode(this.overlay, trackedBarcode);
-                    return doReturnWithFinish(event.name, { brush: brush ? JSON.stringify(brush.toJSON()) : null });
+                    BarcodeTrackingBasicOverlayProxy.capacitorExec(null, null, CapacitorFunction.SetBrushForTrackedBarcode, {
+                        brush: brush ? JSON.stringify(brush.toJSON()) : null,
+                        sessionFrameSequenceID: trackedBarcode.sessionFrameSequenceID,
+                        trackedBarcodeID: trackedBarcode.identifier,
+                    });
                 }
                 break;
             case BarcodeTrackingBasicOverlayListenerEvent.DidTapTrackedBarcode:
-                if (this.overlay.listener.didTapTrackedBarcode) {
+                if ((_b = this.overlay.listener) === null || _b === void 0 ? void 0 : _b.didTapTrackedBarcode) {
                     const trackedBarcode = TrackedBarcode
                         .fromJSON(JSON.parse(event.trackedBarcode));
                     this.overlay.listener.didTapTrackedBarcode(this.overlay, trackedBarcode);
                 }
                 break;
         }
-        return doReturnWithFinish(event.name, null);
+        return null;
     }
     initialize() {
         this.subscribeListener();

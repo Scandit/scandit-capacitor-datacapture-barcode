@@ -31,7 +31,7 @@ export interface ScanditBarcodeCountNativeInterface {
     finishBarcodeCountListenerOnScan(): Promise<void>;
     createView(data: any): Promise<void>;
     updateView(data: {
-        BarcodeCountView: any;
+        View: any;
     }): Promise<void>;
     updateMode(data: {
         BarcodeCount: any;

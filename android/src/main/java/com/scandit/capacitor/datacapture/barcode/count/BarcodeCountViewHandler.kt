@@ -1,4 +1,4 @@
-package com.scandit.capacitor.datacapture.barcode.count.handlers
+package com.scandit.capacitor.datacapture.barcode.count
 
 import android.graphics.Color
 import android.view.View
@@ -7,17 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.scandit.capacitor.datacapture.core.data.ResizeAndMoveInfo
 import com.scandit.capacitor.datacapture.core.utils.pxFromDp
 import com.scandit.capacitor.datacapture.core.utils.removeFromParent
-import com.scandit.capacitor.datacapture.core.workers.Worker
 import com.scandit.datacapture.barcode.count.ui.view.BarcodeCountView
-import com.scandit.datacapture.barcode.count.ui.view.BarcodeCountViewListener
-import com.scandit.datacapture.barcode.count.ui.view.BarcodeCountViewUiListener
+import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
 
-class BarcodeCountViewHandler(
-    private val barcodeCountViewListener: BarcodeCountViewListener,
-    private val barcodeCountViewUiListener: BarcodeCountViewUiListener,
-    private val uiWorker: Worker
-) {
+internal class BarcodeCountViewHandler {
     private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
     private var isVisible: Boolean = true
     private var barcodeCountViewReference: WeakReference<BarcodeCountView>? = null
@@ -39,7 +33,7 @@ class BarcodeCountViewHandler(
     fun attachWebView(webView: View, @Suppress("UNUSED_PARAMETER") activity: AppCompatActivity) {
         if (this.webView != webView) {
             webViewReference = WeakReference(webView)
-            uiWorker.post {
+            MainThread.runOnMainThread {
                 webView.bringToFront()
                 webView.setBackgroundColor(Color.TRANSPARENT)
             }
@@ -80,10 +74,8 @@ class BarcodeCountViewHandler(
         activity: AppCompatActivity
     ) {
         barcodeCountViewReference = WeakReference(barcodeCountView)
-        barcodeCountView.listener = barcodeCountViewListener
-        barcodeCountView.uiListener = barcodeCountViewUiListener
 
-        uiWorker.post {
+        MainThread.runOnMainThread {
             activity.addContentView(
                 barcodeCountView,
                 ViewGroup.LayoutParams(
@@ -104,7 +96,7 @@ class BarcodeCountViewHandler(
     }
 
     private fun removeView(view: View, uiBlock: (() -> Unit)? = null) {
-        uiWorker.post {
+        MainThread.runOnMainThread {
             view.removeFromParent()
             uiBlock?.invoke()
         }

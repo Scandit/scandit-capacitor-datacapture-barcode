@@ -5,8 +5,8 @@ import { BarcodeCountCaptureListSession } from '../BarcodeCountCaptureList';
 import { ScanditBarcodeCountPluginNative } from '../../web';
 var BarcodeCountListenerEventName;
 (function (BarcodeCountListenerEventName) {
-    BarcodeCountListenerEventName["didScan"] = "barcodeCountListener-scan";
-    BarcodeCountListenerEventName["didListSessionUpdate"] = "barcodeCountCaptureListListener-onCaptureListSessionUpdated";
+    BarcodeCountListenerEventName["didScan"] = "BarcodeCountListener.onScan";
+    BarcodeCountListenerEventName["didListSessionUpdate"] = "BarcodeCountCaptureListListener.didUpdateSession";
 })(BarcodeCountListenerEventName || (BarcodeCountListenerEventName = {}));
 export class BarcodeCountListenerProxy {
     static forBarcodeCount(barcodeCount) {

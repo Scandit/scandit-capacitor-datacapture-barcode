@@ -52,15 +52,6 @@ var capacitorPlugin = (function (exports, core) {
         };
         window.Capacitor.Plugins[pluginName][functionName](args).then(extendedSuccessCallback, extendedErrorCallback);
     };
-    const doReturnWithFinish = (finishCallbackID, result) => {
-        if (window.Capacitor.Plugins.ScanditBarcodeNative) {
-            window.Capacitor.Plugins.ScanditBarcodeNative.finishCallback({ result: Object.assign({ finishCallbackID }, result) });
-        }
-        else if (window.Capacitor.Plugins.ScanditIdNative) {
-            window.Capacitor.Plugins.ScanditIdNative.finishCallback({ result: Object.assign({ finishCallbackID }, result) });
-        }
-        return result;
-    };
 
     // tslint:disable-next-line:ban-types
     function ignoreFromSerialization(target, propertyName) {
@@ -1478,16 +1469,16 @@ var capacitorPlugin = (function (exports, core) {
                             .fromJSON(json.BarcodeCapture.BarcodeCaptureOverlay.DefaultBrush.strokeColor),
                         strokeWidth: json.BarcodeCapture.BarcodeCaptureOverlay.DefaultBrush.strokeWidth,
                     },
-                    styles: Object
-                        .keys(json.BarcodeCapture.BarcodeCaptureOverlay.styles)
+                    Brushes: Object
+                        .keys(json.BarcodeCapture.BarcodeCaptureOverlay.Brushes)
                         .reduce((previousValue, currentValue) => {
                         return Object.assign(Object.assign({}, previousValue), { [currentValue]: {
                                 DefaultBrush: {
                                     fillColor: Color
-                                        .fromJSON(json.BarcodeCapture.BarcodeCaptureOverlay.styles[currentValue].DefaultBrush.fillColor),
+                                        .fromJSON(json.BarcodeCapture.BarcodeCaptureOverlay.Brushes[currentValue].fillColor),
                                     strokeColor: Color
-                                        .fromJSON(json.BarcodeCapture.BarcodeCaptureOverlay.styles[currentValue].DefaultBrush.strokeColor),
-                                    strokeWidth: json.BarcodeCapture.BarcodeCaptureOverlay.styles[currentValue].DefaultBrush.strokeWidth,
+                                        .fromJSON(json.BarcodeCapture.BarcodeCaptureOverlay.Brushes[currentValue].strokeColor),
+                                    strokeWidth: json.BarcodeCapture.BarcodeCaptureOverlay.Brushes[currentValue].strokeWidth,
                                 },
                             } });
                     }, {}),
@@ -1503,26 +1494,19 @@ var capacitorPlugin = (function (exports, core) {
                     .fromJSON(json.BarcodeTracking.RecommendedCameraSettings),
                 BarcodeTrackingBasicOverlay: {
                     defaultStyle: json.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle,
-                    DefaultBrush: {
-                        fillColor: Color
-                            .fromJSON(json.BarcodeTracking.BarcodeTrackingBasicOverlay.DefaultBrush.fillColor),
-                        strokeColor: Color
-                            .fromJSON(json.BarcodeTracking.BarcodeTrackingBasicOverlay.DefaultBrush.strokeColor),
-                        strokeWidth: json.BarcodeTracking.BarcodeTrackingBasicOverlay.DefaultBrush.strokeWidth,
-                    },
-                    styles: Object
-                        .keys(json.BarcodeTracking.BarcodeTrackingBasicOverlay.styles)
+                    Brushes: Object
+                        .keys(json.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes)
                         .reduce((previousValue, currentValue) => {
                         return Object.assign(Object.assign({}, previousValue), { [currentValue]: {
                                 DefaultBrush: {
                                     fillColor: Color
                                         .fromJSON(json.BarcodeTracking.BarcodeTrackingBasicOverlay.
-                                        styles[currentValue].DefaultBrush.fillColor),
+                                        Brushes[currentValue].fillColor),
                                     strokeColor: Color
                                         .fromJSON(json.BarcodeTracking.BarcodeTrackingBasicOverlay.
-                                        styles[currentValue].DefaultBrush.strokeColor),
+                                        Brushes[currentValue].strokeColor),
                                     strokeWidth: json.BarcodeTracking.BarcodeTrackingBasicOverlay.
-                                        styles[currentValue].DefaultBrush.strokeWidth,
+                                        Brushes[currentValue].strokeWidth,
                                 },
                             } });
                     }, {}),
@@ -1531,9 +1515,9 @@ var capacitorPlugin = (function (exports, core) {
             BarcodeSelection: {
                 RecommendedCameraSettings: CameraSettings
                     .fromJSON(json.BarcodeSelection.RecommendedCameraSettings),
-                feedback: ({
+                Feedback: ({
                     selection: Feedback
-                        .fromJSON(JSON.parse(json.BarcodeSelection.feedback).selection),
+                        .fromJSON(JSON.parse(json.BarcodeSelection.Feedback).selection),
                 }),
                 BarcodeSelectionSettings: {
                     codeDuplicateFilter: json.BarcodeSelection.BarcodeSelectionSettings.codeDuplicateFilter,
@@ -1552,34 +1536,6 @@ var capacitorPlugin = (function (exports, core) {
                 BarcodeSelectionBasicOverlay: {
                     defaultStyle: json.BarcodeSelection
                         .BarcodeSelectionBasicOverlay.defaultStyle,
-                    DefaultTrackedBrush: {
-                        fillColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultTrackedBrush.fillColor),
-                        strokeColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultTrackedBrush.strokeColor),
-                        strokeWidth: json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultTrackedBrush.strokeWidth,
-                    },
-                    DefaultAimedBrush: {
-                        fillColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultAimedBrush.fillColor),
-                        strokeColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultAimedBrush.strokeColor),
-                        strokeWidth: json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultAimedBrush.strokeWidth,
-                    },
-                    DefaultSelectedBrush: {
-                        fillColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultSelectedBrush.fillColor),
-                        strokeColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultSelectedBrush.strokeColor),
-                        strokeWidth: json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultSelectedBrush.strokeWidth,
-                    },
-                    DefaultSelectingBrush: {
-                        fillColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultSelectingBrush.fillColor),
-                        strokeColor: Color
-                            .fromJSON(json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultSelectingBrush.strokeColor),
-                        strokeWidth: json.BarcodeSelection.BarcodeSelectionBasicOverlay.DefaultSelectingBrush.strokeWidth,
-                    },
                     styles: Object
                         .keys(json.BarcodeSelection.BarcodeSelectionBasicOverlay.styles)
                         .reduce((previousValue, currentValue) => {
@@ -1646,7 +1602,10 @@ var capacitorPlugin = (function (exports, core) {
     (function (CapacitorFunction) {
         CapacitorFunction["GetDefaults"] = "getDefaults";
         CapacitorFunction["SubscribeBarcodeCaptureListener"] = "subscribeBarcodeCaptureListener";
+        CapacitorFunction["FinishBarcodeCaptureDidScan"] = "finishBarcodeCaptureDidScan";
+        CapacitorFunction["FinishBarcodeCaptureDidUpdateSession"] = "finishBarcodeCaptureDidUpdateSession";
         CapacitorFunction["SubscribeBarcodeTrackingListener"] = "subscribeBarcodeTrackingListener";
+        CapacitorFunction["FinishBarcodeTrackingDidUpdateSession"] = "finishBarcodeTrackingDidUpdateSession";
         CapacitorFunction["SubscribeBarcodeTrackingBasicOverlayListener"] = "subscribeBarcodeTrackingBasicOverlayListener";
         CapacitorFunction["SetBrushForTrackedBarcode"] = "setBrushForTrackedBarcode";
         CapacitorFunction["ClearTrackedBarcodeBrushes"] = "clearTrackedBarcodeBrushes";
@@ -1679,6 +1638,7 @@ var capacitorPlugin = (function (exports, core) {
     const getDefaults = () => __awaiter$1(void 0, void 0, void 0, function* () {
         try {
             const defaultsJSON = yield window.Capacitor.Plugins[pluginName][CapacitorFunction.GetDefaults]();
+            console.log(defaultsJSON);
             const defaults = defaultsFromJSON(defaultsJSON);
             Capacitor.defaults = defaults;
         }
@@ -1739,7 +1699,7 @@ var capacitorPlugin = (function (exports, core) {
             // tslint:disable-next-line:no-console
             console.warn('defaultBrush is deprecated and will be removed in a future release. ' +
                 'Use .brush to get the default for your selected style');
-            return new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeWidth);
+            return new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeWidth);
         }
         get brush() {
             return this._brush;
@@ -1775,7 +1735,7 @@ var capacitorPlugin = (function (exports, core) {
             const overlay = new BarcodeCaptureOverlay();
             overlay.barcodeCapture = barcodeCapture;
             overlay._style = style;
-            overlay._brush = new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[overlay._style].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[overlay._style].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[overlay._style].DefaultBrush.strokeWidth);
+            overlay._brush = new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[overlay._style].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[overlay._style].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[overlay._style].DefaultBrush.strokeWidth);
             if (view) {
                 view.addOverlay(overlay);
             }
@@ -1813,15 +1773,8 @@ var capacitorPlugin = (function (exports, core) {
             return proxy;
         }
         static getLastFrame() {
-            return new Promise(resolve => window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.GetLastFrame]().then((frameDataJSONString) => {
-                let parsedData;
-                if (frameDataJSONString.data) {
-                    parsedData = JSON.parse(frameDataJSONString.data);
-                }
-                else {
-                    parsedData = frameDataJSONString;
-                }
-                resolve(PrivateFrameData.fromJSON(parsedData));
+            return new Promise(resolve => window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.GetLastFrame]().then((result) => {
+                resolve(PrivateFrameData.fromJSON(JSON.parse(result.data)));
             }));
         }
         static getLastFrameOrNull() {
@@ -1830,24 +1783,26 @@ var capacitorPlugin = (function (exports, core) {
                 if (!frameDataJSONString) {
                     return resolve(null);
                 }
-                resolve(PrivateFrameData.fromJSON(JSON.parse(frameDataJSONString)));
+                resolve(PrivateFrameData.fromJSON(JSON.parse(frameDataJSONString.data)));
             }));
         }
         getCurrentState() {
             return new Promise((resolve, reject) => window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.GetCurrentCameraState]()
-                .then(resolve, reject));
+                .then((result) => {
+                resolve(result.data);
+            }, reject));
         }
         getIsTorchAvailable() {
             return new Promise((resolve, reject) => window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.GetIsTorchAvailable]({
                 position: this.camera.position,
-            }).then(resolve, reject));
+            }).then((result) => { resolve(result.data); }, reject));
         }
     }
 
     var BarcodeCaptureListenerEvent;
     (function (BarcodeCaptureListenerEvent) {
-        BarcodeCaptureListenerEvent["DidScan"] = "onBarcodeScannedEvent";
-        BarcodeCaptureListenerEvent["DidUpdateSession"] = "onSessionUpdateEvent";
+        BarcodeCaptureListenerEvent["DidScan"] = "BarcodeCaptureListener.didScan";
+        BarcodeCaptureListenerEvent["DidUpdateSession"] = "BarcodeCaptureListener.didUpdateSession";
     })(BarcodeCaptureListenerEvent || (BarcodeCaptureListenerEvent = {}));
     class BarcodeCaptureListenerProxy {
         static forBarcodeCapture(barcodeCapture) {
@@ -1891,12 +1846,6 @@ var capacitorPlugin = (function (exports, core) {
         notifyListeners(event) {
             const done = () => {
                 this.barcodeCapture.isInListenerCallback = false;
-                window.Capacitor.Plugins[Capacitor.pluginName].finishCallback({
-                    result: {
-                        enabled: this.barcodeCapture.isEnabled,
-                        finishCallbackID: event.name,
-                    },
-                });
                 return { enabled: this.barcodeCapture.isEnabled };
             };
             this.barcodeCapture.isInListenerCallback = true;
@@ -1914,12 +1863,14 @@ var capacitorPlugin = (function (exports, core) {
                             listener.didScan(this.barcodeCapture, BarcodeCaptureSession
                                 .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                         }
+                        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeCaptureDidScan]({ 'enabled': this.barcodeCapture.isEnabled });
                         break;
                     case BarcodeCaptureListenerEvent.DidUpdateSession:
                         if (listener.didUpdateSession) {
                             listener.didUpdateSession(this.barcodeCapture, BarcodeCaptureSession
                                 .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                         }
+                        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeCaptureDidUpdateSession]({ 'enabled': this.barcodeCapture.isEnabled });
                         break;
                 }
             });
@@ -2035,7 +1986,7 @@ var capacitorPlugin = (function (exports, core) {
     class BarcodeSelectionFeedback extends DefaultSerializeable {
         constructor() {
             super(...arguments);
-            this.selection = Capacitor.defaults.BarcodeSelection.feedback.selection;
+            this.selection = Capacitor.defaults.BarcodeSelection.Feedback.selection;
         }
         static get default() {
             return new BarcodeSelectionFeedback();
@@ -2304,8 +2255,8 @@ var capacitorPlugin = (function (exports, core) {
 
     var BarcodeSelectionListenerEvent;
     (function (BarcodeSelectionListenerEvent) {
-        BarcodeSelectionListenerEvent["DidUpdateSelection"] = "didUpdateSelectionInBarcodeSelection";
-        BarcodeSelectionListenerEvent["DidUpdateSession"] = "didUpdateSessionInBarcodeSelection";
+        BarcodeSelectionListenerEvent["DidUpdateSelection"] = "BarcodeSelectionListener.didUpdateSelection";
+        BarcodeSelectionListenerEvent["DidUpdateSession"] = "BarcodeSelectionListener.didUpdateSession";
     })(BarcodeSelectionListenerEvent || (BarcodeSelectionListenerEvent = {}));
     class BarcodeSelectionListenerProxy {
         static forBarcodeSelection(barcodeSelection) {
@@ -2316,7 +2267,7 @@ var capacitorPlugin = (function (exports, core) {
         }
         getCount(barcode) {
             return new Promise((resolve, reject) => {
-                BarcodeSelectionListenerProxy.exec((response) => resolve(response.result), reject, CapacitorFunction.GetCountForBarcodeInBarcodeSelectionSession, {
+                BarcodeSelectionListenerProxy.exec((response) => resolve(response.data), reject, CapacitorFunction.GetCountForBarcodeInBarcodeSelectionSession, {
                     selectionIdentifier: barcode.selectionIdentifier,
                 });
             });
@@ -2659,10 +2610,10 @@ var capacitorPlugin = (function (exports, core) {
 
     var BarcodeTrackingAdvancedOverlayListenerEvent;
     (function (BarcodeTrackingAdvancedOverlayListenerEvent) {
-        BarcodeTrackingAdvancedOverlayListenerEvent["ViewForTrackedBarcode"] = "onViewForTrackedBarcodeEvent";
-        BarcodeTrackingAdvancedOverlayListenerEvent["AnchorForTrackedBarcode"] = "onAnchorForTrackedBarcodeEvent";
-        BarcodeTrackingAdvancedOverlayListenerEvent["OffsetForTrackedBarcode"] = "onOffsetForTrackedBarcodeEvent";
-        BarcodeTrackingAdvancedOverlayListenerEvent["DidTapViewForTrackedBarcode"] = "onTapViewForTrackedBarcodeEvent";
+        BarcodeTrackingAdvancedOverlayListenerEvent["ViewForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.viewForTrackedBarcode";
+        BarcodeTrackingAdvancedOverlayListenerEvent["AnchorForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.anchorForTrackedBarcode";
+        BarcodeTrackingAdvancedOverlayListenerEvent["OffsetForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.offsetForTrackedBarcode";
+        BarcodeTrackingAdvancedOverlayListenerEvent["DidTapViewForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.didTapViewForTrackedBarcode";
     })(BarcodeTrackingAdvancedOverlayListenerEvent || (BarcodeTrackingAdvancedOverlayListenerEvent = {}));
     class BarcodeTrackingAdvancedOverlayProxy {
         static forOverlay(overlay) {
@@ -2723,7 +2674,7 @@ var capacitorPlugin = (function (exports, core) {
                 // The event could be undefined/null in case the plugin result did not pass a "message",
                 // which could happen e.g. in case of "ok" results, which could signal e.g. successful
                 // listener subscriptions.
-                return doReturnWithFinish(event.name, null);
+                return {};
             }
             event = Object.assign(Object.assign(Object.assign({}, event), event.argument), { argument: undefined });
             switch (event.name) {
@@ -2732,13 +2683,7 @@ var capacitorPlugin = (function (exports, core) {
                         const trackedBarcode = TrackedBarcode
                             .fromJSON(JSON.parse(event.trackedBarcode));
                         const view = this.overlay.listener.viewForTrackedBarcode(this.overlay, trackedBarcode);
-                        if (view instanceof Promise) {
-                            this.setViewForTrackedBarcode(view, trackedBarcode);
-                            return doReturnWithFinish(event.name, { view: null });
-                        }
-                        else {
-                            return doReturnWithFinish(event.name, { view: view ? view.toJSON() : null });
-                        }
+                        this.setViewForTrackedBarcode(view, trackedBarcode);
                     }
                     break;
                 case BarcodeTrackingAdvancedOverlayListenerEvent.AnchorForTrackedBarcode:
@@ -2746,7 +2691,7 @@ var capacitorPlugin = (function (exports, core) {
                         const trackedBarcode = TrackedBarcode
                             .fromJSON(JSON.parse(event.trackedBarcode));
                         const anchor = this.overlay.listener.anchorForTrackedBarcode(this.overlay, trackedBarcode);
-                        return doReturnWithFinish(event.name, { anchor });
+                        this.setAnchorForTrackedBarcode(anchor, trackedBarcode);
                     }
                     break;
                 case BarcodeTrackingAdvancedOverlayListenerEvent.OffsetForTrackedBarcode:
@@ -2754,7 +2699,7 @@ var capacitorPlugin = (function (exports, core) {
                         const trackedBarcode = TrackedBarcode
                             .fromJSON(JSON.parse(event.trackedBarcode));
                         const offset = this.overlay.listener.offsetForTrackedBarcode(this.overlay, trackedBarcode);
-                        return doReturnWithFinish(event.name, { offset: JSON.stringify(offset.toJSON()) });
+                        this.setOffsetForTrackedBarcode(offset, trackedBarcode);
                     }
                     break;
                 case BarcodeTrackingAdvancedOverlayListenerEvent.DidTapViewForTrackedBarcode:
@@ -2765,7 +2710,7 @@ var capacitorPlugin = (function (exports, core) {
                     }
                     break;
             }
-            return doReturnWithFinish(event.name, null);
+            return {};
         }
         initialize() {
             this.subscribeListener();
@@ -2775,8 +2720,8 @@ var capacitorPlugin = (function (exports, core) {
 
     var BarcodeTrackingBasicOverlayListenerEvent;
     (function (BarcodeTrackingBasicOverlayListenerEvent) {
-        BarcodeTrackingBasicOverlayListenerEvent["BrushForTrackedBarcode"] = "onBrushForTrackedBarcodeEvent";
-        BarcodeTrackingBasicOverlayListenerEvent["DidTapTrackedBarcode"] = "onDidTapTrackedBarcodeEvent";
+        BarcodeTrackingBasicOverlayListenerEvent["BrushForTrackedBarcode"] = "BarcodeTrackingBasicOverlayListener.brushForTrackedBarcode";
+        BarcodeTrackingBasicOverlayListenerEvent["DidTapTrackedBarcode"] = "BarcodeTrackingBasicOverlayListener.didTapTrackedBarcode";
     })(BarcodeTrackingBasicOverlayListenerEvent || (BarcodeTrackingBasicOverlayListenerEvent = {}));
     class BarcodeTrackingBasicOverlayProxy {
         static forOverlay(overlay) {
@@ -2807,31 +2752,30 @@ var capacitorPlugin = (function (exports, core) {
                 .addListener(BarcodeTrackingBasicOverlayListenerEvent.DidTapTrackedBarcode, this.notifyListeners.bind(this));
         }
         notifyListeners(event) {
-            if (!event || !this.overlay.listener) {
-                // The event could be undefined/null in case the plugin result did not pass a "message",
-                // which could happen e.g. in case of "ok" results, which could signal e.g. successful
-                // listener subscriptions.
-                return doReturnWithFinish(event.name, null);
-            }
+            var _a, _b;
             event = Object.assign(Object.assign(Object.assign({}, event), event.argument), { argument: undefined });
             switch (event.name) {
                 case BarcodeTrackingBasicOverlayListenerEvent.BrushForTrackedBarcode:
-                    if (this.overlay.listener.brushForTrackedBarcode) {
+                    if ((_a = this.overlay.listener) === null || _a === void 0 ? void 0 : _a.brushForTrackedBarcode) {
                         const trackedBarcode = TrackedBarcode
                             .fromJSON(JSON.parse(event.trackedBarcode));
                         const brush = this.overlay.listener.brushForTrackedBarcode(this.overlay, trackedBarcode);
-                        return doReturnWithFinish(event.name, { brush: brush ? JSON.stringify(brush.toJSON()) : null });
+                        BarcodeTrackingBasicOverlayProxy.capacitorExec(null, null, CapacitorFunction.SetBrushForTrackedBarcode, {
+                            brush: brush ? JSON.stringify(brush.toJSON()) : null,
+                            sessionFrameSequenceID: trackedBarcode.sessionFrameSequenceID,
+                            trackedBarcodeID: trackedBarcode.identifier,
+                        });
                     }
                     break;
                 case BarcodeTrackingBasicOverlayListenerEvent.DidTapTrackedBarcode:
-                    if (this.overlay.listener.didTapTrackedBarcode) {
+                    if ((_b = this.overlay.listener) === null || _b === void 0 ? void 0 : _b.didTapTrackedBarcode) {
                         const trackedBarcode = TrackedBarcode
                             .fromJSON(JSON.parse(event.trackedBarcode));
                         this.overlay.listener.didTapTrackedBarcode(this.overlay, trackedBarcode);
                     }
                     break;
             }
-            return doReturnWithFinish(event.name, null);
+            return null;
         }
         initialize() {
             this.subscribeListener();
@@ -2894,7 +2838,7 @@ var capacitorPlugin = (function (exports, core) {
             // tslint:disable-next-line:no-console
             console.warn('defaultBrush is deprecated and will be removed in a future release. ' +
                 'Use .brush to get the default for your selected style');
-            return new Brush(Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeWidth);
+            return new Brush(Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeWidth);
         }
         get brush() {
             return this._defaultBrush;
@@ -2929,9 +2873,9 @@ var capacitorPlugin = (function (exports, core) {
             const overlay = new BarcodeTrackingBasicOverlay();
             overlay.barcodeTracking = barcodeTracking;
             overlay._style = style;
-            overlay._defaultBrush = new Brush(Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[overlay._style]
-                .DefaultBrush.fillColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[overlay._style]
-                .DefaultBrush.strokeColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[overlay._style]
+            overlay._defaultBrush = new Brush(Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[overlay._style]
+                .DefaultBrush.fillColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[overlay._style]
+                .DefaultBrush.strokeColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[overlay._style]
                 .DefaultBrush.strokeWidth);
             if (view) {
                 view.addOverlay(overlay);
@@ -2942,7 +2886,7 @@ var capacitorPlugin = (function (exports, core) {
         constructor() {
             super();
             this.type = 'barcodeTrackingBasic';
-            this._defaultBrush = new Brush(Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.styles[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeWidth);
+            this._defaultBrush = new Brush(Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.Brushes[Capacitor.defaults.BarcodeTracking.BarcodeTrackingBasicOverlay.defaultStyle].DefaultBrush.strokeWidth);
             this._shouldShowScanAreaGuides = false;
             this.listener = null;
         }
@@ -3040,7 +2984,7 @@ var capacitorPlugin = (function (exports, core) {
 
     var BarcodeTrackingListenerEvent;
     (function (BarcodeTrackingListenerEvent) {
-        BarcodeTrackingListenerEvent["DidUpdateSession"] = "onTrackingSessionUpdateEvent";
+        BarcodeTrackingListenerEvent["DidUpdateSession"] = "BarcodeTrackingListener.didUpdateSession";
     })(BarcodeTrackingListenerEvent || (BarcodeTrackingListenerEvent = {}));
     class BarcodeTrackingListenerProxy {
         static forBarcodeTracking(barcodeTracking) {
@@ -3063,12 +3007,6 @@ var capacitorPlugin = (function (exports, core) {
         notifyListeners(event) {
             const done = () => {
                 this.barcodeTracking.isInListenerCallback = false;
-                window.Capacitor.Plugins[Capacitor.pluginName].finishCallback({
-                    result: {
-                        enabled: this.barcodeTracking.isEnabled,
-                        finishCallbackID: event.name,
-                    },
-                });
                 return { enabled: this.barcodeTracking.isEnabled };
             };
             this.barcodeTracking.isInListenerCallback = true;
@@ -3086,6 +3024,7 @@ var capacitorPlugin = (function (exports, core) {
                             listener.didUpdateSession(this.barcodeTracking, BarcodeTrackingSession
                                 .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                         }
+                        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeTrackingDidUpdateSession]({ 'enabled': this.barcodeTracking.isEnabled });
                         break;
                 }
             });
@@ -3399,8 +3338,8 @@ var capacitorPlugin = (function (exports, core) {
 
     var BarcodeCountListenerEventName;
     (function (BarcodeCountListenerEventName) {
-        BarcodeCountListenerEventName["didScan"] = "barcodeCountListener-scan";
-        BarcodeCountListenerEventName["didListSessionUpdate"] = "barcodeCountCaptureListListener-onCaptureListSessionUpdated";
+        BarcodeCountListenerEventName["didScan"] = "BarcodeCountListener.onScan";
+        BarcodeCountListenerEventName["didListSessionUpdate"] = "BarcodeCountCaptureListListener.didUpdateSession";
     })(BarcodeCountListenerEventName || (BarcodeCountListenerEventName = {}));
     class BarcodeCountListenerProxy {
         static forBarcodeCount(barcodeCount) {
@@ -3665,17 +3604,17 @@ var capacitorPlugin = (function (exports, core) {
 
     var BarcodeCountViewEventName;
     (function (BarcodeCountViewEventName) {
-        BarcodeCountViewEventName["singleScanButtonTapped"] = "barcodeCountViewUiListener-onSingleScanButtonTapped";
-        BarcodeCountViewEventName["listButtonTapped"] = "barcodeCountViewUiListener-onListButtonTapped";
-        BarcodeCountViewEventName["exitButtonTapped"] = "barcodeCountViewUiListener-onExitButtonTapped";
-        BarcodeCountViewEventName["brushForRecognizedBarcode"] = "barcodeCountViewListener-brushForRecognizedBarcode";
-        BarcodeCountViewEventName["brushForRecognizedBarcodeNotInList"] = "barcodeCountViewListener-brushForRecognizedBarcodeNotInList";
-        BarcodeCountViewEventName["brushForUnrecognizedBarcode"] = "barcodeCountViewListener-brushForUnrecognizedBarcode";
-        BarcodeCountViewEventName["filteredBarcodeTapped"] = "barcodeCountViewListener-onFilteredBarcodeTapped";
-        BarcodeCountViewEventName["recognizedBarcodeNotInListTapped"] = "barcodeCountViewListener-onRecognizedBarcodeNotInListTapped";
-        BarcodeCountViewEventName["recognizedBarcodeTapped"] = "barcodeCountViewListener-onRecognizedBarcodeTapped";
-        BarcodeCountViewEventName["unrecognizedBarcodeTapped"] = "barcodeCountViewListener-onUnrecognizedBarcodeTapped";
-        BarcodeCountViewEventName["captureListCompleted"] = "barcodeCountViewListener-onCaptureListCompleted";
+        BarcodeCountViewEventName["singleScanButtonTapped"] = "BarcodeCountViewUiListener.onSingleScanButtonTapped";
+        BarcodeCountViewEventName["listButtonTapped"] = "BarcodeCountViewUiListener.onListButtonTapped";
+        BarcodeCountViewEventName["exitButtonTapped"] = "BarcodeCountViewUiListener.onExitButtonTapped";
+        BarcodeCountViewEventName["brushForRecognizedBarcode"] = "BarcodeCountViewListener.brushForRecognizedBarcode";
+        BarcodeCountViewEventName["brushForRecognizedBarcodeNotInList"] = "BarcodeCountViewListener.brushForRecognizedBarcodeNotInList";
+        BarcodeCountViewEventName["brushForUnrecognizedBarcode"] = "BarcodeCountViewListener.brushForUnrecognizedBarcode";
+        BarcodeCountViewEventName["filteredBarcodeTapped"] = "BarcodeCountViewListener.didTapFilteredBarcode";
+        BarcodeCountViewEventName["recognizedBarcodeNotInListTapped"] = "BarcodeCountViewListener.didTapRecognizedBarcodeNotInList";
+        BarcodeCountViewEventName["recognizedBarcodeTapped"] = "BarcodeCountViewListener.didTapRecognizedBarcode";
+        BarcodeCountViewEventName["unrecognizedBarcodeTapped"] = "BarcodeCountViewListener.didTapUnrecognizedBarcode";
+        BarcodeCountViewEventName["captureListCompleted"] = "BarcodeCountViewListener.didCompleteCaptureList";
     })(BarcodeCountViewEventName || (BarcodeCountViewEventName = {}));
     class BarcodeCountViewProxy {
         static forBarcodeCount(view) {
@@ -3709,13 +3648,13 @@ var capacitorPlugin = (function (exports, core) {
         update() {
             const barcodeCountView = this.view.toJSON();
             const json = JSON.stringify(barcodeCountView);
-            return ScanditBarcodeCountPluginNative.updateView({ BarcodeCountView: json });
+            return ScanditBarcodeCountPluginNative.updateView({ View: json });
         }
         create() {
             const barcodeCountView = this.view.toJSON();
             const json = {
                 BarcodeCount: JSON.stringify(this.view._barcodeCount.toJSON()),
-                BarcodeCountView: JSON.stringify(barcodeCountView)
+                View: JSON.stringify(barcodeCountView)
             };
             return ScanditBarcodeCountPluginNative.createView(json);
         }
@@ -3865,7 +3804,10 @@ var capacitorPlugin = (function (exports, core) {
                     if (this.view.listener && this.view.listener.brushForRecognizedBarcode) {
                         brush = this.view.listener.brushForRecognizedBarcode(this.view, trackedBarcode);
                     }
-                    const brushForRecognizedBarcodePayload = { brush: brush ? JSON.stringify(brush.toJSON()) : null, trackedBarcodeId: trackedBarcode.identifier };
+                    const brushForRecognizedBarcodePayload = {
+                        brush: brush ? JSON.stringify(brush.toJSON()) : null,
+                        trackedBarcodeID: trackedBarcode.identifier,
+                    };
                     ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerBrushForRecognizedBarcode(brushForRecognizedBarcodePayload);
                     break;
                 case BarcodeCountViewEventName.brushForRecognizedBarcodeNotInList:
@@ -3875,7 +3817,10 @@ var capacitorPlugin = (function (exports, core) {
                     if (this.view.listener && this.view.listener.brushForRecognizedBarcodeNotInList) {
                         brush = this.view.listener.brushForRecognizedBarcodeNotInList(this.view, trackedBarcode);
                     }
-                    const brushForRecognizedBarcodeNotInListPayload = { brush: brush ? JSON.stringify(brush.toJSON()) : null, trackedBarcodeId: trackedBarcode.identifier };
+                    const brushForRecognizedBarcodeNotInListPayload = {
+                        brush: brush ? JSON.stringify(brush.toJSON()) : null,
+                        trackedBarcodeID: trackedBarcode.identifier,
+                    };
                     ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerBrushForRecognizedBarcodeNotInList(brushForRecognizedBarcodeNotInListPayload);
                     break;
                 case BarcodeCountViewEventName.brushForUnrecognizedBarcode:
@@ -3885,8 +3830,11 @@ var capacitorPlugin = (function (exports, core) {
                     if (this.view.listener && this.view.listener.brushForUnrecognizedBarcode) {
                         brush = this.view.listener.brushForUnrecognizedBarcode(this.view, trackedBarcode);
                     }
-                    const brushForUnrecognizedBarcodePayload = { brush: brush ? JSON.stringify(brush.toJSON()) : null, trackedBarcodeId: trackedBarcode.identifier };
-                    ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerOnBrushForUnrecognizedBarcode(brushForUnrecognizedBarcodePayload);
+                    const brushForUnecognizedBarcodePayload = {
+                        brush: brush ? JSON.stringify(brush.toJSON()) : null,
+                        trackedBarcodeID: trackedBarcode.identifier,
+                    };
+                    ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerOnBrushForUnrecognizedBarcode(brushForUnecognizedBarcodePayload);
                     break;
             }
             return done();
@@ -3895,7 +3843,7 @@ var capacitorPlugin = (function (exports, core) {
 
     var DataCaptureViewListenerEvent;
     (function (DataCaptureViewListenerEvent) {
-        DataCaptureViewListenerEvent["DidChangeSizeOrientation"] = "didChangeSizeOrientation";
+        DataCaptureViewListenerEvent["DidChangeSizeOrientation"] = "DataCaptureViewListener.onSizeChanged";
     })(DataCaptureViewListenerEvent || (DataCaptureViewListenerEvent = {}));
     class DataCaptureViewProxy {
         static forDataCaptureView(view) {
@@ -3918,13 +3866,16 @@ var capacitorPlugin = (function (exports, core) {
         viewPointForFramePoint(point) {
             return new Promise((resolve, reject) => window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.ViewPointForFramePoint]({
                 point: point.toJSON(),
-            }).then((convertedPoint) => resolve(Point.fromJSON(convertedPoint)), reject.bind(this)));
+            }).then((result) => resolve(Point.fromJSON(JSON.parse(result.data))), reject.bind(this)));
         }
         viewQuadrilateralForFrameQuadrilateral(quadrilateral) {
             return new Promise((resolve, reject) => window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.ViewQuadrilateralForFrameQuadrilateral]({
                 point: quadrilateral.toJSON(),
-            }).then((convertedQuadrilateral) => resolve(Quadrilateral
-                .fromJSON(convertedQuadrilateral)), reject.bind(this)));
+            }).then((result) => {
+                const quadrilateral = Quadrilateral
+                    .fromJSON(JSON.parse(result.data));
+                resolve(quadrilateral);
+            }, reject.bind(this)));
         }
         subscribeListener() {
             window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.SubscribeViewListener]();
@@ -3936,7 +3887,7 @@ var capacitorPlugin = (function (exports, core) {
                 // The event could be undefined/null in case the plugin result did not pass a "message",
                 // which could happen e.g. in case of "ok" results, which could signal e.g. successful
                 // listener subscriptions.
-                return doReturnWithFinish('', null);
+                return;
             }
             event = Object.assign(Object.assign(Object.assign({}, event), event.argument), { argument: undefined });
             this.view.listeners.forEach((listener) => {
@@ -3946,7 +3897,6 @@ var capacitorPlugin = (function (exports, core) {
                             const size = Size.fromJSON(event.size);
                             const orientation = event.orientation;
                             listener.didChangeSize(this.view, size, orientation);
-                            return doReturnWithFinish(event.name, null);
                         }
                         break;
                 }

@@ -4,10 +4,10 @@
  * Copyright (C) 2023- Scandit AG. All rights reserved.
  */
 
+import ScanditFrameworksBarcode
 import UIKit
-import CoreGraphics
 
-class TappableBase64ImageView: UIImageView {
+class TappableBase64ImageView: UIImageView, TappableView {
     struct JSON: Decodable {
         struct OptionsJSON: Decodable {
             // swiftlint:disable:next nesting
