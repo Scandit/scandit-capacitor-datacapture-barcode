@@ -120,7 +120,7 @@ var capacitorPlugin = (function (exports, core) {
         }
     }
 
-    var __decorate$k = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var __decorate$l = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
         else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -142,10 +142,10 @@ var capacitorPlugin = (function (exports, core) {
             this._y = y;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('x')
     ], Point.prototype, "_x", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('y')
     ], Point.prototype, "_y", void 0);
     class Quadrilateral extends DefaultSerializeable {
@@ -172,16 +172,16 @@ var capacitorPlugin = (function (exports, core) {
             this._bottomLeft = bottomLeft;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('topLeft')
     ], Quadrilateral.prototype, "_topLeft", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('topRight')
     ], Quadrilateral.prototype, "_topRight", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('bottomRight')
     ], Quadrilateral.prototype, "_bottomRight", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('bottomLeft')
     ], Quadrilateral.prototype, "_bottomLeft", void 0);
     var MeasureUnit;
@@ -206,10 +206,10 @@ var capacitorPlugin = (function (exports, core) {
             this._unit = unit;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('value')
     ], NumberWithUnit.prototype, "_value", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('unit')
     ], NumberWithUnit.prototype, "_unit", void 0);
     class PointWithUnit extends DefaultSerializeable {
@@ -231,10 +231,10 @@ var capacitorPlugin = (function (exports, core) {
             this._y = y;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('x')
     ], PointWithUnit.prototype, "_x", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('y')
     ], PointWithUnit.prototype, "_y", void 0);
     class Rect extends DefaultSerializeable {
@@ -250,10 +250,10 @@ var capacitorPlugin = (function (exports, core) {
             this._size = size;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('origin')
     ], Rect.prototype, "_origin", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('size')
     ], Rect.prototype, "_size", void 0);
     class RectWithUnit extends DefaultSerializeable {
@@ -269,10 +269,10 @@ var capacitorPlugin = (function (exports, core) {
             this._size = size;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('origin')
     ], RectWithUnit.prototype, "_origin", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('size')
     ], RectWithUnit.prototype, "_size", void 0);
     class SizeWithUnit extends DefaultSerializeable {
@@ -288,10 +288,10 @@ var capacitorPlugin = (function (exports, core) {
             this._height = height;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('width')
     ], SizeWithUnit.prototype, "_width", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('height')
     ], SizeWithUnit.prototype, "_height", void 0);
     class Size extends DefaultSerializeable {
@@ -310,10 +310,10 @@ var capacitorPlugin = (function (exports, core) {
             this._height = height;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('width')
     ], Size.prototype, "_width", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('height')
     ], Size.prototype, "_height", void 0);
     class SizeWithAspect {
@@ -328,10 +328,10 @@ var capacitorPlugin = (function (exports, core) {
             this._aspect = aspect;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('size')
     ], SizeWithAspect.prototype, "_size", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('aspect')
     ], SizeWithAspect.prototype, "_aspect", void 0);
     var SizingMode;
@@ -434,16 +434,16 @@ var capacitorPlugin = (function (exports, core) {
             }
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('widthAndHeight')
     ], SizeWithUnitAndAspect.prototype, "_widthAndHeight", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('widthAndAspectRatio')
     ], SizeWithUnitAndAspect.prototype, "_widthAndAspectRatio", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('heightAndAspectRatio')
     ], SizeWithUnitAndAspect.prototype, "_heightAndAspectRatio", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('shorterDimensionAndAspectRatio')
     ], SizeWithUnitAndAspect.prototype, "_shorterDimensionAndAspectRatio", void 0);
     class MarginsWithUnit extends DefaultSerializeable {
@@ -473,16 +473,16 @@ var capacitorPlugin = (function (exports, core) {
             this._bottom = bottom;
         }
     }
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('left')
     ], MarginsWithUnit.prototype, "_left", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('right')
     ], MarginsWithUnit.prototype, "_right", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('top')
     ], MarginsWithUnit.prototype, "_top", void 0);
-    __decorate$k([
+    __decorate$l([
         nameForSerialization('bottom')
     ], MarginsWithUnit.prototype, "_bottom", void 0);
     class Color {
@@ -592,7 +592,7 @@ var capacitorPlugin = (function (exports, core) {
         LogoStyle["Extended"] = "extended";
     })(LogoStyle || (LogoStyle = {}));
 
-    var __decorate$j = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var __decorate$k = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
         else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -630,7 +630,7 @@ var capacitorPlugin = (function (exports, core) {
             this._isLooping = isLooping;
         }
     }
-    __decorate$j([
+    __decorate$k([
         nameForSerialization('isLooping')
     ], RectangularViewfinderAnimation.prototype, "_isLooping", void 0);
 
@@ -673,7 +673,7 @@ var capacitorPlugin = (function (exports, core) {
         exec: (success, error, functionName, args) => capacitorExec(success, error, pluginName$1, functionName, args),
     };
 
-    var __decorate$i = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var __decorate$j = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
         else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -782,13 +782,13 @@ var capacitorPlugin = (function (exports, core) {
             }
         }
     }
-    __decorate$i([
+    __decorate$j([
         ignoreFromSerialization
     ], SymbologySettings.prototype, "_symbology", void 0);
-    __decorate$i([
+    __decorate$j([
         nameForSerialization('enabled')
     ], SymbologySettings.prototype, "isEnabled", void 0);
-    __decorate$i([
+    __decorate$j([
         nameForSerialization('colorInvertedEnabled')
     ], SymbologySettings.prototype, "isColorInvertedEnabled", void 0);
     var Checksum;
@@ -844,13 +844,13 @@ var capacitorPlugin = (function (exports, core) {
             return range;
         }
     }
-    __decorate$i([
+    __decorate$j([
         nameForSerialization('minimum')
     ], Range.prototype, "_minimum", void 0);
-    __decorate$i([
+    __decorate$j([
         nameForSerialization('maximum')
     ], Range.prototype, "_maximum", void 0);
-    __decorate$i([
+    __decorate$j([
         nameForSerialization('step')
     ], Range.prototype, "_step", void 0);
     class Barcode {
@@ -938,13 +938,19 @@ var capacitorPlugin = (function (exports, core) {
             this._quantity = quantity;
         }
     }
-    __decorate$i([
+    __decorate$j([
         nameForSerialization('data')
     ], TargetBarcode.prototype, "_data", void 0);
-    __decorate$i([
+    __decorate$j([
         nameForSerialization('quantity')
     ], TargetBarcode.prototype, "_quantity", void 0);
 
+    var __decorate$i = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
     var FrameSourceState;
     (function (FrameSourceState) {
         FrameSourceState["On"] = "on";
@@ -1020,13 +1026,22 @@ var capacitorPlugin = (function (exports, core) {
             settings.zoomGestureZoomFactor = json.zoomGestureZoomFactor;
             settings.focusGestureStrategy = json.focusGestureStrategy;
             settings.shouldPreferSmoothAutoFocus = json.shouldPreferSmoothAutoFocus;
-            if (json.api !== undefined && json.api !== null) {
-                settings.api = json.api;
+            if (json.properties != undefined) {
+                for (const key of Object.keys(json.properties)) {
+                    settings.setProperty(key, json.properties[key]);
+                }
             }
             return settings;
         }
         constructor(settings) {
             super();
+            this.focusHiddenProperties = [
+                'range',
+                'manualLensPosition',
+                'shouldPreferSmoothAutoFocus',
+                'focusStrategy',
+                'focusGestureStrategy'
+            ];
             this.preferredResolution = Capacitor$1.defaults.Camera.Settings.preferredResolution;
             this.zoomFactor = Capacitor$1.defaults.Camera.Settings.zoomFactor;
             this.zoomGestureZoomFactor = Capacitor$1.defaults.Camera.Settings.zoomGestureZoomFactor;
@@ -1043,12 +1058,22 @@ var capacitorPlugin = (function (exports, core) {
             }
         }
         setProperty(name, value) {
+            if (this.focusHiddenProperties.includes(name)) {
+                this.focus[name] = value;
+                return;
+            }
             this[name] = value;
         }
         getProperty(name) {
+            if (this.focusHiddenProperties.includes(name)) {
+                return this.focus[name];
+            }
             return this[name];
         }
     }
+    __decorate$i([
+        ignoreFromSerialization
+    ], CameraSettings.prototype, "focusHiddenProperties", void 0);
     class ImageBuffer {
         get width() {
             return this._width;
@@ -1435,7 +1460,7 @@ var capacitorPlugin = (function (exports, core) {
         const json = rootJson.BarcodeCount;
         return {
             RecommendedCameraSettings: CameraSettings
-                .fromJSON(rootJson.BarcodeCapture.RecommendedCameraSettings),
+                .fromJSON(rootJson.BarcodeCount.RecommendedCameraSettings),
             Feedback: {
                 success: Feedback.fromJSON(JSON.parse(json.BarcodeCountFeedback).success),
                 failure: Feedback.fromJSON(JSON.parse(json.BarcodeCountFeedback).failure)
