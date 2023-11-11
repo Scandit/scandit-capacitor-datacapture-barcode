@@ -1,11 +1,10 @@
 require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
-version = package["version"]
 
 Pod::Spec.new do |s|
   s.name = "ScanditCapacitorDatacaptureBarcode"
-  s.version = version
+  s.version = package["version"]
   s.summary = package["description"]
   s.license = package["license"]
   s.homepage = package["homepage"]
@@ -16,6 +15,6 @@ Pod::Spec.new do |s|
   s.swift_version = "5.7"
 
   s.dependency "Capacitor"
-  s.dependency "ScanditCapacitorDatacaptureCore", "= #{version}"
-  s.dependency "scandit-datacapture-frameworks-barcode", '= 6.20.0'
+  s.dependency "ScanditCapacitorDatacaptureCore"
+  s.dependency "scandit-datacapture-frameworks-barcode", '= 6.19.6'
 end
