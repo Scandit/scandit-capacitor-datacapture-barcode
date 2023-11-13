@@ -11,7 +11,7 @@ import { AimerViewfinder, Brush, } from '../../../scandit-capacitor-datacapture-
 export class BarcodeSelectionFeedback extends DefaultSerializeable {
     constructor() {
         super(...arguments);
-        this.selection = Capacitor.defaults.BarcodeSelection.Feedback.selection;
+        this.selection = Capacitor.defaults.BarcodeSelection.feedback.selection;
     }
     static get default() {
         return new BarcodeSelectionFeedback();

@@ -9,13 +9,10 @@
 
 // Define the plugin using the CAP_PLUGIN Macro, and
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
-CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
+CAP_PLUGIN(ScanditBarcodeCapture, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(getDefaults, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(subscribeBarcodeCaptureListener, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeCaptureDidScan, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeCaptureDidUpdateSession, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(subscribeBarcodeTrackingListener, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeTrackingDidUpdateSession, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(subscribeBarcodeTrackingBasicOverlayListener, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(subscribeBarcodeTrackingAdvancedOverlayListener,
                              CAPPluginReturnPromise);

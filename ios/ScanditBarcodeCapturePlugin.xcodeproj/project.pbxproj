@@ -12,7 +12,6 @@
 		50ADFF99201F53D600D50D53 /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ADFF8B201F53D600D50D53 /* Plugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50ADFFA42020D75100D50D53 /* Capacitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ADFFA52020D75100D50D53 /* Capacitor.framework */; };
 		50ADFFA82020EE4F00D50D53 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ADFFA72020EE4F00D50D53 /* Plugin.m */; };
-		C9D8B82A537BB9079529C849 /* Pods_ScanditBarcodeCapturePlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BBE5CAFEE82EB81F09C678E /* Pods_ScanditBarcodeCapturePlugin.framework */; };
 		CD0C4EA4289198339376576E /* Pods_ScanditBarcodeCapturePluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73DC20DB133491C0C2C2935B /* Pods_ScanditBarcodeCapturePluginTests.framework */; };
 		CD638BC12588BD770065F0A0 /* Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = CD638BC02588BD770065F0A0 /* Bridging-Header.h */; };
 		CDD30B342588A8E2003F825E /* ScanditBarcodeCapture-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = CDD30B252588A8E1003F825E /* ScanditBarcodeCapture-Bridging-Header.h */; };
@@ -92,7 +91,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				50ADFFA42020D75100D50D53 /* Capacitor.framework in Frameworks */,
-				C9D8B82A537BB9079529C849 /* Pods_ScanditBarcodeCapturePlugin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,17 +371,11 @@
 				"${PODS_ROOT}/Target Support Files/Pods-ScanditBarcodeCapturePluginTests/Pods-ScanditBarcodeCapturePluginTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Capacitor/Capacitor.framework",
 				"${BUILT_PRODUCTS_DIR}/CapacitorCordova/Cordova.framework",
-				"${BUILT_PRODUCTS_DIR}/ScanditCapacitorDatacaptureCore/ScanditCapacitorDatacaptureCore.framework",
-				"${BUILT_PRODUCTS_DIR}/scandit-datacapture-frameworks-core/ScanditFrameworksCore.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/scandit-datacapture-frameworks-core/ScanditCaptureCore.framework/ScanditCaptureCore",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Capacitor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cordova.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanditCapacitorDatacaptureCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanditFrameworksCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScanditCaptureCore.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

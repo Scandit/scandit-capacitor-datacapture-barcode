@@ -51,7 +51,7 @@ export class BarcodeCaptureOverlay extends DefaultSerializeable {
         // tslint:disable-next-line:no-console
         console.warn('defaultBrush is deprecated and will be removed in a future release. ' +
             'Use .brush to get the default for your selected style');
-        return new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeWidth);
+        return new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.defaultStyle].DefaultBrush.strokeWidth);
     }
     get brush() {
         return this._brush;
@@ -87,7 +87,7 @@ export class BarcodeCaptureOverlay extends DefaultSerializeable {
         const overlay = new BarcodeCaptureOverlay();
         overlay.barcodeCapture = barcodeCapture;
         overlay._style = style;
-        overlay._brush = new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[overlay._style].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[overlay._style].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.Brushes[overlay._style].DefaultBrush.strokeWidth);
+        overlay._brush = new Brush(Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[overlay._style].DefaultBrush.fillColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[overlay._style].DefaultBrush.strokeColor, Capacitor.defaults.BarcodeCapture.BarcodeCaptureOverlay.styles[overlay._style].DefaultBrush.strokeWidth);
         if (view) {
             view.addOverlay(overlay);
         }

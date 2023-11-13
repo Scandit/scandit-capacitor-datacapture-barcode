@@ -29,25 +29,8 @@ struct BrushAndTrackedBarcodeJSON: CommandJSONArgument {
 
 struct ViewAndTrackedBarcodeJSON: CommandJSONArgument {
     let view: TrackedBarcodeView.JSON?
-    let trackedBarcodeID: Int
-    let sessionFrameSequenceID: Int?
-
-    enum CodingKeys: CodingKey {
-        case view
-        case trackedBarcodeID
-        case sessionFrameSequenceID
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.view = try container.decodeIfPresent(TrackedBarcodeView.JSON.self, forKey: .view)
-        self.trackedBarcodeID = Int(try container.decode(String.self, forKey: .trackedBarcodeID))!
-        if let frameSequenceId = try? container.decodeIfPresent(String.self, forKey: .sessionFrameSequenceID) {
-            self.sessionFrameSequenceID = Int(frameSequenceId) ?? nil
-        } else {
-            self.sessionFrameSequenceID = nil
-        }
-    }
+    let trackedBarcodeID: String
+    let sessionFrameSequenceID: String?
 }
 
 struct AnchorAndTrackedBarcodeJSON: CommandJSONArgument {

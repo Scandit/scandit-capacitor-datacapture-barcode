@@ -20,7 +20,7 @@ export interface Defaults {
     BarcodeCapture: {
         BarcodeCaptureOverlay: {
             defaultStyle: BarcodeCaptureOverlayStyle;
-            Brushes: any;
+            styles: any;
             DefaultBrush: {
                 fillColor: Color;
                 strokeColor: Color;
@@ -36,12 +36,17 @@ export interface Defaults {
         RecommendedCameraSettings: CameraSettings;
         BarcodeTrackingBasicOverlay: {
             defaultStyle: BarcodeTrackingBasicOverlayStyle;
-            Brushes: any;
+            styles: any;
+            DefaultBrush: {
+                fillColor: Color;
+                strokeColor: Color;
+                strokeWidth: number;
+            };
         };
     };
     BarcodeSelection: {
         RecommendedCameraSettings: CameraSettings;
-        Feedback: BarcodeSelectionFeedback;
+        feedback: BarcodeSelectionFeedback;
         BarcodeSelectionSettings: {
             codeDuplicateFilter: number;
             singleBarcodeAutoDetection: boolean;
@@ -57,6 +62,26 @@ export interface Defaults {
         BarcodeSelectionBasicOverlay: {
             defaultStyle: BarcodeSelectionBasicOverlayStyle;
             styles: any;
+            DefaultTrackedBrush: {
+                fillColor: Color;
+                strokeColor: Color;
+                strokeWidth: number;
+            };
+            DefaultAimedBrush: {
+                fillColor: Color;
+                strokeColor: Color;
+                strokeWidth: number;
+            };
+            DefaultSelectedBrush: {
+                fillColor: Color;
+                strokeColor: Color;
+                strokeWidth: number;
+            };
+            DefaultSelectingBrush: {
+                fillColor: Color;
+                strokeColor: Color;
+                strokeWidth: number;
+            };
         };
     };
     BarcodeCount: BarcodeCountDefaults;
@@ -70,7 +95,7 @@ export interface DefaultsJSON {
     BarcodeCapture: {
         BarcodeCaptureOverlay: {
             defaultStyle: string;
-            Brushes: any;
+            styles: any;
             DefaultBrush: {
                 fillColor: string;
                 strokeColor: string;
@@ -86,12 +111,17 @@ export interface DefaultsJSON {
         RecommendedCameraSettings: CameraSettingsDefaultsJSON;
         BarcodeTrackingBasicOverlay: {
             defaultStyle: string;
-            Brushes: any;
+            styles: any;
+            DefaultBrush: {
+                fillColor: string;
+                strokeColor: string;
+                strokeWidth: number;
+            };
         };
     };
     BarcodeSelection: {
         RecommendedCameraSettings: CameraSettingsDefaultsJSON;
-        Feedback: string;
+        feedback: string;
         BarcodeSelectionSettings: {
             codeDuplicateFilter: number;
             singleBarcodeAutoDetection: boolean;
@@ -107,6 +137,26 @@ export interface DefaultsJSON {
         BarcodeSelectionBasicOverlay: {
             defaultStyle: string;
             styles: any;
+            DefaultTrackedBrush: {
+                fillColor: string;
+                strokeColor: string;
+                strokeWidth: number;
+            };
+            DefaultAimedBrush: {
+                fillColor: string;
+                strokeColor: string;
+                strokeWidth: number;
+            };
+            DefaultSelectedBrush: {
+                fillColor: string;
+                strokeColor: string;
+                strokeWidth: number;
+            };
+            DefaultSelectingBrush: {
+                fillColor: string;
+                strokeColor: string;
+                strokeWidth: number;
+            };
         };
     };
     BarcodeCount: BarcodeCountDefaultsJSON;

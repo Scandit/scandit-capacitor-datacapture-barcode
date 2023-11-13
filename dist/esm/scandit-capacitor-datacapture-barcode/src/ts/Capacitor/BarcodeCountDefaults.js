@@ -22,7 +22,7 @@ export const barcodeCountDefaultsFromJSON = (rootJson) => {
     const json = rootJson.BarcodeCount;
     return {
         RecommendedCameraSettings: CameraSettings
-            .fromJSON(rootJson.BarcodeCount.RecommendedCameraSettings),
+            .fromJSON(rootJson.BarcodeCapture.RecommendedCameraSettings),
         Feedback: {
             success: Feedback.fromJSON(JSON.parse(json.BarcodeCountFeedback).success),
             failure: Feedback.fromJSON(JSON.parse(json.BarcodeCountFeedback).failure)

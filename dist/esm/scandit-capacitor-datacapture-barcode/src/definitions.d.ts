@@ -31,7 +31,7 @@ export interface ScanditBarcodeCountNativeInterface {
     finishBarcodeCountListenerOnScan(): Promise<void>;
     createView(data: any): Promise<void>;
     updateView(data: {
-        View: any;
+        BarcodeCountView: any;
     }): Promise<void>;
     updateMode(data: {
         BarcodeCount: any;
@@ -1281,15 +1281,12 @@ export interface CameraSettingsJSON {
     zoomGestureZoomFactor: number;
     focusGestureStrategy: string;
     shouldPreferSmoothAutoFocus: boolean;
-    properties: {
-        [key: string]: any;
-    };
+    api: number;
 }
 interface PrivateCameraSettings {
     fromJSON(json: CameraSettingsJSON): CameraSettings;
 }
 export class CameraSettings {
-    private focusHiddenProperties;
     preferredResolution: VideoResolution;
     zoomFactor: number;
     zoomGestureZoomFactor: number;

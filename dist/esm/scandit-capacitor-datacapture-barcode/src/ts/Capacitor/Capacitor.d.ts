@@ -2,10 +2,7 @@ import { Defaults } from './Defaults';
 export declare enum CapacitorFunction {
     GetDefaults = "getDefaults",
     SubscribeBarcodeCaptureListener = "subscribeBarcodeCaptureListener",
-    FinishBarcodeCaptureDidScan = "finishBarcodeCaptureDidScan",
-    FinishBarcodeCaptureDidUpdateSession = "finishBarcodeCaptureDidUpdateSession",
     SubscribeBarcodeTrackingListener = "subscribeBarcodeTrackingListener",
-    FinishBarcodeTrackingDidUpdateSession = "finishBarcodeTrackingDidUpdateSession",
     SubscribeBarcodeTrackingBasicOverlayListener = "subscribeBarcodeTrackingBasicOverlayListener",
     SetBrushForTrackedBarcode = "setBrushForTrackedBarcode",
     ClearTrackedBarcodeBrushes = "clearTrackedBarcodeBrushes",

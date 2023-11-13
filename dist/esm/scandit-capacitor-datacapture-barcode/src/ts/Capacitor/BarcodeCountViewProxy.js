@@ -3,17 +3,17 @@ import { TrackedBarcode } from '../Barcode';
 import { Capacitor } from './Capacitor';
 var BarcodeCountViewEventName;
 (function (BarcodeCountViewEventName) {
-    BarcodeCountViewEventName["singleScanButtonTapped"] = "BarcodeCountViewUiListener.onSingleScanButtonTapped";
-    BarcodeCountViewEventName["listButtonTapped"] = "BarcodeCountViewUiListener.onListButtonTapped";
-    BarcodeCountViewEventName["exitButtonTapped"] = "BarcodeCountViewUiListener.onExitButtonTapped";
-    BarcodeCountViewEventName["brushForRecognizedBarcode"] = "BarcodeCountViewListener.brushForRecognizedBarcode";
-    BarcodeCountViewEventName["brushForRecognizedBarcodeNotInList"] = "BarcodeCountViewListener.brushForRecognizedBarcodeNotInList";
-    BarcodeCountViewEventName["brushForUnrecognizedBarcode"] = "BarcodeCountViewListener.brushForUnrecognizedBarcode";
-    BarcodeCountViewEventName["filteredBarcodeTapped"] = "BarcodeCountViewListener.didTapFilteredBarcode";
-    BarcodeCountViewEventName["recognizedBarcodeNotInListTapped"] = "BarcodeCountViewListener.didTapRecognizedBarcodeNotInList";
-    BarcodeCountViewEventName["recognizedBarcodeTapped"] = "BarcodeCountViewListener.didTapRecognizedBarcode";
-    BarcodeCountViewEventName["unrecognizedBarcodeTapped"] = "BarcodeCountViewListener.didTapUnrecognizedBarcode";
-    BarcodeCountViewEventName["captureListCompleted"] = "BarcodeCountViewListener.didCompleteCaptureList";
+    BarcodeCountViewEventName["singleScanButtonTapped"] = "barcodeCountViewUiListener-onSingleScanButtonTapped";
+    BarcodeCountViewEventName["listButtonTapped"] = "barcodeCountViewUiListener-onListButtonTapped";
+    BarcodeCountViewEventName["exitButtonTapped"] = "barcodeCountViewUiListener-onExitButtonTapped";
+    BarcodeCountViewEventName["brushForRecognizedBarcode"] = "barcodeCountViewListener-brushForRecognizedBarcode";
+    BarcodeCountViewEventName["brushForRecognizedBarcodeNotInList"] = "barcodeCountViewListener-brushForRecognizedBarcodeNotInList";
+    BarcodeCountViewEventName["brushForUnrecognizedBarcode"] = "barcodeCountViewListener-brushForUnrecognizedBarcode";
+    BarcodeCountViewEventName["filteredBarcodeTapped"] = "barcodeCountViewListener-onFilteredBarcodeTapped";
+    BarcodeCountViewEventName["recognizedBarcodeNotInListTapped"] = "barcodeCountViewListener-onRecognizedBarcodeNotInListTapped";
+    BarcodeCountViewEventName["recognizedBarcodeTapped"] = "barcodeCountViewListener-onRecognizedBarcodeTapped";
+    BarcodeCountViewEventName["unrecognizedBarcodeTapped"] = "barcodeCountViewListener-onUnrecognizedBarcodeTapped";
+    BarcodeCountViewEventName["captureListCompleted"] = "barcodeCountViewListener-onCaptureListCompleted";
 })(BarcodeCountViewEventName || (BarcodeCountViewEventName = {}));
 export class BarcodeCountViewProxy {
     static forBarcodeCount(view) {
@@ -47,13 +47,13 @@ export class BarcodeCountViewProxy {
     update() {
         const barcodeCountView = this.view.toJSON();
         const json = JSON.stringify(barcodeCountView);
-        return ScanditBarcodeCountPluginNative.updateView({ View: json });
+        return ScanditBarcodeCountPluginNative.updateView({ BarcodeCountView: json });
     }
     create() {
         const barcodeCountView = this.view.toJSON();
         const json = {
             BarcodeCount: JSON.stringify(this.view._barcodeCount.toJSON()),
-            View: JSON.stringify(barcodeCountView)
+            BarcodeCountView: JSON.stringify(barcodeCountView)
         };
         return ScanditBarcodeCountPluginNative.createView(json);
     }
@@ -203,10 +203,7 @@ export class BarcodeCountViewProxy {
                 if (this.view.listener && this.view.listener.brushForRecognizedBarcode) {
                     brush = this.view.listener.brushForRecognizedBarcode(this.view, trackedBarcode);
                 }
-                const brushForRecognizedBarcodePayload = {
-                    brush: brush ? JSON.stringify(brush.toJSON()) : null,
-                    trackedBarcodeID: trackedBarcode.identifier,
-                };
+                const brushForRecognizedBarcodePayload = { brush: brush ? JSON.stringify(brush.toJSON()) : null, trackedBarcodeId: trackedBarcode.identifier };
                 ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerBrushForRecognizedBarcode(brushForRecognizedBarcodePayload);
                 break;
             case BarcodeCountViewEventName.brushForRecognizedBarcodeNotInList:
@@ -216,10 +213,7 @@ export class BarcodeCountViewProxy {
                 if (this.view.listener && this.view.listener.brushForRecognizedBarcodeNotInList) {
                     brush = this.view.listener.brushForRecognizedBarcodeNotInList(this.view, trackedBarcode);
                 }
-                const brushForRecognizedBarcodeNotInListPayload = {
-                    brush: brush ? JSON.stringify(brush.toJSON()) : null,
-                    trackedBarcodeID: trackedBarcode.identifier,
-                };
+                const brushForRecognizedBarcodeNotInListPayload = { brush: brush ? JSON.stringify(brush.toJSON()) : null, trackedBarcodeId: trackedBarcode.identifier };
                 ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerBrushForRecognizedBarcodeNotInList(brushForRecognizedBarcodeNotInListPayload);
                 break;
             case BarcodeCountViewEventName.brushForUnrecognizedBarcode:
@@ -229,11 +223,8 @@ export class BarcodeCountViewProxy {
                 if (this.view.listener && this.view.listener.brushForUnrecognizedBarcode) {
                     brush = this.view.listener.brushForUnrecognizedBarcode(this.view, trackedBarcode);
                 }
-                const brushForUnecognizedBarcodePayload = {
-                    brush: brush ? JSON.stringify(brush.toJSON()) : null,
-                    trackedBarcodeID: trackedBarcode.identifier,
-                };
-                ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerOnBrushForUnrecognizedBarcode(brushForUnecognizedBarcodePayload);
+                const brushForUnrecognizedBarcodePayload = { brush: brush ? JSON.stringify(brush.toJSON()) : null, trackedBarcodeId: trackedBarcode.identifier };
+                ScanditBarcodeCountPluginNative.finishBarcodeCountViewListenerOnBrushForUnrecognizedBarcode(brushForUnrecognizedBarcodePayload);
                 break;
         }
         return done();
