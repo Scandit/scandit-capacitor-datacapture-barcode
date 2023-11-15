@@ -3,5 +3,3 @@
  *
  * Copyright (C) 2023- Scandit AG. All rights reserved.
  */
-
-#import "SDCBarcodeCountViewDefaults.h"

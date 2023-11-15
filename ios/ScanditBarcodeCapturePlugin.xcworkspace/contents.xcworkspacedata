@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/florindobre/scandit/data-capture-sdk/plugins/capacitor/scandit-capacitor-datacapture-barcode/ios/ScanditBarcodeCapturePlugin.xcodeproj">
+      location = "group:ScanditBarcodeCapturePlugin.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

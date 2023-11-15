@@ -3,8 +3,8 @@ import { BarcodeCaptureSession } from '../BarcodeCapture+Related';
 import { Capacitor, CapacitorFunction } from './Capacitor';
 var BarcodeCaptureListenerEvent;
 (function (BarcodeCaptureListenerEvent) {
-    BarcodeCaptureListenerEvent["DidScan"] = "onBarcodeScannedEvent";
-    BarcodeCaptureListenerEvent["DidUpdateSession"] = "onSessionUpdateEvent";
+    BarcodeCaptureListenerEvent["DidScan"] = "BarcodeCaptureListener.didScan";
+    BarcodeCaptureListenerEvent["DidUpdateSession"] = "BarcodeCaptureListener.didUpdateSession";
 })(BarcodeCaptureListenerEvent || (BarcodeCaptureListenerEvent = {}));
 export class BarcodeCaptureListenerProxy {
     static forBarcodeCapture(barcodeCapture) {
@@ -48,12 +48,6 @@ export class BarcodeCaptureListenerProxy {
     notifyListeners(event) {
         const done = () => {
             this.barcodeCapture.isInListenerCallback = false;
-            window.Capacitor.Plugins[Capacitor.pluginName].finishCallback({
-                result: {
-                    enabled: this.barcodeCapture.isEnabled,
-                    finishCallbackID: event.name,
-                },
-            });
             return { enabled: this.barcodeCapture.isEnabled };
         };
         this.barcodeCapture.isInListenerCallback = true;
@@ -71,12 +65,14 @@ export class BarcodeCaptureListenerProxy {
                         listener.didScan(this.barcodeCapture, BarcodeCaptureSession
                             .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                     }
+                    window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeCaptureDidScan]({ 'enabled': this.barcodeCapture.isEnabled });
                     break;
                 case BarcodeCaptureListenerEvent.DidUpdateSession:
                     if (listener.didUpdateSession) {
                         listener.didUpdateSession(this.barcodeCapture, BarcodeCaptureSession
                             .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                     }
+                    window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeCaptureDidUpdateSession]({ 'enabled': this.barcodeCapture.isEnabled });
                     break;
             }
         });
