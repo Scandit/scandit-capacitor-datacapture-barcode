@@ -657,6 +657,7 @@ var capacitorPlugin = (function (exports, core) {
         CapacitorFunction["ViewPointForFramePoint"] = "viewPointForFramePoint";
         CapacitorFunction["ViewQuadrilateralForFrameQuadrilateral"] = "viewQuadrilateralForFrameQuadrilateral";
         CapacitorFunction["SubscribeViewListener"] = "subscribeViewListener";
+        CapacitorFunction["UnsubscribeViewListener"] = "unsubscribeViewListener";
         CapacitorFunction["GetCurrentCameraState"] = "getCurrentCameraState";
         CapacitorFunction["GetIsTorchAvailable"] = "getIsTorchAvailable";
         CapacitorFunction["GetLastFrame"] = "getLastFrame";
@@ -3904,6 +3905,11 @@ var capacitorPlugin = (function (exports, core) {
         }
         subscribeListener() {
             window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.SubscribeViewListener]();
+        }
+        unregisterListenerForViewEvents() {
+            window.Capacitor.Plugins[Capacitor$1.pluginName][CapacitorFunction$1.UnsubscribeViewListener]();
+        }
+        subscribeDidChangeSize() {
             window.Capacitor.Plugins[Capacitor$1.pluginName]
                 .addListener(DataCaptureViewListenerEvent.DidChangeSizeOrientation, this.notifyListeners.bind(this));
         }
