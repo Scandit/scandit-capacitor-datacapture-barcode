@@ -14,10 +14,7 @@ export var CapacitorFunction;
 (function (CapacitorFunction) {
     CapacitorFunction["GetDefaults"] = "getDefaults";
     CapacitorFunction["SubscribeBarcodeCaptureListener"] = "subscribeBarcodeCaptureListener";
-    CapacitorFunction["FinishBarcodeCaptureDidScan"] = "finishBarcodeCaptureDidScan";
-    CapacitorFunction["FinishBarcodeCaptureDidUpdateSession"] = "finishBarcodeCaptureDidUpdateSession";
     CapacitorFunction["SubscribeBarcodeTrackingListener"] = "subscribeBarcodeTrackingListener";
-    CapacitorFunction["FinishBarcodeTrackingDidUpdateSession"] = "finishBarcodeTrackingDidUpdateSession";
     CapacitorFunction["SubscribeBarcodeTrackingBasicOverlayListener"] = "subscribeBarcodeTrackingBasicOverlayListener";
     CapacitorFunction["SetBrushForTrackedBarcode"] = "setBrushForTrackedBarcode";
     CapacitorFunction["ClearTrackedBarcodeBrushes"] = "clearTrackedBarcodeBrushes";
@@ -33,12 +30,6 @@ export var CapacitorFunction;
     CapacitorFunction["ResetBarcodeSelectionSession"] = "resetBarcodeSelectionSession";
     CapacitorFunction["ResetBarcodeSelection"] = "resetBarcodeSelection";
     CapacitorFunction["UnfreezeCameraInBarcodeSelection"] = "unfreezeCameraInBarcodeSelection";
-    CapacitorFunction["SubscribeBarcodeCountListener"] = "registerBarcodeCountListener";
-    CapacitorFunction["UnsubscribeBarcodeCountListener"] = "unregisterBarcodeCountListener";
-    CapacitorFunction["ResetBarcodeCountSession"] = "resetBarcodeCountSession";
-    CapacitorFunction["StartBarcodeCountScanningPhase"] = "startScanningPhase";
-    CapacitorFunction["EndBarcodeCountScanningPhase"] = "endScanningPhase";
-    CapacitorFunction["SetBarcodeCountCaptureList"] = "setBarcodeCountCaptureList";
 })(CapacitorFunction || (CapacitorFunction = {}));
 const pluginName = 'ScanditBarcodeNative';
 // tslint:disable-next-line:variable-name
@@ -48,16 +39,15 @@ export const Capacitor = {
     exec: (success, error, functionName, args) => capacitorExec(success, error, pluginName, functionName, args),
 };
 export const getDefaults = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const defaultsJSON = yield window.Capacitor.Plugins[pluginName][CapacitorFunction.GetDefaults]();
-        console.log(defaultsJSON);
+    yield window.Capacitor.Plugins[pluginName][CapacitorFunction.GetDefaults]()
+        .then((defaultsJSON) => {
         const defaults = defaultsFromJSON(defaultsJSON);
         Capacitor.defaults = defaults;
-    }
-    catch (error) {
+    })
+        .catch((error) => {
         // tslint:disable-next-line:no-console
         console.warn(error);
-    }
+    });
     return Capacitor.defaults;
 });
 // To circumvent a circular dependency

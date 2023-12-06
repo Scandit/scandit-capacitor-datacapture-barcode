@@ -2,10 +2,7 @@ import { Defaults } from './Defaults';
 export declare enum CapacitorFunction {
     GetDefaults = "getDefaults",
     SubscribeBarcodeCaptureListener = "subscribeBarcodeCaptureListener",
-    FinishBarcodeCaptureDidScan = "finishBarcodeCaptureDidScan",
-    FinishBarcodeCaptureDidUpdateSession = "finishBarcodeCaptureDidUpdateSession",
     SubscribeBarcodeTrackingListener = "subscribeBarcodeTrackingListener",
-    FinishBarcodeTrackingDidUpdateSession = "finishBarcodeTrackingDidUpdateSession",
     SubscribeBarcodeTrackingBasicOverlayListener = "subscribeBarcodeTrackingBasicOverlayListener",
     SetBrushForTrackedBarcode = "setBrushForTrackedBarcode",
     ClearTrackedBarcodeBrushes = "clearTrackedBarcodeBrushes",
@@ -20,18 +17,12 @@ export declare enum CapacitorFunction {
     ResetBarcodeTrackingSession = "resetBarcodeTrackingSession",
     ResetBarcodeSelectionSession = "resetBarcodeSelectionSession",
     ResetBarcodeSelection = "resetBarcodeSelection",
-    UnfreezeCameraInBarcodeSelection = "unfreezeCameraInBarcodeSelection",
-    SubscribeBarcodeCountListener = "registerBarcodeCountListener",
-    UnsubscribeBarcodeCountListener = "unregisterBarcodeCountListener",
-    ResetBarcodeCountSession = "resetBarcodeCountSession",
-    StartBarcodeCountScanningPhase = "startScanningPhase",
-    EndBarcodeCountScanningPhase = "endScanningPhase",
-    SetBarcodeCountCaptureList = "setBarcodeCountCaptureList"
+    UnfreezeCameraInBarcodeSelection = "unfreezeCameraInBarcodeSelection"
 }
 export declare const Capacitor: {
     pluginName: string;
     defaults: Defaults;
-    exec: (success: Optional<Function>, error: Optional<Function>, functionName: string, args: Optional<[any]>) => void;
+    exec: (success: Function | null, error: Function | null, functionName: string, args: Optional<[any]>) => void;
 };
 export interface CapacitorWindow extends Window {
     Scandit: any;

@@ -3,7 +3,7 @@ import { BarcodeTrackingSession, } from '../BarcodeTracking+Related';
 import { Capacitor, CapacitorFunction } from './Capacitor';
 var BarcodeTrackingListenerEvent;
 (function (BarcodeTrackingListenerEvent) {
-    BarcodeTrackingListenerEvent["DidUpdateSession"] = "BarcodeTrackingListener.didUpdateSession";
+    BarcodeTrackingListenerEvent["DidUpdateSession"] = "onTrackingSessionUpdateEvent";
 })(BarcodeTrackingListenerEvent || (BarcodeTrackingListenerEvent = {}));
 export class BarcodeTrackingListenerProxy {
     static forBarcodeTracking(barcodeTracking) {
@@ -26,6 +26,12 @@ export class BarcodeTrackingListenerProxy {
     notifyListeners(event) {
         const done = () => {
             this.barcodeTracking.isInListenerCallback = false;
+            window.Capacitor.Plugins[Capacitor.pluginName].finishCallback({
+                result: {
+                    enabled: this.barcodeTracking.isEnabled,
+                    finishCallbackID: event.name,
+                },
+            });
             return { enabled: this.barcodeTracking.isEnabled };
         };
         this.barcodeTracking.isInListenerCallback = true;
@@ -43,7 +49,6 @@ export class BarcodeTrackingListenerProxy {
                         listener.didUpdateSession(this.barcodeTracking, BarcodeTrackingSession
                             .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                     }
-                    window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeTrackingDidUpdateSession]({ 'enabled': this.barcodeTracking.isEnabled });
                     break;
             }
         });

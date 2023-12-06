@@ -6,6 +6,12 @@ export var BarcodeTrackingScenario;
     BarcodeTrackingScenario["B"] = "B";
 })(BarcodeTrackingScenario || (BarcodeTrackingScenario = {}));
 export class BarcodeTrackingSettings extends DefaultSerializeable {
+    constructor() {
+        super();
+        this.scenario = null;
+        this.properties = {};
+        this.symbologies = {};
+    }
     get enabledSymbologies() {
         return Object.keys(this.symbologies)
             .filter(symbology => this.symbologies[symbology].isEnabled);
@@ -14,12 +20,6 @@ export class BarcodeTrackingSettings extends DefaultSerializeable {
         const settings = new BarcodeTrackingSettings();
         settings.scenario = scenario;
         return settings;
-    }
-    constructor() {
-        super();
-        this.scenario = null;
-        this.properties = {};
-        this.symbologies = {};
     }
     settingsForSymbology(symbology) {
         if (!this.symbologies[symbology]) {

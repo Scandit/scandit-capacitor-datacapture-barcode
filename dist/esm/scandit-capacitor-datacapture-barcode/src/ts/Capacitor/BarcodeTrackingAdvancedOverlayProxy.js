@@ -1,11 +1,12 @@
 import { TrackedBarcode } from '../Barcode';
+import { doReturnWithFinish } from '../../../../scandit-capacitor-datacapture-core/src/ts/Capacitor/CommonCapacitor';
 import { Capacitor, CapacitorFunction } from './Capacitor';
 var BarcodeTrackingAdvancedOverlayListenerEvent;
 (function (BarcodeTrackingAdvancedOverlayListenerEvent) {
-    BarcodeTrackingAdvancedOverlayListenerEvent["ViewForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.viewForTrackedBarcode";
-    BarcodeTrackingAdvancedOverlayListenerEvent["AnchorForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.anchorForTrackedBarcode";
-    BarcodeTrackingAdvancedOverlayListenerEvent["OffsetForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.offsetForTrackedBarcode";
-    BarcodeTrackingAdvancedOverlayListenerEvent["DidTapViewForTrackedBarcode"] = "BarcodeTrackingAdvancedOverlayListener.didTapViewForTrackedBarcode";
+    BarcodeTrackingAdvancedOverlayListenerEvent["ViewForTrackedBarcode"] = "onViewForTrackedBarcodeEvent";
+    BarcodeTrackingAdvancedOverlayListenerEvent["AnchorForTrackedBarcode"] = "onAnchorForTrackedBarcodeEvent";
+    BarcodeTrackingAdvancedOverlayListenerEvent["OffsetForTrackedBarcode"] = "onOffsetForTrackedBarcodeEvent";
+    BarcodeTrackingAdvancedOverlayListenerEvent["DidTapViewForTrackedBarcode"] = "onTapViewForTrackedBarcodeEvent";
 })(BarcodeTrackingAdvancedOverlayListenerEvent || (BarcodeTrackingAdvancedOverlayListenerEvent = {}));
 export class BarcodeTrackingAdvancedOverlayProxy {
     static forOverlay(overlay) {
@@ -66,7 +67,7 @@ export class BarcodeTrackingAdvancedOverlayProxy {
             // The event could be undefined/null in case the plugin result did not pass a "message",
             // which could happen e.g. in case of "ok" results, which could signal e.g. successful
             // listener subscriptions.
-            return {};
+            return doReturnWithFinish(event.name, null);
         }
         event = Object.assign(Object.assign(Object.assign({}, event), event.argument), { argument: undefined });
         switch (event.name) {
@@ -75,7 +76,13 @@ export class BarcodeTrackingAdvancedOverlayProxy {
                     const trackedBarcode = TrackedBarcode
                         .fromJSON(JSON.parse(event.trackedBarcode));
                     const view = this.overlay.listener.viewForTrackedBarcode(this.overlay, trackedBarcode);
-                    this.setViewForTrackedBarcode(view, trackedBarcode);
+                    if (view instanceof Promise) {
+                        this.setViewForTrackedBarcode(view, trackedBarcode);
+                        return doReturnWithFinish(event.name, { view: null });
+                    }
+                    else {
+                        return doReturnWithFinish(event.name, { view: view ? view.toJSON() : null });
+                    }
                 }
                 break;
             case BarcodeTrackingAdvancedOverlayListenerEvent.AnchorForTrackedBarcode:
@@ -83,7 +90,7 @@ export class BarcodeTrackingAdvancedOverlayProxy {
                     const trackedBarcode = TrackedBarcode
                         .fromJSON(JSON.parse(event.trackedBarcode));
                     const anchor = this.overlay.listener.anchorForTrackedBarcode(this.overlay, trackedBarcode);
-                    this.setAnchorForTrackedBarcode(anchor, trackedBarcode);
+                    return doReturnWithFinish(event.name, { anchor });
                 }
                 break;
             case BarcodeTrackingAdvancedOverlayListenerEvent.OffsetForTrackedBarcode:
@@ -91,7 +98,7 @@ export class BarcodeTrackingAdvancedOverlayProxy {
                     const trackedBarcode = TrackedBarcode
                         .fromJSON(JSON.parse(event.trackedBarcode));
                     const offset = this.overlay.listener.offsetForTrackedBarcode(this.overlay, trackedBarcode);
-                    this.setOffsetForTrackedBarcode(offset, trackedBarcode);
+                    return doReturnWithFinish(event.name, { offset: JSON.stringify(offset.toJSON()) });
                 }
                 break;
             case BarcodeTrackingAdvancedOverlayListenerEvent.DidTapViewForTrackedBarcode:
@@ -102,7 +109,7 @@ export class BarcodeTrackingAdvancedOverlayProxy {
                 }
                 break;
         }
-        return {};
+        return doReturnWithFinish(event.name, null);
     }
     initialize() {
         this.subscribeListener();

@@ -3,8 +3,8 @@ import { BarcodeCaptureSession } from '../BarcodeCapture+Related';
 import { Capacitor, CapacitorFunction } from './Capacitor';
 var BarcodeCaptureListenerEvent;
 (function (BarcodeCaptureListenerEvent) {
-    BarcodeCaptureListenerEvent["DidScan"] = "BarcodeCaptureListener.didScan";
-    BarcodeCaptureListenerEvent["DidUpdateSession"] = "BarcodeCaptureListener.didUpdateSession";
+    BarcodeCaptureListenerEvent["DidScan"] = "onBarcodeScannedEvent";
+    BarcodeCaptureListenerEvent["DidUpdateSession"] = "onSessionUpdateEvent";
 })(BarcodeCaptureListenerEvent || (BarcodeCaptureListenerEvent = {}));
 export class BarcodeCaptureListenerProxy {
     static forBarcodeCapture(barcodeCapture) {
@@ -13,41 +13,28 @@ export class BarcodeCaptureListenerProxy {
         proxy.initialize();
         return proxy;
     }
-    constructor() {
-        this.notifyListeners = this.notifyListeners.bind(this);
-    }
     initialize() {
         this.subscribeListener();
     }
     reset() {
         return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.ResetBarcodeCaptureSession]();
     }
-    addListener(listener) {
-        if (listener.didScan) {
-            window.Capacitor.Plugins[Capacitor.pluginName]
-                .addListener(BarcodeCaptureListenerEvent.DidScan, this.notifyListeners);
-        }
-        if (listener.didUpdateSession) {
-            window.Capacitor.Plugins[Capacitor.pluginName]
-                .addListener(BarcodeCaptureListenerEvent.DidUpdateSession, this.notifyListeners);
-        }
-    }
-    removeListener(listener) {
-        if (listener.didScan) {
-            window.Capacitor.Plugins[Capacitor.pluginName]
-                .removeListener(BarcodeCaptureListenerEvent.DidScan, this.notifyListeners);
-        }
-        if (listener.didUpdateSession) {
-            window.Capacitor.Plugins[Capacitor.pluginName]
-                .removeListener(BarcodeCaptureListenerEvent.DidUpdateSession, this.notifyListeners);
-        }
-    }
     subscribeListener() {
         window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.SubscribeBarcodeCaptureListener]();
+        window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeCaptureListenerEvent.DidScan, this.notifyListeners.bind(this));
+        window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeCaptureListenerEvent.DidUpdateSession, this.notifyListeners.bind(this));
     }
     notifyListeners(event) {
         const done = () => {
             this.barcodeCapture.isInListenerCallback = false;
+            window.Capacitor.Plugins[Capacitor.pluginName].finishCallback({
+                result: {
+                    enabled: this.barcodeCapture.isEnabled,
+                    finishCallbackID: event.name,
+                },
+            });
             return { enabled: this.barcodeCapture.isEnabled };
         };
         this.barcodeCapture.isInListenerCallback = true;
@@ -65,14 +52,12 @@ export class BarcodeCaptureListenerProxy {
                         listener.didScan(this.barcodeCapture, BarcodeCaptureSession
                             .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                     }
-                    window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeCaptureDidScan]({ 'enabled': this.barcodeCapture.isEnabled });
                     break;
                 case BarcodeCaptureListenerEvent.DidUpdateSession:
                     if (listener.didUpdateSession) {
                         listener.didUpdateSession(this.barcodeCapture, BarcodeCaptureSession
                             .fromJSON(JSON.parse(event.session)), CameraProxy.getLastFrame);
                     }
-                    window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeCaptureDidUpdateSession]({ 'enabled': this.barcodeCapture.isEnabled });
                     break;
             }
         });

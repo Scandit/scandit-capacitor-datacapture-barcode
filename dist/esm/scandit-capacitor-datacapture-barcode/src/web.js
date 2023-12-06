@@ -10,8 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { registerPlugin } from '@capacitor/core';
 import { Capacitor as CapacitorCore } from '../../scandit-capacitor-datacapture-core/src/ts/Capacitor/Capacitor';
 import { Capacitor as CapacitorBarcode, getDefaults } from './ts/Capacitor/Capacitor';
-export * from './definitions';
-import { Barcode, Checksum, CompositeFlag, CompositeType, EncodingRange, LocalizedOnlyBarcode, Range, Symbology, SymbologyDescription, SymbologySettings, TrackedBarcode, TargetBarcode } from './ts/Barcode';
+import { Barcode, Checksum, CompositeFlag, CompositeType, EncodingRange, LocalizedOnlyBarcode, Range, Symbology, SymbologyDescription, SymbologySettings, TrackedBarcode, } from './ts/Barcode';
 import { BarcodeCapture, } from './ts/BarcodeCapture';
 import { BarcodeSelection, } from './ts/BarcodeSelection';
 import { BarcodeCaptureSettings, } from './ts/BarcodeCaptureSettings';
@@ -22,13 +21,6 @@ import { BarcodeTracking, } from './ts/BarcodeTracking';
 import { BarcodeTrackingScenario, BarcodeTrackingSettings, } from './ts/BarcodeTrackingSettings';
 import { BarcodeTrackingAdvancedOverlay, BarcodeTrackingBasicOverlay, BarcodeTrackingBasicOverlayStyle, BarcodeTrackingSession, } from './ts/BarcodeTracking+Related';
 import { TrackedBarcodeView, } from './ts/TrackedBarcodeView';
-import { BarcodeCount } from './ts/BarcodeCount';
-import { BarcodeCountFeedback, BarcodeCountSession } from './ts/BarcodeCount+Related';
-import { BarcodeCountSettings } from './ts/BarcodeCountSettings';
-import { BarcodeCountView, BarcodeCountViewStyle } from './ts/BarcodeCountView';
-import { BarcodeCountToolbarSettings } from './ts/BarcodeCountView+Related';
-import { BarcodeCountCaptureList, BarcodeCountCaptureListSession } from './ts/BarcodeCountCaptureList';
-import { BarcodeFilterSettings, BarcodeFilterHighlightType, BarcodeFilterHighlightSettingsBrush } from './ts/BarcodeFilterSettings';
 export class ScanditBarcodePluginImplementation {
     initialize(coreDefaults) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -63,7 +55,6 @@ export class ScanditBarcodePluginImplementation {
                 BarcodeTrackingScenario,
                 BarcodeTrackingSettings,
                 TrackedBarcode,
-                TargetBarcode,
                 BarcodeTrackingBasicOverlay,
                 BarcodeTrackingBasicOverlayStyle,
                 BarcodeTrackingAdvancedOverlay,
@@ -71,18 +62,6 @@ export class ScanditBarcodePluginImplementation {
                 LocalizedOnlyBarcode,
                 Range,
                 TrackedBarcodeView,
-                BarcodeCount,
-                BarcodeCountFeedback,
-                BarcodeCountSession,
-                BarcodeCountSettings,
-                BarcodeCountView,
-                BarcodeCountViewStyle,
-                BarcodeCountCaptureList,
-                BarcodeCountCaptureListSession,
-                BarcodeCountToolbarSettings,
-                BarcodeFilterSettings,
-                BarcodeFilterHighlightType,
-                BarcodeFilterHighlightSettingsBrush
             };
             CapacitorCore.defaults = coreDefaults;
             const barcodeDefaults = yield getDefaults();
@@ -99,5 +78,4 @@ registerPlugin('ScanditBarcodePlugin', {
 });
 // tslint:disable-next-line:variable-name
 export const ScanditBarcodePlugin = new ScanditBarcodePluginImplementation();
-export const ScanditBarcodeCountPluginNative = registerPlugin('ScanditBarcodeNative');
 //# sourceMappingURL=web.js.map

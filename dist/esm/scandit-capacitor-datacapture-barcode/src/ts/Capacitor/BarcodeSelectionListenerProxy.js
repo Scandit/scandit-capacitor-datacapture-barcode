@@ -3,8 +3,8 @@ import { BarcodeSelectionSession, } from '../BarcodeSelection+Related';
 import { Capacitor, CapacitorFunction } from './Capacitor';
 var BarcodeSelectionListenerEvent;
 (function (BarcodeSelectionListenerEvent) {
-    BarcodeSelectionListenerEvent["DidUpdateSelection"] = "BarcodeSelectionListener.didUpdateSelection";
-    BarcodeSelectionListenerEvent["DidUpdateSession"] = "BarcodeSelectionListener.didUpdateSession";
+    BarcodeSelectionListenerEvent["DidUpdateSelection"] = "didUpdateSelectionInBarcodeSelection";
+    BarcodeSelectionListenerEvent["DidUpdateSession"] = "didUpdateSessionInBarcodeSelection";
 })(BarcodeSelectionListenerEvent || (BarcodeSelectionListenerEvent = {}));
 export class BarcodeSelectionListenerProxy {
     static forBarcodeSelection(barcodeSelection) {
@@ -15,7 +15,7 @@ export class BarcodeSelectionListenerProxy {
     }
     getCount(barcode) {
         return new Promise((resolve, reject) => {
-            BarcodeSelectionListenerProxy.exec((response) => resolve(response.data), reject, CapacitorFunction.GetCountForBarcodeInBarcodeSelectionSession, {
+            BarcodeSelectionListenerProxy.exec((response) => resolve(response.result), reject, CapacitorFunction.GetCountForBarcodeInBarcodeSelectionSession, {
                 selectionIdentifier: barcode.selectionIdentifier,
             });
         });
