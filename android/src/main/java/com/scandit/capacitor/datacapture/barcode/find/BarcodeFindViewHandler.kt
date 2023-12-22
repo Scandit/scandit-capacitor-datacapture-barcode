@@ -4,42 +4,50 @@
  * Copyright (C) 2023- Scandit AG. All rights reserved.
  */
 
-package com.scandit.capacitor.datacapture.barcode.count
+package com.scandit.capacitor.datacapture.barcode.find
 
+import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import com.scandit.capacitor.datacapture.core.data.ResizeAndMoveInfo
 import com.scandit.capacitor.datacapture.core.utils.pxFromDp
 import com.scandit.capacitor.datacapture.core.utils.removeFromParent
-import com.scandit.datacapture.barcode.count.ui.view.BarcodeCountView
+import com.scandit.datacapture.barcode.find.ui.BarcodeFindView
 import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
 
-internal class BarcodeCountViewHandler (
+class BarcodeFindViewHandler(
     private val mainThread: MainThread = DefaultMainThread.getInstance()
 ) {
     private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
     private var isVisible: Boolean = true
-    private var barcodeCountViewReference: WeakReference<BarcodeCountView>? = null
+    private var barcodeFindViewContainerReference: WeakReference<FrameLayout>? = null
     private var webViewReference: WeakReference<View>? = null
 
-    val barcodeCountView: BarcodeCountView?
-        get() = barcodeCountViewReference?.get()
+    val barcodeFindViewContainer: FrameLayout?
+    get() = barcodeFindViewContainerReference?.get()
 
     private val webView: View?
-        get() = webViewReference?.get()
+    get() = webViewReference?.get()
 
-    fun attachBarcodeCountView(barcodeCountView: BarcodeCountView, activity: AppCompatActivity) {
-        if (this.barcodeCountView != barcodeCountView) {
+
+    fun prepareContainer(context: Context) : FrameLayout {
+        return FrameLayout(context)
+    }
+
+    fun addBarcodeFindViewContainer(container: FrameLayout, activity: AppCompatActivity) {
+        if (this.barcodeFindViewContainer != container) {
             disposeCurrentView()
-            addBarcodeCountView(barcodeCountView, activity)
+            addContainer(container, activity)
         }
     }
 
-    fun attachWebView(webView: View, @Suppress("UNUSED_PARAMETER") activity: AppCompatActivity) {
+    fun attachWebView(webView: View) {
         if (this.webView != webView) {
             webViewReference = WeakReference(webView)
             webView.bringToFront()
@@ -68,23 +76,23 @@ internal class BarcodeCountViewHandler (
     }
 
     private fun disposeCurrentView() {
-        val view = barcodeCountView ?: return
-        removeBarcodeCountView(view)
+        val view = barcodeFindViewContainer ?: return
+        removeView(view)
     }
 
     private fun disposeCurrentWebView() {
         webViewReference = null
     }
 
-    private fun addBarcodeCountView(
-        barcodeCountView: BarcodeCountView,
+    private fun addContainer(
+        barcodeFindViewContainer: FrameLayout,
         activity: AppCompatActivity
     ) {
-        barcodeCountViewReference = WeakReference(barcodeCountView)
+        barcodeFindViewContainerReference = WeakReference(barcodeFindViewContainer)
 
         mainThread.runOnMainThread {
             activity.addContentView(
-                barcodeCountView,
+                barcodeFindViewContainer,
                 ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -94,11 +102,10 @@ internal class BarcodeCountViewHandler (
         }
     }
 
-    private fun removeBarcodeCountView(barcodeCountView: BarcodeCountView) {
-        barcodeCountViewReference = null
-        removeView(barcodeCountView) {
-            barcodeCountView.listener = null
-            barcodeCountView.uiListener = null
+    private fun removeBarcodeFindViewContainer(barcodeFindViewContainer: FrameLayout) {
+        barcodeFindViewContainerReference = null
+        removeView(barcodeFindViewContainer) {
+            (barcodeFindViewContainer.children.firstOrNull() as? BarcodeFindView)?.setListener(null)
         }
     }
 
@@ -111,16 +118,16 @@ internal class BarcodeCountViewHandler (
 
     // Update the view visibility, position and size.
     fun render() {
-        val view = barcodeCountView ?: return
+        val view = barcodeFindViewContainer ?: return
         renderNoAnimate(view)
     }
 
-    private fun renderNoAnimate(barcodeCountView: BarcodeCountView) {
-        barcodeCountView.post {
-            barcodeCountView.visibility = if (isVisible) View.VISIBLE else View.GONE
-            barcodeCountView.x = latestInfo.left.pxFromDp()
-            barcodeCountView.y = latestInfo.top.pxFromDp()
-            barcodeCountView.layoutParams.apply {
+    private fun renderNoAnimate(barcodeFindViewContainer: FrameLayout) {
+        barcodeFindViewContainer.post {
+            barcodeFindViewContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+            barcodeFindViewContainer.x = latestInfo.left.pxFromDp()
+            barcodeFindViewContainer.y = latestInfo.top.pxFromDp()
+            barcodeFindViewContainer.layoutParams.apply {
                 width = ViewGroup.LayoutParams.MATCH_PARENT
                 height = ViewGroup.LayoutParams.MATCH_PARENT
             }
@@ -128,10 +135,10 @@ internal class BarcodeCountViewHandler (
                 webView?.bringToFront()
                 (webView?.parent as View).translationZ = 1F
             } else {
-                barcodeCountView.bringToFront()
+                barcodeFindViewContainer.bringToFront()
                 (webView?.parent as View).translationZ = -1F
             }
-            barcodeCountView.requestLayout()
+            barcodeFindViewContainer.requestLayout()
         }
     }
 }
