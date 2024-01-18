@@ -8,12 +8,11 @@ data class SerializableAdvancedOverlayViewData(
     val trackedBarcodeId: Int,
     val sessionFrameSequenceId: Long?
 ) {
+
     constructor(json: JSONObject) : this(
         view = SerializableAdvancedOverlayView.fromJson(json.optJSONObject(FIELD_VIEW)),
         trackedBarcodeId = json.getInt(FIELD_TRACKED_BARCODE_ID),
-        sessionFrameSequenceId = if (json.has(FIELD_FRAME_SEQUENCE_ID) &&
-            json[FIELD_FRAME_SEQUENCE_ID] is Long
-        ) {
+        sessionFrameSequenceId = if (json.has(FIELD_FRAME_SEQUENCE_ID)) {
             json.getLong(FIELD_FRAME_SEQUENCE_ID)
         } else null
     )

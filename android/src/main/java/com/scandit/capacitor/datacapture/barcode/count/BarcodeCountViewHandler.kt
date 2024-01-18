@@ -1,9 +1,3 @@
-/*
- * This file is part of the Scandit Data Capture SDK
- *
- * Copyright (C) 2023- Scandit AG. All rights reserved.
- */
-
 package com.scandit.capacitor.datacapture.barcode.count
 
 import android.graphics.Color
@@ -14,13 +8,10 @@ import com.scandit.capacitor.datacapture.core.data.ResizeAndMoveInfo
 import com.scandit.capacitor.datacapture.core.utils.pxFromDp
 import com.scandit.capacitor.datacapture.core.utils.removeFromParent
 import com.scandit.datacapture.barcode.count.ui.view.BarcodeCountView
-import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
 
-internal class BarcodeCountViewHandler (
-    private val mainThread: MainThread = DefaultMainThread.getInstance()
-) {
+internal class BarcodeCountViewHandler {
     private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
     private var isVisible: Boolean = true
     private var barcodeCountViewReference: WeakReference<BarcodeCountView>? = null
@@ -42,8 +33,10 @@ internal class BarcodeCountViewHandler (
     fun attachWebView(webView: View, @Suppress("UNUSED_PARAMETER") activity: AppCompatActivity) {
         if (this.webView != webView) {
             webViewReference = WeakReference(webView)
-            webView.bringToFront()
-            webView.setBackgroundColor(Color.TRANSPARENT)
+            MainThread.runOnMainThread {
+                webView.bringToFront()
+                webView.setBackgroundColor(Color.TRANSPARENT)
+            }
         }
     }
 
@@ -82,7 +75,7 @@ internal class BarcodeCountViewHandler (
     ) {
         barcodeCountViewReference = WeakReference(barcodeCountView)
 
-        mainThread.runOnMainThread {
+        MainThread.runOnMainThread {
             activity.addContentView(
                 barcodeCountView,
                 ViewGroup.LayoutParams(
@@ -103,7 +96,7 @@ internal class BarcodeCountViewHandler (
     }
 
     private fun removeView(view: View, uiBlock: (() -> Unit)? = null) {
-        mainThread.runOnMainThread {
+        MainThread.runOnMainThread {
             view.removeFromParent()
             uiBlock?.invoke()
         }

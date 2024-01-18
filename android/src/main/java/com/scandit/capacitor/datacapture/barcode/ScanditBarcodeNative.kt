@@ -17,7 +17,6 @@ import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.scandit.capacitor.datacapture.barcode.count.BarcodeCountViewHandler
 import com.scandit.capacitor.datacapture.barcode.factories.BarcodeCaptureActionFactory
-import com.scandit.capacitor.datacapture.barcode.find.BarcodeFindViewHandler
 import com.scandit.capacitor.datacapture.barcode.utils.SerializableAdvancedOverlayViewData
 import com.scandit.capacitor.datacapture.core.ScanditCaptureCoreNative
 import com.scandit.capacitor.datacapture.core.data.ResizeAndMoveInfo
@@ -34,9 +33,6 @@ import com.scandit.datacapture.frameworks.barcode.count.listeners.FrameworksBarc
 import com.scandit.datacapture.frameworks.barcode.count.listeners.FrameworksBarcodeCountListener
 import com.scandit.datacapture.frameworks.barcode.count.listeners.FrameworksBarcodeCountViewListener
 import com.scandit.datacapture.frameworks.barcode.count.listeners.FrameworksBarcodeCountViewUiListener
-import com.scandit.datacapture.frameworks.barcode.find.BarcodeFindModule
-import com.scandit.datacapture.frameworks.barcode.find.listeners.FrameworksBarcodeFindListener
-import com.scandit.datacapture.frameworks.barcode.find.listeners.FrameworksBarcodeFindViewUiListener
 import com.scandit.datacapture.frameworks.barcode.selection.BarcodeSelectionModule
 import com.scandit.datacapture.frameworks.barcode.selection.listeners.FrameworksBarcodeSelectionAimedBrushProvider
 import com.scandit.datacapture.frameworks.barcode.selection.listeners.FrameworksBarcodeSelectionListener
@@ -47,9 +43,6 @@ import com.scandit.datacapture.frameworks.barcode.tracking.listeners.FrameworksB
 import com.scandit.datacapture.frameworks.barcode.tracking.listeners.FrameworksBarcodeTrackingListener
 import com.scandit.datacapture.frameworks.core.deserialization.DeserializationLifecycleObserver
 import com.scandit.datacapture.frameworks.core.events.Emitter
-import com.scandit.datacapture.frameworks.core.utils.DefaultFrameworksLog
-import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
-import com.scandit.datacapture.frameworks.core.utils.DefaultWorkerThread
 import com.scandit.datacapture.frameworks.core.utils.FrameworksLog
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import com.scandit.datacapture.frameworks.core.utils.WorkerThread
@@ -88,16 +81,7 @@ class ScanditBarcodeNative :
         FrameworksBarcodeCountViewUiListener(this)
     )
 
-    private val barcodeFindModule = BarcodeFindModule(
-        FrameworksBarcodeFindListener(this),
-        FrameworksBarcodeFindViewUiListener(this)
-    )
-
     private val barcodeCountViewHandler: BarcodeCountViewHandler = BarcodeCountViewHandler()
-    private val barcodeFindViewHandler: BarcodeFindViewHandler = BarcodeFindViewHandler()
-    private val logger: FrameworksLog = DefaultFrameworksLog.getInstance()
-    private val workerThread: WorkerThread = DefaultWorkerThread.getInstance()
-    private val mainThread: MainThread = DefaultMainThread.getInstance()
 
     override fun load() {
         super.load()
@@ -109,12 +93,10 @@ class ScanditBarcodeNative :
                 pluginHandle.instance
             )
         } else {
-            logger.error("Core not found")
+            FrameworksLog.error("Core not found")
         }
-        mainThread.runOnMainThread {
-            barcodeCountViewHandler.attachWebView(bridge.webView, bridge.activity)
-            barcodeFindViewHandler.attachWebView(bridge.webView)
-        }
+
+        barcodeCountViewHandler.attachWebView(bridge.webView, bridge.activity)
         DeserializationLifecycleObserver.attach(this)
 
         barcodeModule.onCreate(context)
@@ -122,7 +104,6 @@ class ScanditBarcodeNative :
         barcodeTrackingModule.onCreate(context)
         barcodeSelectionModule.onCreate(context)
         barcodeCountModule.onCreate(context)
-        barcodeFindModule.onCreate(context)
     }
 
     override fun handleOnDestroy() {
@@ -131,7 +112,6 @@ class ScanditBarcodeNative :
         barcodeTrackingModule.onDestroy()
         barcodeSelectionModule.onDestroy()
         barcodeCountModule.onDestroy()
-        barcodeFindModule.onDestroy()
     }
 
     @PluginMethod
@@ -173,11 +153,10 @@ class ScanditBarcodeNative :
             JSONObject(
 
                 barcodeModule.getDefaults() +
-                        mapOf("BarcodeCapture" to barcodeCaptureModule.getDefaults()) +
-                        mapOf("BarcodeTracking" to barcodeTrackingModule.getDefaults()) +
-                        mapOf("BarcodeSelection" to barcodeSelectionModule.getDefaults()) +
-                        mapOf("BarcodeCount" to barcodeCountModule.getDefaults()) +
-                        mapOf("BarcodeFind" to barcodeFindModule.getDefaults())
+                    mapOf("BarcodeCapture" to barcodeCaptureModule.getDefaults()) +
+                    mapOf("BarcodeTracking" to barcodeTrackingModule.getDefaults()) +
+                    mapOf("BarcodeSelection" to barcodeSelectionModule.getDefaults()) +
+                    mapOf("BarcodeCount" to barcodeCountModule.getDefaults())
 
             )
         )
@@ -192,20 +171,8 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
-    fun setBarcodeCaptureModeEnabledState(call: PluginCall) {
-        barcodeCaptureModule.setModeEnabled(call.data.getBoolean("enabled"))
-        call.resolve()
-    }
-
-    @PluginMethod
     fun subscribeBarcodeTrackingListener(call: PluginCall) {
         barcodeTrackingModule.addBarcodeTrackingListener()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun unsubscribeBarcodeTrackingListener(call: PluginCall) {
-        barcodeTrackingModule.removeBarcodeTrackingListener()
         call.resolve()
     }
 
@@ -216,20 +183,8 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
-    fun setBarcodeTrackingModeEnabledState(call: PluginCall) {
-        barcodeTrackingModule.setModeEnabled(call.data.getBoolean("enabled"))
-        call.resolve()
-    }
-
-    @PluginMethod
     fun subscribeBarcodeTrackingBasicOverlayListener(call: PluginCall) {
         barcodeTrackingModule.addBasicOverlayListener()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun unsubscribeBarcodeTrackingBasicOverlayListener(call: PluginCall) {
-        barcodeTrackingModule.removeBasicOverlayListener()
         call.resolve()
     }
 
@@ -237,122 +192,6 @@ class ScanditBarcodeNative :
     fun subscribeBarcodeSelectionListener(call: PluginCall) {
         barcodeSelectionModule.addListener()
         call.resolve()
-    }
-
-    @PluginMethod
-    fun unsubscribeBarcodeSelectionListener(call: PluginCall) {
-        barcodeSelectionModule.removeListener()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun setTextForAimToSelectAutoHint(call: PluginCall) {
-        barcodeSelectionModule.setTextForAimToSelectAutoHint(
-            call.data.getString("text").orEmpty(),
-            CapacitorResult(call)
-        )
-    }
-
-    @PluginMethod
-    fun removeAimedBarcodeBrushProvider(call: PluginCall) {
-        barcodeSelectionModule.removeAimedBarcodeBrushProvider()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun setAimedBarcodeBrushProvider(call: PluginCall) {
-        barcodeSelectionModule.setAimedBarcodeBrushProvider(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun finishBrushForAimedBarcodeCallback(call: PluginCall) {
-        val brushJson = call.data.getString("brush")
-        val selectionIdentifier = call.data.getString("selectionIdentifier")
-        if (selectionIdentifier == null) {
-            call.reject("selectionIdentifier is missing in the call parameters.")
-            return
-        }
-        barcodeSelectionModule.finishBrushForAimedBarcode(brushJson, selectionIdentifier)
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun removeTrackedBarcodeBrushProvider(call: PluginCall) {
-        barcodeSelectionModule.removeTrackedBarcodeBrushProvider()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun setTrackedBarcodeBrushProvider(call: PluginCall) {
-        barcodeSelectionModule.setTrackedBarcodeBrushProvider(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun finishBrushForTrackedBarcode(call: PluginCall) {
-        val brushJson = call.data.getString("brush")
-        val selectionIdentifier = call.data.getString("selectionIdentifier")
-        if (selectionIdentifier == null) {
-            call.reject("selectionIdentifier is missing in the call parameters.")
-            return
-        }
-        barcodeSelectionModule.finishBrushForTrackedBarcode(brushJson, selectionIdentifier)
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun selectAimedBarcode(call: PluginCall) {
-        barcodeSelectionModule.selectAimedBarcode()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun unselectBarcodes(call: PluginCall) {
-        val barcodesStr = call.data.getString("barcodesStr")
-        if (barcodesStr == null) {
-            call.reject("barcodesStr is missing in the call parameters.")
-            return
-        }
-        barcodeSelectionModule.unselectBarcodes(barcodesStr, CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun setSelectBarcodeEnabled(call: PluginCall) {
-        val barcodesStr = call.data.getString("barcodesStr")
-        if (barcodesStr == null) {
-            call.reject("barcodesStr is missing in the call parameters.")
-            return
-        }
-        if (!call.data.has("enabled")) {
-            call.reject("enabled is missing in the call parameters.")
-            return
-        }
-        barcodeSelectionModule.setSelectBarcodeEnabled(
-            barcodesStr,
-            call.data.getBoolean("enabled"),
-            CapacitorResult(call)
-        )
-    }
-
-    @PluginMethod
-    fun subscribeBrushForAimedBarcode(call: PluginCall) {
-        // Setting the repository does subscribe
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun subscribeBrushForTrackedBarcode(call: PluginCall) {
-        // Setting the repository does subscribe
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun increaseCountForBarcodes(call: PluginCall) {
-        val barcodesStr = call.data.getString("barcodesStr")
-        if (barcodesStr == null) {
-            call.reject("barcodesStr is missing in the call parameters.")
-            return
-        }
-        barcodeSelectionModule.increaseCountForBarcodes(barcodesStr, CapacitorResult(call))
     }
 
     @PluginMethod
@@ -380,26 +219,14 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
-    fun unsubscribeBarcodeTrackingAdvancedOverlayListener(call: PluginCall) {
-        barcodeTrackingModule.removeAdvancedOverlayListener()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun clearTrackedBarcodeViews(call: PluginCall) {
-        barcodeTrackingModule.clearAdvancedOverlayTrackedBarcodeViews()
-        call.resolve()
-    }
-
-    @PluginMethod
     fun setViewForTrackedBarcode(call: PluginCall) {
         try {
-            workerThread.runOnBackgroundThread {
+            WorkerThread.runOnBackgroundThread {
                 val serializationData = SerializableAdvancedOverlayViewData(call.data)
 
                 val image = getBitmapFromBase64EncodedViewData(serializationData.view?.data)
 
-                mainThread.runOnMainThread {
+                MainThread.runOnMainThread {
                     val view = barcodeTrackingModule.getTrackedBarcodeViewFromBitmap(
                         serializationData.trackedBarcodeId,
                         image
@@ -500,18 +327,6 @@ class ScanditBarcodeNative :
         call.resolve()
     }
 
-    @PluginMethod
-    fun finishBarcodeSelectionDidSelect(call: PluginCall) {
-        barcodeSelectionModule.finishDidSelect(call.data.getBoolean("enabled"))
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun finishBarcodeSelectionDidUpdateSession(call: PluginCall) {
-        barcodeSelectionModule.finishDidUpdateSession(call.data.getBoolean("enabled"))
-        call.resolve()
-    }
-
     private fun onFinishBarcodeSelectionDidUpdateSession(
         finishData: SerializableFinishModeCallbackData?
     ) {
@@ -538,12 +353,6 @@ class ScanditBarcodeNative :
     @PluginMethod
     fun finishBarcodeCaptureDidUpdateSession(call: PluginCall) {
         barcodeCaptureModule.finishDidUpdateSession(call.data.getBoolean("enabled"))
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun setBarcodeSelectionModeEnabledState(call: PluginCall) {
-        barcodeSelectionModule.setModeEnabled(call.data.getBoolean("enabled"))
         call.resolve()
     }
 
@@ -691,28 +500,6 @@ class ScanditBarcodeNative :
         call.resolve()
     }
 
-    @PluginMethod
-    fun getSpatialMap(call: PluginCall) {
-        val map = barcodeCountModule.getSpatialMap()
-        call.resolve(JSObject().putSafe("data", map?.toJson()))
-    }
-
-    @PluginMethod
-    fun getSpatialMapWithHints(call: PluginCall) {
-        val expectedNumberOfRows = call.data.getInteger("expectedNumberOfRows")
-            ?: return call.reject("No expectedNumberOfRows was provided for the function.")
-        val expectedNumberOfColumns = call.data.getInteger("expectedNumberOfColumns")
-            ?: return call.reject("No expectedNumberOfColumns was provided for the function.")
-        val map = barcodeCountModule.getSpatialMap(expectedNumberOfRows, expectedNumberOfColumns)
-        call.resolve(JSObject().putSafe("data", map?.toJson()))
-    }
-
-    @PluginMethod
-    fun setBarcodeCountModeEnabledState(call: PluginCall) {
-        barcodeCountModule.setModeEnabled(call.data.getBoolean("enabled"))
-        call.resolve()
-    }
-
     //endregion
 
     @PluginMethod
@@ -779,131 +566,6 @@ class ScanditBarcodeNative :
 
     private fun checkFinishCallbackIdFieldForValue(data: JSONObject, value: String): Boolean {
         return data.has(SerializableCallbackAction.FIELD_FINISH_CALLBACK_ID) &&
-                data[SerializableCallbackAction.FIELD_FINISH_CALLBACK_ID] == value
+            data[SerializableCallbackAction.FIELD_FINISH_CALLBACK_ID] == value
     }
-
-
-    //region Barcode Find
-
-    @PluginMethod
-    fun createFindView(
-        call: PluginCall
-    ) {
-        val viewJson = call.data.toString()
-        val container = barcodeFindViewHandler.prepareContainer(this.context)
-
-        val result = barcodeFindModule.getView(container, viewJson)
-        if (result.isFailure) {
-            call.reject(
-                result.exceptionOrNull()?.message
-                    ?: "Unable to create the BarcodeFindView from the given json=$viewJson"
-            )
-            return
-        }
-
-        barcodeFindViewHandler.addBarcodeFindViewContainer(container, bridge.activity)
-        barcodeCountViewHandler.render()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun updateFindView(call: PluginCall) {
-        barcodeFindModule.updateBarcodeFindView(
-            call.data["BarcodeFindView"].toString(),
-            CapacitorResult(call)
-        )
-    }
-
-    @PluginMethod
-    fun updateFindMode(call: PluginCall) {
-        barcodeFindModule.updateBarcodeFindMode(
-            call.data["BarcodeFind"].toString(),
-            CapacitorResult(call)
-        )
-    }
-
-    @PluginMethod
-    fun registerBarcodeFindListener(call: PluginCall) {
-        barcodeFindModule.addBarcodeFindListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun unregisterBarcodeFindListener(call: PluginCall) {
-        barcodeFindModule.removeBarcodeFindListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun registerBarcodeFindViewListener(call: PluginCall) {
-        barcodeFindModule.addBarcodeFindViewListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun unregisterBarcodeFindViewListener(call: PluginCall) {
-        barcodeFindModule.removeBarcodeFindViewListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindViewOnPause(call: PluginCall) {
-        barcodeFindModule.viewOnPause(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindViewOnResume(call: PluginCall) {
-        barcodeFindModule.viewOnResume(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindSetItemList(barcodeFindItemsJson: String, call: PluginCall) {
-        barcodeFindModule.setItemList(barcodeFindItemsJson, CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindViewStopSearching(call: PluginCall) {
-        barcodeFindModule.viewStopSearching(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindViewStartSearching(call: PluginCall) {
-        barcodeFindModule.viewStartSearching(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindViewPauseSearching(call: PluginCall) {
-        barcodeFindModule.viewPauseSearching(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindModeStart(call: PluginCall) {
-        barcodeFindModule.modeStart(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindModePause(call: PluginCall) {
-        barcodeFindModule.modePause(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun barcodeFindModeStop(call: PluginCall) {
-        barcodeFindModule.modeStop(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun showFindView(call: PluginCall) {
-        barcodeFindViewHandler.setVisible()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun hideFindView(call: PluginCall) {
-        barcodeFindViewHandler.setInvisible()
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun setBarcodeFindModeEnabledState(call: PluginCall) {
-        barcodeFindModule.setModeEnabled(call.data.getBoolean("enabled"))
-        call.resolve()
-    }
-
-    //endregion
 }
