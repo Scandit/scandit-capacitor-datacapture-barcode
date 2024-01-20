@@ -41,9 +41,9 @@ struct ViewAndTrackedBarcodeJSON: CommandJSONArgument {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.view = try container.decodeIfPresent(TrackedBarcodeView.JSON.self, forKey: .view)
-        self.trackedBarcodeID = Int(try container.decode(String.self, forKey: .trackedBarcodeID))!
-        if let frameSequenceId = try? container.decodeIfPresent(String.self, forKey: .sessionFrameSequenceID) {
-            self.sessionFrameSequenceID = Int(frameSequenceId) ?? nil
+        self.trackedBarcodeID = try container.decode(Int.self, forKey: .trackedBarcodeID)
+        if let frameSequenceId = try? container.decodeIfPresent(Int.self, forKey: .sessionFrameSequenceID) {
+            self.sessionFrameSequenceID = frameSequenceId
         } else {
             self.sessionFrameSequenceID = nil
         }
