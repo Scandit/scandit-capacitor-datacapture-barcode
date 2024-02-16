@@ -9,6 +9,7 @@ export declare class NativeBarcodeSelectionOverlayProxy extends BaseNativeProxy 
     removeTrackedBarcodeBrushProvider(): Promise<void>;
     setTrackedBarcodeBrushProvider(): Promise<void>;
     finishBrushForTrackedBarcodeCallback(brushStr: string | null, selectionIdentifier: string): void;
+    updateBarcodeSelectionBasicOverlay(overlayJson: string): Promise<void>;
     subscribeBrushForTrackedBarcode(): void;
     subscribeBrushForAimedBarcode(): void;
     private notifyListeners;

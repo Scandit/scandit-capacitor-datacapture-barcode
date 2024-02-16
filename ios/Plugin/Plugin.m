@@ -70,6 +70,25 @@ CAP_PLUGIN(
     CAP_PLUGIN_METHOD(setBarcodeTrackingModeEnabledState, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeSelectionModeEnabledState, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeCaptureModeEnabledState, CAPPluginReturnPromise);
+    // Barcode Find
+    CAP_PLUGIN_METHOD(createFindView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateFindView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateFindMode, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(registerBarcodeFindListener, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(unregisterBarcodeFindListener, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(registerBarcodeFindViewListener, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(unregisterBarcodeFindViewListener, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindViewOnPause, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindViewOnResume, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindSetItemList, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindViewStopSearching, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindViewStartSearching, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindViewPauseSearching, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindModeStart, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindModePause, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(barcodeFindModeStop, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(showFindView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(hideFindView, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setTextForAimToSelectAutoHint, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(removeAimedBarcodeBrushProvider, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setAimedBarcodeBrushProvider, CAPPluginReturnPromise);
@@ -84,4 +103,47 @@ CAP_PLUGIN(
     CAP_PLUGIN_METHOD(subscribeBrushForAimedBarcode, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(subscribeBrushForTrackedBarcode, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getSpatialMap, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(getSpatialMapWithHints, CAPPluginReturnPromise);)
+    CAP_PLUGIN_METHOD(getSpatialMapWithHints, CAPPluginReturnPromise);
+    // Barcode Pick
+    CAP_PLUGIN_METHOD(createPickView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updatePickView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(addActionListener, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(removeActionListener, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(finishOnProductIdentifierForItems, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(setPickViewPositionAndSize, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(viewPause, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(viewStart, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(finishPickAction, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(findNodeHandle, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(showPickView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(hidePickView, CAPPluginReturnPromise);
+    // new deserialization architecture
+    CAP_PLUGIN_METHOD(updateBarcodeCaptureOverlay, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeCaptureMode, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(applyBarcodeCaptureModeSettings, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeSelectionBasicOverlay, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeSelectionMode, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(applyBarcodeSelectionModeSettings, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeTrackingBasicOverlay, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeTrackingAdvancedOverlay, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeTrackingMode, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(applyBarcodeTrackingModeSettings, CAPPluginReturnPromise);
+    // SparkScan
+    CAP_PLUGIN_METHOD(createSparkScanView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(disposeSparkScanView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateSparkScanView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateSparkScanMode, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(showSparkScanView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(hideSparkScanView, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(registerSparkScanListenerForEvents, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(unregisterSparkScanListenerForEvents, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(setSparkScanModeEnabledState, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(emitSparkScanViewFeedback, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(finishSparkScanDidUpdateSessionCallback, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(finishSparkScanDidScanCallback, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(registerSparkScanViewListenerEvents, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(unregisterSparkScanViewListenerEvents, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(prepareSparkScanViewScanning, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(startSparkScanViewScanning, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(pauseSparkScanViewScanning, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(stopSparkScanViewScanning, CAPPluginReturnPromise);)
