@@ -4,17 +4,6 @@ export declare class BarcodeCountViewProxy {
     private view;
     private barcodeCount;
     private isInListenerCallback;
-    private singleScanButtonTappedListenerHandle;
-    private listButtonTappedListenerHandle;
-    private exitButtonTappedListenerHandle;
-    private brushForRecognizedBarcodeListenerHandle;
-    private brushForRecognizedBarcodeNotInListListenerHandle;
-    private brushForUnrecognizedBarcodeListenerHandle;
-    private filteredBarcodeTappedListenerHandle;
-    private recognizedBarcodeNotInListTappedListenerHandle;
-    private recognizedBarcodeTappedListenerHandle;
-    private unrecognizedBarcodeTappedListenerHandle;
-    private captureListCompletedListenerHandle;
     static forBarcodeCount(view: BarcodeCountView): BarcodeCountViewProxy;
     private constructor();
     update(): Promise<void>;

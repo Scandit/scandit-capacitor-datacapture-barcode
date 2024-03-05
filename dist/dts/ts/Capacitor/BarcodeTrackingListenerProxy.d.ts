@@ -3,8 +3,6 @@ export declare class NativeBarcodeTrackingListenerProxy implements BarcodeTracki
     private eventEmitter;
     isModeEnabled: () => boolean;
     constructor();
-    updateBarcodeTrackingMode(modeJson: string): Promise<void>;
-    applyBarcodeTrackingModeSettings(newSettingsJson: string): Promise<void>;
     resetSession(): Promise<void>;
     registerListenerForEvents(): void;
     unregisterListenerForEvents(): void;

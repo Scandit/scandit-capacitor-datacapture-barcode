@@ -48,13 +48,13 @@ class BarcodeCountViewHandler {
         self.webView = webView
     }
 
-    /// Update the constraints that set the position and size of the barcode count view,
-    /// based on a JSON passed in as the argument to a Capacitor command.
+    /// Update the constraints that set the position and size of the capture view,
+    /// based on a JSON passed in as the argument to a Cordova command.
     ///
     /// If the view does not exist yet, the position and size are stored and will be applied to the view
     /// when it's created (and the constraints object is updated with the new view).
     ///
-    /// - Parameter positionAndSizeJSON: The JSON passed to the Capacitor command
+    /// - Parameter positionAndSizeJSON: The JSON passed to the Cordova command
     func updatePositionAndSize(fromJSON positionAndSizeJSON: ViewPositionAndSizeJSON) {
         position = positionAndSizeJSON.position
         size = positionAndSizeJSON.size

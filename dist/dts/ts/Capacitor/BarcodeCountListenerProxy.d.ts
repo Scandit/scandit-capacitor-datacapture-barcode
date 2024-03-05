@@ -2,16 +2,14 @@ import { BarcodeCountListenerProxy } from 'scandit-datacapture-frameworks-barcod
 export declare class NativeBarcodeCountListenerProxy implements BarcodeCountListenerProxy {
     private eventEmitter;
     isModeEnabled: () => boolean;
-    private didScanListenerHandler;
-    private didListSessionUpdateListenerHandler;
     constructor();
     updateMode(barcodeCountJson: string): Promise<void>;
     resetBarcodeCount(): Promise<void>;
     registerBarcodeCountListener(): Promise<void>;
     setModeEnabledState(enabled: boolean): void;
     unregisterBarcodeCountListener(): Promise<void>;
-    subscribeDidScan(): Promise<void>;
-    subscribeDidListSessionUpdate(): Promise<void>;
+    subscribeDidScan(): void;
+    subscribeDidListSessionUpdate(): void;
     finishOnScan(): void;
     startScanningPhase(): void;
     endScanningPhase(): void;
