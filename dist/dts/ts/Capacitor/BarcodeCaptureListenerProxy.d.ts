@@ -2,9 +2,12 @@ import { BarcodeCaptureListenerProxy } from 'scandit-datacapture-frameworks-barc
 export declare class NativeBarcodeCaptureListenerProxy implements BarcodeCaptureListenerProxy {
     private eventEmitter;
     isModeEnabled: () => boolean;
-    private didScanEventListener;
-    private didUpdateSessionEventListener;
+    private didScanListenerHandler;
+    private didUpdateSessionListenerHandler;
     constructor();
+    updateBarcodeCaptureMode(modeJson: string): Promise<void>;
+    applyBarcodeCaptureModeSettings(newSettingsJson: string): Promise<void>;
+    updateBarcodeCaptureOverlay(overlayJson: string): Promise<void>;
     resetSession(): Promise<void>;
     registerListenerForEvents(): void;
     unregisterListenerForEvents(): void;

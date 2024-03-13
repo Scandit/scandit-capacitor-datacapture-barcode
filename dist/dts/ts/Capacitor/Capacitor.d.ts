@@ -32,7 +32,14 @@ export declare enum CapacitorFunction {
     EndBarcodeCountScanningPhase = "endScanningPhase",
     SetBarcodeCountCaptureList = "setBarcodeCountCaptureList",
     SetBarcodeCaptureModeEnabledState = "setBarcodeCaptureModeEnabledState",
-    SetBarcodeTrackingModeEnabledState = "setBarcodeTrackingModeEnabledState"
+    SetBarcodeTrackingModeEnabledState = "setBarcodeTrackingModeEnabledState",
+    UpdateBarcodeCaptureOverlay = "updateBarcodeCaptureOverlay",
+    UpdateBarcodeCaptureMode = "updateBarcodeCaptureMode",
+    ApplyBarcodeCaptureModeSettings = "applyBarcodeCaptureModeSettings",
+    UpdateBarcodeTrackingBasicOverlay = "updateBarcodeTrackingBasicOverlay",
+    UpdateBarcodeTrackingAdvancedOverlay = "updateBarcodeTrackingAdvancedOverlay",
+    UpdateBarcodeTrackingMode = "updateBarcodeTrackingMode",
+    ApplyBarcodeTrackingModeSettings = "applyBarcodeTrackingModeSettings"
 }
 export declare const Capacitor: {
     pluginName: string;
