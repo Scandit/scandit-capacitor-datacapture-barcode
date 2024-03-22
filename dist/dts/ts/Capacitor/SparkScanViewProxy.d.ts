@@ -1,9 +1,13 @@
 import { SparkScanViewFeedback } from 'scandit-datacapture-frameworks-barcode';
 import { SparkScanView } from '../SparkScanView';
+export declare enum SparkScanFeedbackDelegateEvents {
+    feedbackForBarcode = "SparkScanFeedbackDelegate.feedbackForBarcode"
+}
 export declare class SparkScanViewProxy {
     private view;
     private fastFindButtonTappedListenerHandler;
     private barcodeCountButtonTappedListenerHandler;
+    private feedbackForBarcodeHandler;
     private nativeEventSubscriptions;
     static forSparkScanView(view: SparkScanView): SparkScanViewProxy;
     private constructor();
@@ -20,4 +24,8 @@ export declare class SparkScanViewProxy {
     private notifyListeners;
     show(): Promise<void>;
     hide(): Promise<void>;
+    addFeedbackDelegate(): void;
+    private onFeedbackForBarcodeHandler;
+    removeFeedbackDelegate(): void;
+    showToast(text: string): Promise<void>;
 }
