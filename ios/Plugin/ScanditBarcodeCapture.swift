@@ -57,14 +57,12 @@ class ScanditCapacitorBarcode: CAPPlugin {
         )
         barcodeFindModule = BarcodeFindModule(
             listener: FrameworksBarcodeFindListener(emitter: emitter),
-            viewListener: FrameworksBarcodeFindViewUIListener(emitter: emitter),
-            barcodeTransformer: FrameworksBarcodeFindTransformer(emitter: emitter)
+            viewListener: FrameworksBarcodeFindViewUIListener(emitter: emitter)
         )
         barcodePickModule = BarcodePickModule(emitter: emitter)
         sparkScanModule = SparkScanModule(
             sparkScanListener: FrameworksSparkScanListener(emitter: emitter),
-            sparkScanViewUIListener: FrameworksSparkScanViewUIListener(emitter: emitter),
-            feedbackDelegate: FrameworksSparkScanFeedbackDelegate(emitter: emitter)
+            sparkScanViewUIListener: FrameworksSparkScanViewUIListener(emitter: emitter)
         )
 
         barcodeModule.didStart()
@@ -857,7 +855,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
     }
 
     @objc(setPickViewPositionAndSize:)
-    func setPickViewPositionAndSize(_ call: CAPPluginCall) {
+    func setPickViewPosiztionAndSize(_ call: CAPPluginCall) {
         dispatchMainSync {
             let jsonObject = call.getObject("position")
             guard let viewPositionAndSizeJSON = try? ViewPositionAndSizeJSON.fromJSONObject(jsonObject as Any) else {
@@ -894,42 +892,6 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
-    @objc(addScanningListener:)
-    func addScanningListener(_ call: CAPPluginCall) {
-        barcodePickModule.addScanningListener()
-        call.resolve()
-    }
-
-    @objc(removeScanningListener:)
-    func removeScanningListener(_ call: CAPPluginCall) {
-        barcodePickModule.removeScanningListener()
-        call.resolve()
-    }
-
-    @objc(addViewListener:)
-    func addViewListener(_ call: CAPPluginCall) {
-        barcodePickModule.addViewListener()
-        call.resolve()
-    }
-
-    @objc(removeViewListener:)
-    func removeViewListener(_ call: CAPPluginCall) {
-        barcodePickModule.removeViewListener()
-        call.resolve()
-    }
-
-    @objc(registerBarcodePickViewUiListener:)
-    func registerBarcodePickViewUiListener(_ call: CAPPluginCall) {
-        barcodePickModule.addViewUiListener()
-        call.resolve()
-    }
-
-    @objc(unregisterBarcodePickViewUiListener:)
-    func unregisterBarcodePickViewUiListener(_ call: CAPPluginCall) {
-        barcodePickModule.removeViewUiListener()
-        call.resolve()
-    }
-
     @objc(finishOnProductIdentifierForItems:)
     func finishOnProductIdentifierForItems(_ call: CAPPluginCall) {
         let itemsJson = call.options["itemsJson"] as! String
@@ -946,12 +908,6 @@ class ScanditCapacitorBarcode: CAPPlugin {
     @objc(viewStart:)
     func viewStart(_ call: CAPPluginCall) {
         barcodePickModule.viewStart()
-        call.resolve()
-    }
-
-    @objc(viewFreeze:)
-    func viewFreeze(_ call: CAPPluginCall) {
-        barcodePickModule.viewFreeze()
         call.resolve()
     }
 
@@ -1190,31 +1146,6 @@ class ScanditCapacitorBarcode: CAPPlugin {
     @objc(stopSparkScanViewScanning:)
     func stopSparkScanViewScanning(_ call: CAPPluginCall) {
         sparkScanModule.onPause(result: CapacitorResult(call))
-    }
-
-    @objc(addSparkScanFeedbackDelegate:)
-    func addSparkScanFeedbackDelegate(_ call: CAPPluginCall) {
-        sparkScanModule.addFeedbackDelegate(result: CapacitorResult(call))
-    }
-
-    @objc(removeSparkScanFeedbackDelegate:)
-    func removeSparkScanFeedbackDelegate(_ call: CAPPluginCall) {
-        sparkScanModule.removeFeedbackDelegate(result: CapacitorResult(call))
-    }
-
-    @objc(submitSparkScanFeedbackForBarcode:)
-    func submitSparkScanFeedbackForBarcode(_ call: CAPPluginCall) {
-        sparkScanModule.submitFeedbackForBarcode(
-            feedbackJson: call.getString("feedbackJson"),
-            result: CapacitorResult(call))
-    }
-
-    @objc(showToast:)
-    func showToast(_ call: CAPPluginCall) {
-        guard let text = call.getString("text") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        sparkScanModule.showToast(text: text, result: CapacitorResult(call))
+        call.resolve()
     }
 }

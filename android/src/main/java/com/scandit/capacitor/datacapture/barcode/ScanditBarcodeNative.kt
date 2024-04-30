@@ -40,14 +40,12 @@ import com.scandit.datacapture.frameworks.barcode.count.listeners.FrameworksBarc
 import com.scandit.datacapture.frameworks.barcode.find.BarcodeFindModule
 import com.scandit.datacapture.frameworks.barcode.find.listeners.FrameworksBarcodeFindListener
 import com.scandit.datacapture.frameworks.barcode.find.listeners.FrameworksBarcodeFindViewUiListener
-import com.scandit.datacapture.frameworks.barcode.find.transformer.FrameworksBarcodeFindTransformer
 import com.scandit.datacapture.frameworks.barcode.pick.BarcodePickModule
 import com.scandit.datacapture.frameworks.barcode.selection.BarcodeSelectionModule
 import com.scandit.datacapture.frameworks.barcode.selection.listeners.FrameworksBarcodeSelectionAimedBrushProvider
 import com.scandit.datacapture.frameworks.barcode.selection.listeners.FrameworksBarcodeSelectionListener
 import com.scandit.datacapture.frameworks.barcode.selection.listeners.FrameworksBarcodeSelectionTrackedBrushProvider
 import com.scandit.datacapture.frameworks.barcode.spark.SparkScanModule
-import com.scandit.datacapture.frameworks.barcode.spark.delegates.FrameworksSparkScanFeedbackDelegate
 import com.scandit.datacapture.frameworks.barcode.spark.listeners.FrameworksSparkScanListener
 import com.scandit.datacapture.frameworks.barcode.spark.listeners.FrameworksSparkScanViewUiListener
 import com.scandit.datacapture.frameworks.barcode.tracking.BarcodeTrackingModule
@@ -102,16 +100,13 @@ class ScanditBarcodeNative :
     )
     private val barcodeFindModule = BarcodeFindModule(
         FrameworksBarcodeFindListener(this),
-        FrameworksBarcodeFindViewUiListener(this),
-        FrameworksBarcodeFindTransformer(this)
+        FrameworksBarcodeFindViewUiListener(this)
     )
     private val barcodePickModule = BarcodePickModule(
         this
     )
     private val sparkScanModule = SparkScanModule(
-        FrameworksSparkScanListener(this),
-        FrameworksSparkScanViewUiListener(this),
-        FrameworksSparkScanFeedbackDelegate(this)
+        FrameworksSparkScanListener(this), FrameworksSparkScanViewUiListener(this)
     )
 
     private val barcodeCountViewHandler: BarcodeCountViewHandler = BarcodeCountViewHandler()
@@ -828,12 +823,12 @@ class ScanditBarcodeNative :
     fun createFindView(
         call: PluginCall
     ) {
-        val viewJson = call.data
+        val viewJson = call.getObject("View")
 
-        if (viewJson.has("View")) {
+        viewJson?.let {
             val container = barcodeFindViewHandler.prepareContainer(this.context)
 
-            val result = barcodeFindModule.getView(container, viewJson.toString())
+            val result = barcodeFindModule.getView(container, call.data.toString())
             if (result.isFailure) {
                 call.reject(
                     result.exceptionOrNull()?.message
@@ -845,8 +840,8 @@ class ScanditBarcodeNative :
             barcodeFindViewHandler.addBarcodeFindViewContainer(container, bridge.activity)
             barcodeCountViewHandler.render()
             call.resolve()
-        } else {
-            call.reject("missing parameter for createFindView()")
+        } ?: run {
+            error("missing parameter for createFindView()")
         }
     }
 
@@ -1006,36 +1001,6 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
-    fun addScanningListener(call: PluginCall) {
-        barcodePickModule.addScanningListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun removeScanningListener(call: PluginCall) {
-        barcodePickModule.removeScanningListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun addViewListener(call: PluginCall) {
-        barcodePickModule.addViewListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun removeViewListener(call: PluginCall) {
-        barcodePickModule.removeViewListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun registerBarcodePickViewUiListener(call: PluginCall) {
-        barcodePickModule.addViewUiListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun unregisterBarcodePickViewUiListener(call: PluginCall) {
-        barcodePickModule.removeViewUiListener(CapacitorResult(call))
-    }
-
-    @PluginMethod
     fun finishOnProductIdentifierForItems(call: PluginCall) {
         val barcodePickProductProviderCallbackItemsJson =
             JSONArray(call.getString("itemsJson")).toString()
@@ -1056,12 +1021,6 @@ class ScanditBarcodeNative :
         barcodePickModule.viewStart()
         call.resolve()
     }
-
-    @PluginMethod
-    fun viewFreeze(call: PluginCall) {
-        barcodePickModule.viewFreeze(CapacitorResult(call))
-    }
-
 
     @PluginMethod
     fun finishPickAction(call: PluginCall) {
@@ -1275,33 +1234,5 @@ class ScanditBarcodeNative :
     fun stopSparkScanViewScanning(call: PluginCall) {
         sparkScanModule.onPause()
         call.resolve()
-    }
-
-    @PluginMethod
-    fun addSparkScanFeedbackDelegate(call: PluginCall) {
-        sparkScanModule.addFeedbackDelegate(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun removeSparkScanFeedbackDelegate(call: PluginCall) {
-        sparkScanModule.removeFeedbackDelegate(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun submitSparkScanFeedbackForBarcode(call: PluginCall) {
-        sparkScanModule.submitFeedbackForBarcode(
-            call.data.getString("feedbackJson", null),
-            CapacitorResult(call)
-        )
-    }
-
-    @PluginMethod
-    fun showToast(call: PluginCall) {
-        val text = call.data.getString("text")
-            ?: return call.reject(WRONG_INPUT)
-        sparkScanModule.showToast(
-            text,
-            CapacitorResult(call)
-        )
     }
 }

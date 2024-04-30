@@ -1,4 +1,4 @@
-import { SparkScan, SparkScanViewSettings, SparkScanViewFeedback, SparkScanFeedbackDelegate } from 'scandit-datacapture-frameworks-barcode';
+import { SparkScan, SparkScanViewSettings, SparkScanViewFeedback } from 'scandit-datacapture-frameworks-barcode';
 import { DefaultSerializeable } from 'scandit-datacapture-frameworks-core';
 import { DataCaptureContext, Color, Brush } from 'scandit-datacapture-frameworks-core';
 export interface SparkScanViewUiListener {
@@ -13,7 +13,6 @@ export declare class SparkScanView extends DefaultSerializeable {
     private _viewSettings;
     private _shouldShowScanAreaGuides;
     private _brush;
-    private _previewSizeControlVisible;
     private _torchButtonVisible;
     private _scanningBehaviorButtonVisible;
     private _handModeButtonVisible;
@@ -34,8 +33,6 @@ export declare class SparkScanView extends DefaultSerializeable {
     private _toolbarIconInactiveTintColor;
     private _targetModeHintText;
     private _shouldShowTargetModeHint;
-    private _feedbackDelegate;
-    private _hasFeedbackDelegate;
     static forContext(context: DataCaptureContext, sparkScan: SparkScan, settings: SparkScanViewSettings | null): SparkScanView;
     static get defaultBrush(): Brush;
     private constructor();
@@ -43,8 +40,6 @@ export declare class SparkScanView extends DefaultSerializeable {
     set shouldShowScanAreaGuides(newValue: boolean);
     get brush(): Brush;
     set brush(newValue: Brush);
-    get previewSizeControlVisible(): boolean;
-    set previewSizeControlVisible(newValue: boolean);
     get torchButtonVisible(): boolean;
     set torchButtonVisible(newValue: boolean);
     get scanningBehaviorButtonVisible(): boolean;
@@ -96,8 +91,5 @@ export declare class SparkScanView extends DefaultSerializeable {
     hide(): Promise<void>;
     private _show;
     private _hide;
-    get feedbackDelegate(): SparkScanFeedbackDelegate | null;
-    set feedbackDelegate(delegate: SparkScanFeedbackDelegate | null);
-    showToast(text: string): Promise<void>;
     private static get sparkScanDefaults();
 }
