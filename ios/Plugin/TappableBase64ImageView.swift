@@ -4,7 +4,7 @@
  * Copyright (C) 2023- Scandit AG. All rights reserved.
  */
 
-import ScanditFrameworksBarcode
+import ScanditFrameworksCore
 import UIKit
 
 class TappableBase64ImageView: UIImageView, TappableView {
