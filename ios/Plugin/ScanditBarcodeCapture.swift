@@ -667,24 +667,6 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
-    @objc(setBarcodeTransformer:)
-    func setBarcodeTransformer(_ call: CAPPluginCall) {
-        barcodeFindModule.setBarcodeFindTransformer(result: CapacitorResult(call))
-    }
-
-
-    @objc(submitBarcodeFindTransformerResult:)
-    func submitBarcodeFindTransformerResult(_ call: CAPPluginCall) {
-        guard let transformedBarcode = call.getString("transformedBarcode") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeFindModule.submitBarcodeFindTransformerResult(
-            transformedData: transformedBarcode,
-            result: CapacitorResult(call)
-        )
-    }
-
     @objc(getSpatialMap:)
     func getSpatialMap(_ call: CAPPluginCall) {
         call.resolve(["data": barcodeCountModule.getSpatialMap()?.jsonString as Any])
@@ -955,8 +937,8 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
-    @objc(viewStop:)
-    func viewStop(_ call: CAPPluginCall) {
+    @objc(viewPause:)
+    func viewPause(_ call: CAPPluginCall) {
         barcodePickModule.viewPause()
         call.resolve()
     }
