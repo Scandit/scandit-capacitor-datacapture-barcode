@@ -104,6 +104,7 @@ CAP_PLUGIN(
     CAP_PLUGIN_METHOD(subscribeBrushForTrackedBarcode, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getSpatialMap, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getSpatialMapWithHints, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(setBarcodeTransformer, CAPPluginReturnPromise);
     // Barcode Pick
     CAP_PLUGIN_METHOD(createPickView, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(updatePickView, CAPPluginReturnPromise);
@@ -117,7 +118,7 @@ CAP_PLUGIN(
     CAP_PLUGIN_METHOD(unregisterBarcodePickViewUiListener, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(finishOnProductIdentifierForItems, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setPickViewPositionAndSize, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(viewPause, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(viewStop, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(viewStart, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(viewFreeze, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(finishPickAction, CAPPluginReturnPromise);
