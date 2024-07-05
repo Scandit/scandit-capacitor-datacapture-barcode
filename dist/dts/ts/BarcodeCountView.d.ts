@@ -94,6 +94,8 @@ export declare class BarcodeCountView extends DefaultSerializeable {
     set textForMoveCloserAndRescanHint(newValue: string);
     get textForMoveFurtherAndRescanHint(): string;
     set textForMoveFurtherAndRescanHint(newValue: string);
+    get shouldShowListProgressBar(): boolean;
+    set shouldShowListProgressBar(newValue: boolean);
     get textForUnrecognizedBarcodesDetectedHint(): string;
     set textForUnrecognizedBarcodesDetectedHint(newValue: string);
     private _barcodeCount;
@@ -140,6 +142,7 @@ export declare class BarcodeCountView extends DefaultSerializeable {
     private _textForScanningHint;
     private _textForMoveCloserAndRescanHint;
     private _textForMoveFurtherAndRescanHint;
+    private _shouldShowListProgressBar;
     private _textForUnrecognizedBarcodesDetectedHint;
     private _toolbarSettings;
     private htmlElement;

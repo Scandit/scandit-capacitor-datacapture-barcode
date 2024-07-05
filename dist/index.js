@@ -388,6 +388,7 @@ Capacitor$1.Plugins;
 class WebPlugin {
     constructor(config) {
         this.listeners = {};
+        this.retainedEventArguments = {};
         this.windowListeners = {};
         if (config) {
             // TODO: add link to upgrade guide
@@ -396,9 +397,11 @@ class WebPlugin {
         }
     }
     addListener(eventName, listenerFunc) {
+        let firstListener = false;
         const listeners = this.listeners[eventName];
         if (!listeners) {
             this.listeners[eventName] = [];
+            firstListener = true;
         }
         this.listeners[eventName].push(listenerFunc);
         // If we haven't added a window listener for this event and it requires one,
@@ -407,14 +410,11 @@ class WebPlugin {
         if (windowListener && !windowListener.registered) {
             this.addWindowListener(windowListener);
         }
+        if (firstListener) {
+            this.sendRetainedArgumentsForEvent(eventName);
+        }
         const remove = async () => this.removeListener(eventName, listenerFunc);
         const p = Promise.resolve({ remove });
-        Object.defineProperty(p, 'remove', {
-            value: async () => {
-                console.warn(`Using addListener() without 'await' is deprecated.`);
-                await remove();
-            },
-        });
         return p;
     }
     async removeAllListeners() {
@@ -424,11 +424,20 @@ class WebPlugin {
         }
         this.windowListeners = {};
     }
-    notifyListeners(eventName, data) {
+    notifyListeners(eventName, data, retainUntilConsumed) {
         const listeners = this.listeners[eventName];
-        if (listeners) {
-            listeners.forEach(listener => listener(data));
+        if (!listeners) {
+            if (retainUntilConsumed) {
+                let args = this.retainedEventArguments[eventName];
+                if (!args) {
+                    args = [];
+                }
+                args.push(data);
+                this.retainedEventArguments[eventName] = args;
+            }
+            return;
         }
+        listeners.forEach(listener => listener(data));
     }
     hasListeners(eventName) {
         return !!this.listeners[eventName].length;
@@ -472,6 +481,16 @@ class WebPlugin {
         }
         window.removeEventListener(handle.windowEventName, handle.handler);
         handle.registered = false;
+    }
+    sendRetainedArgumentsForEvent(eventName) {
+        const args = this.retainedEventArguments[eventName];
+        if (!args) {
+            return;
+        }
+        delete this.retainedEventArguments[eventName];
+        args.forEach(arg => {
+            this.notifyListeners(eventName, arg);
+        });
     }
 }
 /******** END WEB VIEW PLUGIN ********/
@@ -635,7 +654,8 @@ const buildRequestInit = (options, extra = {}) => {
         }
         output.body = params.toString();
     }
-    else if (type.includes('multipart/form-data')) {
+    else if (type.includes('multipart/form-data') ||
+        options.data instanceof FormData) {
         const form = new FormData();
         if (options.data instanceof FormData) {
             options.data.forEach((value, key) => {
@@ -3012,6 +3032,13 @@ class BarcodeCountView extends DefaultSerializeable {
         this._textForMoveFurtherAndRescanHint = newValue;
         this.updateNative();
     }
+    get shouldShowListProgressBar() {
+        return this._shouldShowListProgressBar;
+    }
+    set shouldShowListProgressBar(newValue) {
+        this._shouldShowListProgressBar = newValue;
+        this.updateNative();
+    }
     get textForUnrecognizedBarcodesDetectedHint() {
         return this._textForUnrecognizedBarcodesDetectedHint;
     }
@@ -3090,6 +3117,7 @@ class BarcodeCountView extends DefaultSerializeable {
         this._textForScanningHint = BarcodeCountDefaults.BarcodeCountView.textForScanningHint;
         this._textForMoveCloserAndRescanHint = BarcodeCountDefaults.BarcodeCountView.textForMoveCloserAndRescanHint;
         this._textForMoveFurtherAndRescanHint = BarcodeCountDefaults.BarcodeCountView.textForMoveFurtherAndRescanHint;
+        this._shouldShowListProgressBar = BarcodeCountDefaults.BarcodeCountView.shouldShowListProgressBar;
         this._textForUnrecognizedBarcodesDetectedHint = BarcodeCountDefaults.BarcodeCountView.textForUnrecognizedBarcodesDetectedHint;
         this._toolbarSettings = null;
         this.htmlElement = null;
@@ -3324,6 +3352,9 @@ __decorate([
 __decorate([
     nameForSerialization('textForMoveFurtherAndRescanHint')
 ], BarcodeCountView.prototype, "_textForMoveFurtherAndRescanHint", void 0);
+__decorate([
+    nameForSerialization('shouldShowListProgressBar')
+], BarcodeCountView.prototype, "_shouldShowListProgressBar", void 0);
 __decorate([
     nameForSerialization('textForUnrecognizedBarcodesDetectedHint')
 ], BarcodeCountView.prototype, "_textForUnrecognizedBarcodesDetectedHint", void 0);
