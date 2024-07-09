@@ -1,9 +1,38 @@
-import { Brush, Color, DataCaptureContext } from 'scandit-datacapture-frameworks-core';
-import { SparkScan, SparkScanFeedbackDelegate, SparkScanViewFeedback, SparkScanViewSettings, SparkScanViewUiListener } from 'scandit-datacapture-frameworks-barcode';
-export declare class SparkScanView {
-    private baseSparkScanView;
-    get uiListener(): SparkScanViewUiListener | null;
-    set uiListener(newValue: SparkScanViewUiListener | null);
+import { SparkScan, SparkScanViewSettings, SparkScanViewFeedback } from 'scandit-datacapture-frameworks-barcode';
+import { DefaultSerializeable } from 'scandit-datacapture-frameworks-core';
+import { DataCaptureContext, Color, Brush } from 'scandit-datacapture-frameworks-core';
+export interface SparkScanViewUiListener {
+    didTapFastFindButton?(view: SparkScanView): void;
+    didTapBarcodeCountButton?(view: SparkScanView): void;
+}
+export declare class SparkScanView extends DefaultSerializeable {
+    private _sparkScan;
+    private _context;
+    private viewProxy;
+    uiListener: SparkScanViewUiListener | null;
+    private _viewSettings;
+    private _shouldShowScanAreaGuides;
+    private _brush;
+    private _torchButtonVisible;
+    private _scanningBehaviorButtonVisible;
+    private _handModeButtonVisible;
+    private _barcodeCountButtonVisible;
+    private _fastFindButtonVisible;
+    private _targetModeButtonVisible;
+    private _soundModeButtonVisible;
+    private _hapticModeButtonVisible;
+    private _stopCapturingText;
+    private _startCapturingText;
+    private _resumeCapturingText;
+    private _scanningCapturingText;
+    private _captureButtonActiveBackgroundColor;
+    private _captureButtonBackgroundColor;
+    private _captureButtonTintColor;
+    private _toolbarBackgroundColor;
+    private _toolbarIconActiveTintColor;
+    private _toolbarIconInactiveTintColor;
+    private _targetModeHintText;
+    private _shouldShowTargetModeHint;
     static forContext(context: DataCaptureContext, sparkScan: SparkScan, settings: SparkScanViewSettings | null): SparkScanView;
     static get defaultBrush(): Brush;
     private constructor();
@@ -11,8 +40,6 @@ export declare class SparkScanView {
     set shouldShowScanAreaGuides(newValue: boolean);
     get brush(): Brush;
     set brush(newValue: Brush);
-    get previewSizeControlVisible(): boolean;
-    set previewSizeControlVisible(newValue: boolean);
     get torchButtonVisible(): boolean;
     set torchButtonVisible(newValue: boolean);
     get scanningBehaviorButtonVisible(): boolean;
@@ -53,18 +80,16 @@ export declare class SparkScanView {
     set targetModeHintText(newValue: string | null);
     get shouldShowTargetModeHint(): boolean;
     set shouldShowTargetModeHint(newValue: boolean);
-    get cameraSwitchButtonVisible(): boolean;
-    set cameraSwitchButtonVisible(newValue: boolean);
     emitFeedback(feedback: SparkScanViewFeedback): void;
     prepareScanning(): void;
     startScanning(): void;
     pauseScanning(): void;
     stopScanning(): void;
+    private update;
     dispose(): void;
     show(): Promise<void>;
     hide(): Promise<void>;
-    get feedbackDelegate(): SparkScanFeedbackDelegate | null;
-    set feedbackDelegate(delegate: SparkScanFeedbackDelegate | null);
-    showToast(text: string): Promise<void>;
-    private toJSON;
+    private _show;
+    private _hide;
+    private static get sparkScanDefaults();
 }

@@ -104,23 +104,15 @@ CAP_PLUGIN(
     CAP_PLUGIN_METHOD(subscribeBrushForTrackedBarcode, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getSpatialMap, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getSpatialMapWithHints, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(setBarcodeTransformer, CAPPluginReturnPromise);
     // Barcode Pick
     CAP_PLUGIN_METHOD(createPickView, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(updatePickView, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(addActionListener, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(removeActionListener, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(addScanningListener, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(removeScanningListener, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(addViewListener, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(removeViewListener, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(registerBarcodePickViewUiListener, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(unregisterBarcodePickViewUiListener, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(finishOnProductIdentifierForItems, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setPickViewPositionAndSize, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(viewStop, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(viewPause, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(viewStart, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(viewFreeze, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(finishPickAction, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(findNodeHandle, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(showPickView, CAPPluginReturnPromise);
@@ -154,8 +146,4 @@ CAP_PLUGIN(
     CAP_PLUGIN_METHOD(prepareSparkScanViewScanning, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(startSparkScanViewScanning, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(pauseSparkScanViewScanning, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(stopSparkScanViewScanning, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(addSparkScanFeedbackDelegate, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(removeSparkScanFeedbackDelegate, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(submitSparkScanFeedbackForBarcode, CAPPluginReturnPromise);
-    CAP_PLUGIN_METHOD(showToast, CAPPluginReturnPromise);)
+    CAP_PLUGIN_METHOD(stopSparkScanViewScanning, CAPPluginReturnPromise);)

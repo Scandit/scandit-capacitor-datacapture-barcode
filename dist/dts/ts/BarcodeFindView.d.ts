@@ -35,10 +35,6 @@ export declare class BarcodeFindView {
     set textForCollapseCardsButton(value: string | null);
     get textForAllItemsFoundSuccessfullyHint(): string | null;
     set textForAllItemsFoundSuccessfullyHint(value: string | null);
-    get textForItemListUpdatedHint(): string | null;
-    set textForItemListUpdatedHint(value: string | null);
-    get textForItemListUpdatedWhenPausedHint(): string | null;
-    set textForItemListUpdatedWhenPausedHint(value: string | null);
     get textForPointAtBarcodesToSearchHint(): string | null;
     set textForPointAtBarcodesToSearchHint(value: string | null);
     get textForMoveCloserToBarcodesHint(): string | null;
