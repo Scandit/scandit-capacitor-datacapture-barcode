@@ -1,4 +1,4 @@
-import { BarcodePick, BarcodePickViewSettings, BarcodePickActionListener } from 'scandit-datacapture-frameworks-barcode';
+import { BarcodePick, BarcodePickViewSettings, BarcodePickActionListener, BarcodePickViewUiListener, BarcodePickViewListener } from 'scandit-datacapture-frameworks-barcode';
 import { CameraSettings, DataCaptureContext, DefaultSerializeable } from 'scandit-datacapture-frameworks-core';
 interface BarcodePickViewProps {
     context: DataCaptureContext;
@@ -15,6 +15,8 @@ export declare class BarcodePickView extends DefaultSerializeable {
     private domObserver;
     private scrollListener;
     constructor(props: BarcodePickViewProps);
+    get uiListener(): BarcodePickViewUiListener | null;
+    set uiListener(value: BarcodePickViewUiListener | null);
     private orientationChangeListener;
     private set htmlElementState(value);
     private get htmlElementState();
@@ -25,8 +27,12 @@ export declare class BarcodePickView extends DefaultSerializeable {
     private elementDidChange;
     private updatePositionAndSize;
     start(): void;
-    pause(): void;
+    stop(): void;
+    freeze(): void;
+    addListener(listener: BarcodePickViewListener): void;
+    removeListener(listener: BarcodePickViewListener): void;
     addActionListener(listener: BarcodePickActionListener): void;
     removeActionListener(listener: BarcodePickActionListener): void;
+    release(): void;
 }
 export {};
