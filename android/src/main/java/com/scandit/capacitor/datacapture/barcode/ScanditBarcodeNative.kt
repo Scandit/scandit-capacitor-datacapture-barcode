@@ -71,6 +71,7 @@ import org.json.JSONObject
 )
 class ScanditBarcodeNative :
     Plugin(),
+    DeserializationLifecycleObserver.Observer,
     Emitter {
 
     companion object {
@@ -137,6 +138,8 @@ class ScanditBarcodeNative :
             barcodeFindViewHandler.attachWebView(bridge.webView)
             barcodePickViewHandler.attachWebView(bridge.webView, bridge.activity)
         }
+        DeserializationLifecycleObserver.attach(this)
+
         barcodeModule.onCreate(context)
         barcodeCaptureModule.onCreate(context)
         barcodeTrackingModule.onCreate(context)
@@ -161,13 +164,11 @@ class ScanditBarcodeNative :
     override fun handleOnPause() {
         super.handleOnPause()
         barcodeFindModule.viewOnPause(CapacitorNoopResult())
-        barcodePickModule.viewOnPause()
     }
 
     override fun handleOnResume() {
         super.handleOnResume()
         barcodeFindModule.viewOnResume(CapacitorNoopResult())
-        barcodePickModule.viewOnResume()
     }
 
     @PluginMethod
@@ -699,11 +700,6 @@ class ScanditBarcodeNative :
 
     @PluginMethod
     fun setBarcodeCountCaptureList(call: PluginCall) {
-        if (!call.data.has("TargetBarcodes") || call.data.getJSONArray("TargetBarcodes").length() == 0) {
-            call.reject("No data provided")
-            return
-        }
-
         val barcodes = call.data.getJSONArray("TargetBarcodes")
         barcodeCountModule.setBarcodeCountCaptureList(barcodes)
         call.resolve()
@@ -956,17 +952,6 @@ class ScanditBarcodeNative :
         call.resolve()
     }
 
-    @PluginMethod
-    fun setBarcodeTransformer(call: PluginCall) {
-        barcodeFindModule.setBarcodeFindTransformer(CapacitorResult(call))
-    }
-
-    @PluginMethod
-    fun submitBarcodeFindTransformerResult(call: PluginCall) {
-        val transformedBarcode = call.data.optString("transformedBarcode", null)
-        barcodeFindModule.submitBarcodeFindTransformerResult(transformedBarcode, CapacitorResult(call))
-    }
-
     //endregion
 
     //region BarcodePick
@@ -1061,6 +1046,12 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
+    fun viewPause(call: PluginCall) {
+        barcodePickModule.viewPause()
+        call.resolve()
+    }
+
+    @PluginMethod
     fun viewStart(call: PluginCall) {
         barcodePickModule.viewStart()
         call.resolve()
@@ -1071,11 +1062,6 @@ class ScanditBarcodeNative :
         barcodePickModule.viewFreeze(CapacitorResult(call))
     }
 
-    @PluginMethod
-    fun pickViewStop(call: PluginCall) {
-        barcodePickModule.viewStop()
-        call.resolve()
-    }
 
     @PluginMethod
     fun finishPickAction(call: PluginCall) {

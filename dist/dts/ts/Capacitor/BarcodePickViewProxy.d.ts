@@ -16,8 +16,6 @@ export declare class NativeBarcodePickViewProxy extends BaseNativeProxy implemen
     findNodeHandle(_view?: BarcodePickView | undefined): number | null;
     viewStart(): Promise<void>;
     viewPause(): Promise<void>;
-    viewResume(): Promise<void>;
-    viewStop(): Promise<void>;
     viewFreeze(): Promise<void>;
     finishPickAction(code: string, result: boolean): Promise<void>;
     createView(_: number | null, json: string): Promise<void>;
