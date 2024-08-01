@@ -8,7 +8,7 @@ export declare class NativeSparkScanListenerProxy implements SparkScanListenerPr
     resetSession(): Promise<void>;
     updateMode(sparkScanJson: string): Promise<void>;
     registerListenerForEvents(): void;
-    unregisterListenerForEvents(): void;
+    unregisterListenerForEvents(): Promise<void>;
     subscribeDidUpdateSessionListener(): void;
     subscribeDidScanListener(): void;
     finishDidUpdateSessionCallback(enabled: boolean): Promise<void>;

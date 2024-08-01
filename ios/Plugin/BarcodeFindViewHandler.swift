@@ -120,9 +120,17 @@ class BarcodeFindViewHandler {
         }
 
         if shouldBeUnderWebView {
+            #if swift(>=5.0)
             barcodeFindView.superview?.sendSubviewToBack(barcodeFindView)
+            #else
+            barcodeFindView.superview?.sendSubview(toBack: barcodeFindView)
+            #endif
         } else {
+            #if swift(>=5.0)
             barcodeFindView.superview?.bringSubviewToFront(barcodeFindView)
+            #else
+            barcodeFindView.superview?.bringSubview(toFront: barcodeFindView)
+            #endif
         }
     }
 }
