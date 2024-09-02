@@ -621,7 +621,7 @@ class ScanditBarcodeNative :
             return
         }
 
-        barcodeCountModule.updateBarcodeCountView(call.data["View"].toString())
+        barcodeCountModule.updateBarcodeCountView(call.data["BarcodeCountView"].toString())
         call.resolve()
     }
 
