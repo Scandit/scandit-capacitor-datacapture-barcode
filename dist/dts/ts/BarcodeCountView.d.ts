@@ -1,5 +1,5 @@
 import { BarcodeCount } from 'scandit-datacapture-frameworks-barcode';
-import { DefaultSerializeable } from 'scandit-datacapture-frameworks-core';
+import { Anchor, DefaultSerializeable } from 'scandit-datacapture-frameworks-core';
 import { BarcodeCountViewListener, BarcodeCountViewUiListener, BarcodeCountToolbarSettings } from 'scandit-datacapture-frameworks-barcode';
 import { Brush } from 'scandit-datacapture-frameworks-core';
 import { BarcodeFilterHighlightSettings } from 'scandit-datacapture-frameworks-barcode';
@@ -98,6 +98,10 @@ export declare class BarcodeCountView extends DefaultSerializeable {
     set shouldShowListProgressBar(newValue: boolean);
     get textForUnrecognizedBarcodesDetectedHint(): string;
     set textForUnrecognizedBarcodesDetectedHint(newValue: string);
+    get shouldShowTorchControl(): boolean;
+    set shouldShowTorchControl(newValue: boolean);
+    get torchControlPosition(): Anchor;
+    set torchControlPosition(newValue: Anchor);
     private _barcodeCount;
     private _context;
     private viewProxy;
@@ -145,6 +149,8 @@ export declare class BarcodeCountView extends DefaultSerializeable {
     private _shouldShowListProgressBar;
     private _textForUnrecognizedBarcodesDetectedHint;
     private _toolbarSettings;
+    private _shouldShowTorchControl;
+    private _torchControlPosition;
     private htmlElement;
     private _htmlElementState;
     private set htmlElementState(value);

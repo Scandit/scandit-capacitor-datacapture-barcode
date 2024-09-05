@@ -5,6 +5,7 @@
  */
 package com.scandit.capacitor.datacapture.barcode
 
+import android.Manifest
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
@@ -12,10 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import com.getcapacitor.JSObject
+import com.getcapacitor.PermissionState
 import com.getcapacitor.Plugin
 import com.getcapacitor.PluginCall
+import com.getcapacitor.PluginHandle
 import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
+import com.getcapacitor.annotation.Permission
+import com.getcapacitor.annotation.PermissionCallback
 import com.scandit.capacitor.datacapture.barcode.count.BarcodeCountViewHandler
 import com.scandit.capacitor.datacapture.barcode.factories.BarcodeCaptureActionFactory
 import com.scandit.capacitor.datacapture.barcode.find.BarcodeFindViewHandler
@@ -67,7 +72,10 @@ import org.json.JSONException
 import org.json.JSONObject
 
 @CapacitorPlugin(
-    name = "ScanditBarcodeNative"
+    name = "ScanditBarcodeNative",
+    permissions = [
+        Permission(strings = [Manifest.permission.CAMERA], alias = "camera")
+    ]
 )
 class ScanditBarcodeNative :
     Plugin(),
@@ -81,6 +89,7 @@ class ScanditBarcodeNative :
         private const val WEB_VIEW_NOT_ATTACHED = "WebView not attached yet"
     }
 
+    private var corePlugin: PluginHandle? = null
     private val barcodeModule = BarcodeModule()
     private val barcodeCaptureModule = BarcodeCaptureModule(FrameworksBarcodeCaptureListener(this))
     private val barcodeTrackingModule = BarcodeTrackingModule(
@@ -124,9 +133,9 @@ class ScanditBarcodeNative :
         super.load()
 
         // We need to register the plugin with its Core dependency for serializers to load.
-        val corePlugin = bridge.getPlugin(CORE_PLUGIN_NAME)
+        corePlugin = bridge.getPlugin(CORE_PLUGIN_NAME)
         if (corePlugin != null) {
-            (corePlugin.instance as ScanditCaptureCoreNative).registerPluginInstance(
+            (corePlugin!!.instance as ScanditCaptureCoreNative).registerPluginInstance(
                 pluginHandle.instance
             )
         } else {
@@ -168,6 +177,28 @@ class ScanditBarcodeNative :
         super.handleOnResume()
         barcodeFindModule.viewOnResume(CapacitorNoopResult())
         barcodePickModule.viewOnResume()
+    }
+
+    private fun checkCameraPermission(): Boolean =
+        getPermissionState("camera") == PermissionState.GRANTED
+
+    fun checkOrRequestCameraPermissions(call: PluginCall) {
+        if (!checkCameraPermission()) {
+            requestPermissionForAlias("camera", call, "onCameraPermissionResult")
+        } else {
+            onCameraPermissionResult(call)
+        }
+    }
+
+    @Suppress("unused")
+    @PermissionCallback
+    private fun onCameraPermissionResult(call: PluginCall) {
+        if (checkCameraPermission()) {
+            call.resolve()
+            return
+        }
+
+        call.reject("Camera permissions not granted.")
     }
 
     @PluginMethod
@@ -621,7 +652,7 @@ class ScanditBarcodeNative :
             return
         }
 
-        barcodeCountModule.updateBarcodeCountView(call.data["BarcodeCountView"].toString())
+        barcodeCountModule.updateBarcodeCountView(call.data["View"].toString())
         call.resolve()
     }
 
@@ -1177,6 +1208,7 @@ class ScanditBarcodeNative :
         }
 
         sparkScanModule.sparkScanView?.bringToFront()
+        checkOrRequestCameraPermissions(call)
     }
 
     @PluginMethod
