@@ -9,6 +9,7 @@ export declare class NativeBarcodeCountListenerProxy implements BarcodeCountList
     resetBarcodeCount(): Promise<void>;
     registerBarcodeCountListener(): Promise<void>;
     setModeEnabledState(enabled: boolean): void;
+    updateFeedback(feedbackJson: string): void;
     unregisterBarcodeCountListener(): Promise<void>;
     subscribeDidScan(): Promise<void>;
     subscribeDidListSessionUpdate(): Promise<void>;

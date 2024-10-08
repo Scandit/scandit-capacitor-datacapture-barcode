@@ -787,6 +787,16 @@ class ScanditBarcodeNative :
         call.resolve()
     }
 
+    @PluginMethod
+    fun updateBarcodeCountFeedback(call: PluginCall) {
+        val feedbackJson = call.data.getString("feedbackJson")
+        if (feedbackJson.isNullOrBlank()) {
+            call.reject("No feedbackJson was provided for the function.")
+            return
+        }
+        barcodeCountModule.updateFeedback(feedbackJson, CapacitorResult(call))
+    }
+
     //endregion
 
     @PluginMethod
@@ -996,6 +1006,16 @@ class ScanditBarcodeNative :
     fun submitBarcodeFindTransformerResult(call: PluginCall) {
         val transformedBarcode = call.data.optString("transformedBarcode", null)
         barcodeFindModule.submitBarcodeFindTransformerResult(transformedBarcode, CapacitorResult(call))
+    }
+
+    @PluginMethod
+    fun updateBarcodeFindFeedback(call: PluginCall) {
+        val feedbackJson = call.data.getString("feedbackJson")
+        if (feedbackJson.isNullOrBlank()) {
+            call.reject("No feedbackJson was provided for the function.")
+            return
+        }
+        barcodeFindModule.updateFeedback(feedbackJson, CapacitorResult(call))
     }
 
     //endregion

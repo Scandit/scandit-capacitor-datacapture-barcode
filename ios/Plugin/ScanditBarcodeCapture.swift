@@ -685,6 +685,18 @@ class ScanditCapacitorBarcode: CAPPlugin {
         )
     }
 
+    @objc(updateBarcodeFindFeedback:)
+    func updateBarcodeFindFeedback(_ call: CAPPluginCall) {
+        guard let feedbackJson = call.getString("feedbackJson") else {
+            call.reject(CommandError.invalidJSON.toJSONString())
+            return
+        }
+        barcodeFindModule.updateFeedback(
+            feedbackJson: feedbackJson,
+            result: CapacitorResult(call)
+        )
+    }
+
     @objc(getSpatialMap:)
     func getSpatialMap(_ call: CAPPluginCall) {
         call.resolve(["data": barcodeCountModule.getSpatialMap()?.jsonString as Any])
@@ -711,6 +723,16 @@ class ScanditCapacitorBarcode: CAPPlugin {
     func setBarcodeCountModeEnabledState(_ call: CAPPluginCall) {
         barcodeCountModule.setModeEnabled(enabled: call.getBool("enabled", false))
         call.resolve()
+    }
+
+    @objc(updateBarcodeCountFeedback:)
+    func updateBarcodeCountFeedback(_ call: CAPPluginCall) {
+        if let feedbackJson = call.getString("feedbackJson") {
+            barcodeCountModule.updateFeedback(feedbackJson: feedbackJson, result: CapacitorResult(call))
+            return
+        }
+       
+        call.reject("No feedbackJson was provided for the function.")
     }
 
     @objc(setBarcodeTrackingModeEnabledState:)

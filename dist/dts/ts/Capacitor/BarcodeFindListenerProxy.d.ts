@@ -13,5 +13,6 @@ export declare class NativeBarcodeFindListenerProxy extends BaseNativeProxy impl
     submitBarcodeFindTransformerResult(transformedBarcode: string | null): Promise<void>;
     subscribeBarcodeFindListener(): Promise<void>;
     unsubscribeBarcodeFindListener(): Promise<void>;
+    updateFeedback(feedbackJson: string): Promise<void>;
     private notifyListeners;
 }

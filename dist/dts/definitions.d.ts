@@ -27,7 +27,7 @@ export { SparkScanView } from './ts/SparkScanView';
 export { BarcodePickView } from './ts/BarcodePickView';
 export { BarcodePick, BarcodePickActionCallback, BarcodePickActionListener, BarcodePickAsyncMapperProductProvider, BarcodePickAsyncMapperProductProviderCallback, BarcodePickIconStyle, BarcodePickProduct, BarcodePickProductProvider, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodePickScanningListener, BarcodePickScanningSession, BarcodePickSettings, BarcodePickState, BarcodePickViewHighlightStyle, BarcodePickViewListener, BarcodePickViewSettings, BarcodePickViewUiListener } from 'scandit-datacapture-frameworks-barcode';
-export { Dot, DotWithIcons, Rectangular, RectangularWithIcons } from 'scandit-datacapture-frameworks-barcode';
+export { Dot, DotWithIcons, Rectangular, RectangularWithIcons, BarcodePickStatusIconSettings } from 'scandit-datacapture-frameworks-barcode';
 export type Optional<T> = T | null;
 export interface SymbologySettingsJSON {
     enabled: boolean;
@@ -103,6 +103,9 @@ export interface ScanditBarcodeCountNativeInterface {
     setBarcodeCountModeEnabledState(data: {
         enabled: boolean;
     }): void;
+    updateBarcodeCountFeedback(data: {
+        feedbackJson: string;
+    }): void;
 }
 export interface ScanditBarcodeSelectionNativeInterface {
     selectAimedBarcode(): Promise<void>;
@@ -174,7 +177,12 @@ export interface ScanditBarcodeFindNativeInterface {
     showFindView(): Promise<void>;
     hideFindView(): Promise<void>;
     setBarcodeTransformer(): Promise<void>;
-    submitBarcodeFindTransformerResult(transformedBarcode: string | null): Promise<void>;
+    submitBarcodeFindTransformerResult(data: {
+        transformedBarcode: string | null;
+    }): Promise<void>;
+    updateBarcodeFindFeedback(data: {
+        feedbackJson: string;
+    }): Promise<void>;
 }
 export interface ScanditBarcodePickNativeInterface {
     finishOnProductIdentifierForItems(data: {

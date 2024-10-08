@@ -67,6 +67,7 @@ CAP_PLUGIN(
                       CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeFindModeEnabledState, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeCountModeEnabledState, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeCountFeedback, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeTrackingModeEnabledState, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeSelectionModeEnabledState, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeCaptureModeEnabledState, CAPPluginReturnPromise);
@@ -105,6 +106,8 @@ CAP_PLUGIN(
     CAP_PLUGIN_METHOD(getSpatialMap, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getSpatialMapWithHints, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setBarcodeTransformer, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(submitBarcodeFindTransformerResult, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(updateBarcodeFindFeedback, CAPPluginReturnPromise);
     // Barcode Pick
     CAP_PLUGIN_METHOD(createPickView, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(updatePickView, CAPPluginReturnPromise);
