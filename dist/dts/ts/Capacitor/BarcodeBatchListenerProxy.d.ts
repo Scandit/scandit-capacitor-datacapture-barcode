@@ -1,10 +1,10 @@
-import { BarcodeTrackingListenerProxy } from 'scandit-datacapture-frameworks-barcode';
-export declare class NativeBarcodeTrackingListenerProxy implements BarcodeTrackingListenerProxy {
+import { BarcodeBatchListenerProxy } from 'scandit-datacapture-frameworks-barcode';
+export declare class NativeBarcodeBatchListenerProxy implements BarcodeBatchListenerProxy {
     private eventEmitter;
     isModeEnabled: () => boolean;
     constructor();
-    updateBarcodeTrackingMode(modeJson: string): Promise<void>;
-    applyBarcodeTrackingModeSettings(newSettingsJson: string): Promise<void>;
+    updateBarcodeBatchMode(modeJson: string): Promise<void>;
+    applyBarcodeBatchModeSettings(newSettingsJson: string): Promise<void>;
     resetSession(): Promise<void>;
     registerListenerForEvents(): void;
     unregisterListenerForEvents(): void;
