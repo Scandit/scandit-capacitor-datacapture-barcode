@@ -10,5 +10,4 @@ export declare class NativeBarcodeSelectionProxy implements BarcodeSelectionProx
     setModeEnabledState(enabled: boolean): void;
     updateBarcodeSelectionMode(modeJson: string): Promise<void>;
     applyBarcodeSelectionModeSettings(newSettingsJson: string): Promise<void>;
-    updateFeedback(feedbackJson: string): Promise<void>;
 }
