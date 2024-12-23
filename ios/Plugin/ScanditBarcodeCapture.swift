@@ -16,13 +16,12 @@ class ScanditCapacitorBarcode: CAPPlugin {
     private let barcodeModule = BarcodeModule()
     private let brushProviderQueue = DispatchQueue(label: "com.scandit.frameworks.capacitor.brushprovider")
     private var barcodeCaptureModule: BarcodeCaptureModule!
-    private var barcodeBatchModule: BarcodeBatchModule!
+    private var barcodeTrackingModule: BarcodeTrackingModule!
     private var barcodeSelectionModule: BarcodeSelectionModule!
     private var barcodeCountModule: BarcodeCountModule!
     private var barcodeFindModule: BarcodeFindModule!
     private var barcodePickModule: BarcodePickModule!
     private var sparkScanModule: SparkScanModule!
-    private var barcodeGeneratorModule: BarcodeGeneratorModule!
 
     private var barcodeCountViewHandler: BarcodeCountViewHandler!
     private var barcodeFindViewHandler: BarcodeFindViewHandler!
@@ -33,10 +32,10 @@ class ScanditCapacitorBarcode: CAPPlugin {
         barcodeCaptureModule = BarcodeCaptureModule(
             barcodeCaptureListener: FrameworksBarcodeCaptureListener(emitter: emitter)
         )
-        barcodeBatchModule = BarcodeBatchModule(
-            barcodeBatchListener: FrameworksBarcodeBatchListener(emitter: emitter),
-            barcodeBatchBasicOverlayListener: FrameworksBarcodeBatchBasicOverlayListener(emitter: emitter),
-            barcodeBatchAdvancedOverlayListener: FrameworksBarcodeBatchAdvancedOverlayListener(emitter: emitter),
+        barcodeTrackingModule = BarcodeTrackingModule(
+            barcodeTrackingListener: FrameworksBarcodeTrackingListener(emitter: emitter),
+            barcodeTrackingBasicOverlayListener: FrameworksBarcodeTrackingBasicOverlayListener(emitter: emitter),
+            barcodeTrackingAdvancedOverlayListener: FrameworksBarcodeTrackingAdvancedOverlayListener(emitter: emitter),
             emitter: emitter
         )
         barcodeSelectionModule = BarcodeSelectionModule(
@@ -54,8 +53,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
             barcodeCountListener: FrameworksBarcodeCountListener(emitter: emitter),
             captureListListener: FrameworksBarcodeCountCaptureListListener(emitter: emitter),
             viewListener: FrameworksBarcodeCountViewListener(emitter: emitter),
-            viewUiListener: FrameworksBarcodeCountViewUIListener(emitter: emitter),
-            statusProvider: FrameworksBarcodeCountStatusProvider(emitter: emitter)
+            viewUiListener: FrameworksBarcodeCountViewUIListener(emitter: emitter)
         )
         barcodeFindModule = BarcodeFindModule(
             listener: FrameworksBarcodeFindListener(emitter: emitter),
@@ -68,17 +66,15 @@ class ScanditCapacitorBarcode: CAPPlugin {
             sparkScanViewUIListener: FrameworksSparkScanViewUIListener(emitter: emitter),
             feedbackDelegate: FrameworksSparkScanFeedbackDelegate(emitter: emitter)
         )
-        barcodeGeneratorModule = BarcodeGeneratorModule()
 
         barcodeModule.didStart()
         barcodeCaptureModule.didStart()
-        barcodeBatchModule.didStart()
+        barcodeTrackingModule.didStart()
         barcodeSelectionModule.didStart()
         barcodeCountModule.didStart()
         barcodeFindModule.didStart()
         barcodePickModule.didStart()
         sparkScanModule.didStart()
-        barcodeGeneratorModule.didStart()
 
         barcodeCountViewHandler = BarcodeCountViewHandler(relativeTo: webView!)
         barcodeFindViewHandler = BarcodeFindViewHandler(relativeTo: webView!)
@@ -88,13 +84,12 @@ class ScanditCapacitorBarcode: CAPPlugin {
     func onReset() {
         barcodeModule.didStop()
         barcodeCaptureModule.didStop()
-        barcodeBatchModule.didStop()
+        barcodeTrackingModule.didStop()
         barcodeSelectionModule.didStop()
         barcodeCountModule.didStop()
         barcodeFindModule.didStop()
         barcodePickModule.didStop()
         sparkScanModule.didStop()
-        barcodeGeneratorModule.didStop()
     }
 
     @objc(getDefaults:)
@@ -102,7 +97,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
         dispatchMainSync {
             var defaults = barcodeModule.defaults.toEncodable()
             defaults["BarcodeCapture"] = barcodeCaptureModule.defaults.toEncodable()
-            defaults["BarcodeBatch"] = barcodeBatchModule.defaults.toEncodable()
+            defaults["BarcodeTracking"] = barcodeTrackingModule.defaults.toEncodable()
             defaults["BarcodeSelection"] = barcodeSelectionModule.defaults.toEncodable()
             defaults["BarcodeCount"] = barcodeCountModule.defaults.toEncodable()
             defaults["BarcodeFind"] = barcodeFindModule.defaults.toEncodable()
@@ -138,47 +133,47 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
-    // MARK: Barcode Batch
+    // MARK: Barcode Tracking
 
-    @objc(subscribeBarcodeBatchListener:)
-    func subscribeBarcodeBatchListener(_ call: CAPPluginCall) {
-        barcodeBatchModule.addBarcodeBatchListener()
+    @objc(subscribeBarcodeTrackingListener:)
+    func subscribeBarcodeTrackingListener(_ call: CAPPluginCall) {
+        barcodeTrackingModule.addBarcodeTrackingListener()
         call.resolve()
     }
 
-    @objc(unsubscribeBarcodeBatchListener:)
-    func unsubscribeBarcodeBatchListener(_ call: CAPPluginCall) {
-        barcodeBatchModule.removeBarcodeBatchListener()
+    @objc(unsubscribeBarcodeTrackingListener:)
+    func unsubscribeBarcodeTrackingListener(_ call: CAPPluginCall) {
+        barcodeTrackingModule.removeBarcodeTrackingListener()
         call.resolve()
     }
 
-    @objc(finishBarcodeBatchDidUpdateSession:)
-    func finishBarcodeBatchDidUpdateSession(_ call: CAPPluginCall) {
-        barcodeBatchModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
+    @objc(finishBarcodeTrackingDidUpdateSession:)
+    func finishBarcodeTrackingDidUpdateSession(_ call: CAPPluginCall) {
+        barcodeTrackingModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
-    @objc(subscribeBarcodeBatchBasicOverlayListener:)
-    func subscribeBarcodeBatchBasicOverlayListener(_ call: CAPPluginCall) {
-        barcodeBatchModule.addBasicOverlayListener()
+    @objc(subscribeBarcodeTrackingBasicOverlayListener:)
+    func subscribeBarcodeTrackingBasicOverlayListener(_ call: CAPPluginCall) {
+        barcodeTrackingModule.addBasicOverlayListener()
         call.resolve()
     }
 
-    @objc(unsubscribeBarcodeBatchBasicOverlayListener:)
-    func unsubscribeBarcodeBatchBasicOverlayListener(_ call: CAPPluginCall) {
-        barcodeBatchModule.removeBasicOverlayListener()
+    @objc(unsubscribeBarcodeTrackingBasicOverlayListener:)
+    func unsubscribeBarcodeTrackingBasicOverlayListener(_ call: CAPPluginCall) {
+        barcodeTrackingModule.removeBasicOverlayListener()
         call.resolve()
     }
 
-    @objc(subscribeBarcodeBatchAdvancedOverlayListener:)
-    func subscribeBarcodeBatchAdvancedOverlayListener(_ call: CAPPluginCall) {
-        barcodeBatchModule.addAdvancedOverlayListener()
+    @objc(subscribeBarcodeTrackingAdvancedOverlayListener:)
+    func subscribeBarcodeTrackingAdvancedOverlayListener(_ call: CAPPluginCall) {
+        barcodeTrackingModule.addAdvancedOverlayListener()
         call.resolve()
     }
 
-    @objc(unsubscribeBarcodeBatchAdvancedOverlayListener:)
-    func unsubscribeBarcodeBatchAdvancedOverlayListener(_ call: CAPPluginCall) {
-        barcodeBatchModule.removeAdvancedOverlayListener()
+    @objc(unsubscribeBarcodeTrackingAdvancedOverlayListener:)
+    func unsubscribeBarcodeTrackingAdvancedOverlayListener(_ call: CAPPluginCall) {
+        barcodeTrackingModule.removeAdvancedOverlayListener()
         call.resolve()
     }
 
@@ -208,7 +203,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
                 call.reject(CommandError.invalidJSON.toJSONString())
                 return
             }
-            barcodeBatchModule.setBasicOverlayBrush(with: brushJson)
+            barcodeTrackingModule.setBasicOverlayBrush(with: brushJson)
         } else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
@@ -222,13 +217,13 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        self.barcodeBatchModule.setBasicOverlayBrush(with: json)
+        self.barcodeTrackingModule.setBasicOverlayBrush(with: json)
         call.resolve()
     }
 
     @objc(clearTrackedBarcodeBrushes:)
     func clearTrackedBarcodeBrushes(_ call: CAPPluginCall) {
-        barcodeBatchModule.clearBasicOverlayTrackedBarcodeBrushes()
+        barcodeTrackingModule.clearBasicOverlayTrackedBarcodeBrushes()
         call.resolve()
     }
 
@@ -239,13 +234,13 @@ class ScanditCapacitorBarcode: CAPPlugin {
             return
         }
         guard let viewJson = json.view else {
-            barcodeBatchModule.setViewForTrackedBarcode(view: nil,
+            barcodeTrackingModule.setViewForTrackedBarcode(view: nil,
                                                            trackedBarcodeId: json.trackedBarcodeID,
                                                            sessionFrameSequenceId: json.sessionFrameSequenceID)
             return
         }
         let view: TrackedBarcodeView? = dispatchMainSync { TrackedBarcodeView(json: viewJson) }
-        barcodeBatchModule.setViewForTrackedBarcode(view: view,
+        barcodeTrackingModule.setViewForTrackedBarcode(view: view,
                                                        trackedBarcodeId: json.trackedBarcodeID,
                                                        sessionFrameSequenceId: json.sessionFrameSequenceID)
         call.resolve()
@@ -258,7 +253,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.setAnchorForTrackedBarcode(anchorParams: [
+        barcodeTrackingModule.setAnchorForTrackedBarcode(anchorParams: [
             "anchor": anchorJson,
             "identifier": identifier
         ])
@@ -272,7 +267,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.setOffsetForTrackedBarcode(offsetParams: [
+        barcodeTrackingModule.setOffsetForTrackedBarcode(offsetParams: [
             "offset": offsetJson,
             "identifier": identifier
         ])
@@ -281,13 +276,13 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(clearTrackedBarcodeViews:)
     func clearTrackedBarcodeViews(_ call: CAPPluginCall) {
-        self.barcodeBatchModule.clearAdvancedOverlayTrackedBarcodeViews()
+        self.barcodeTrackingModule.clearAdvancedOverlayTrackedBarcodeViews()
         call.resolve()
     }
 
-    @objc(resetBarcodeBatchSession:)
-    func resetBarcodeBatchSession(_ call: CAPPluginCall) {
-        barcodeBatchModule.resetSession(frameSequenceId: nil)
+    @objc(resetBarcodeTrackingSession:)
+    func resetBarcodeTrackingSession(_ call: CAPPluginCall) {
+        barcodeTrackingModule.resetSession(frameSequenceId: nil)
         call.resolve()
     }
 
@@ -464,12 +459,14 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(registerBarcodeCountViewListener:)
     func registerBarcodeCountViewListener(_ call: CAPPluginCall) {
-        barcodeCountModule.addBarcodeCountViewListener(result: CapacitorResult(call))
+        barcodeCountModule.addBarcodeCountViewListener()
+        call.resolve()
     }
 
     @objc(registerBarcodeCountViewUiListener:)
     func registerBarcodeCountViewUIListener(_ call: CAPPluginCall) {
-        barcodeCountModule.addBarcodeCountViewUiListener(result: CapacitorResult(call))
+        barcodeCountModule.addBarcodeCountViewUiListener()
+        call.resolve()
     }
 
     @objc(unregisterBarcodeCountListener:)
@@ -480,12 +477,14 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(unregisterBarcodeCountViewListener:)
     func unregisterBarcodeCountViewListener(_ call: CAPPluginCall) {
-        barcodeCountModule.removeBarcodeCountViewListener(result: CapacitorResult(call))
+        barcodeCountModule.removeBarcodeCountViewListener()
+        call.resolve()
     }
 
     @objc(unregisterBarcodeCountViewUiListener:)
     func unregisterBarcodeCountViewUIListener(_ call: CAPPluginCall) {
-        barcodeCountModule.removeBarcodeCountViewUiListener(result: CapacitorResult(call))
+        barcodeCountModule.removeBarcodeCountViewUiListener()
+        call.resolve()
     }
 
     @objc(setViewPositionAndSize:)
@@ -555,9 +554,9 @@ class ScanditCapacitorBarcode: CAPPlugin {
             return
         }
         barcodeCountModule.addViewFromJson(parent: barcodeCountViewHandler.webView,
-                                           viewJson: viewJson,
-                                           result: CapacitorResult(call))
+                                           viewJson: viewJson)
         barcodeCountViewHandler.barcodeCountView = barcodeCountModule.barcodeCountView
+        call.resolve()
     }
 
     @objc(updateView:)
@@ -567,7 +566,8 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.noBarcodeCountView.toJSONString())
             return
         }
-        barcodeCountModule.updateBarcodeCountView(viewJson: viewJson, result: CapacitorResult(call))
+        barcodeCountModule.updateBarcodeCountView(viewJson: viewJson)
+        call.resolve()
     }
 
     @objc(updateMode:)
@@ -576,7 +576,8 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.noBarcodeCountView.toJSONString())
             return
         }
-        barcodeCountModule.updateBarcodeCount(modeJson: modeJson, result: CapacitorResult(call))
+        barcodeCountModule.updateBarcodeCount(modeJson: modeJson)
+        call.resolve()
     }
 
     @objc(resetBarcodeCountSession:)
@@ -623,41 +624,41 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(finishBarcodeCountViewListenerBrushForRecognizedBarcode:)
     func finishBarcodeCountViewListenerBrushForRecognizedBarcode(_ call: CAPPluginCall) {
-        guard let brushJson = call.options["brush"] as? String? else { call.reject("Invalid brush json received."); return }
+        guard let brushJson = call.options["brush"] as? String else { call.reject("Invalid brush json received."); return }
         guard let trackedBarcodeIdString = call.options["trackedBarcodeId"] as? String,
               let trackedBarcodeId = Int(trackedBarcodeIdString)
         else { call.reject("Invalid tracked barcode id received."); return }
-        let brush = brushJson.flatMap { Brush(jsonString: $0) }
+        let brush = Brush(jsonString: brushJson)
 
         barcodeCountModule.finishBrushForRecognizedBarcodeEvent(brush: brush,
-                                                                trackedBarcodeId: trackedBarcodeId,
-                                                                result: CapacitorResult(call))
+                                                                trackedBarcodeId: trackedBarcodeId)
+        call.resolve()
     }
 
     @objc(finishBarcodeCountViewListenerBrushForRecognizedBarcodeNotInList:)
     func finishBarcodeCountViewListenerBrushForRecognizedBarcodeNotInList(_ call: CAPPluginCall) {
-        guard let brushJson = call.options["brush"] as? String? else { call.reject("Invalid brush json received."); return }
+        guard let brushJson = call.options["brush"] as? String else { call.reject("Invalid brush json received."); return }
         guard let trackedBarcodeIdString = call.options["trackedBarcodeId"] as? String,
               let trackedBarcodeId = Int(trackedBarcodeIdString)
         else { call.reject("Invalid tracked barcode id received."); return }
 
-        let brush = brushJson.flatMap { Brush(jsonString: $0) }
+        let brush = Brush(jsonString: brushJson)
         barcodeCountModule.finishBrushForRecognizedBarcodeNotInListEvent(brush: brush,
-                                                                         trackedBarcodeId: trackedBarcodeId,
-                                                                         result: CapacitorResult(call))
+                                                                         trackedBarcodeId: trackedBarcodeId)
+        call.resolve()
     }
 
     @objc(finishBarcodeCountViewListenerOnBrushForUnrecognizedBarcode:)
     func finishBarcodeCountViewListenerOnBrushForUnrecognizedBarcode(_ call: CAPPluginCall) {
-        guard let brushJson = call.options["brush"] as? String? else { call.reject("Invalid brush json received."); return }
+        guard let brushJson = call.options["brush"] as? String else { call.reject("Invalid brush json received."); return }
         guard let trackedBarcodeIdString = call.options["trackedBarcodeId"] as? String,
               let trackedBarcodeId = Int(trackedBarcodeIdString)
         else { call.reject("Invalid tracked barcode id received."); return }
 
-        let brush = brushJson.flatMap { Brush(jsonString: $0) }
+        let brush = Brush(jsonString: brushJson)
         barcodeCountModule.finishBrushForUnrecognizedBarcodeEvent(brush: brush,
-                                                                  trackedBarcodeId: trackedBarcodeId,
-                                                                  result: CapacitorResult(call))
+                                                                  trackedBarcodeId: trackedBarcodeId)
+        call.resolve()
     }
 
     @objc(setBarcodeFindModeEnabledState:)
@@ -730,13 +731,13 @@ class ScanditCapacitorBarcode: CAPPlugin {
             barcodeCountModule.updateFeedback(feedbackJson: feedbackJson, result: CapacitorResult(call))
             return
         }
-
+       
         call.reject("No feedbackJson was provided for the function.")
     }
 
-    @objc(setBarcodeBatchModeEnabledState:)
-    func setBarcodeBatchModeEnabledState(_ call: CAPPluginCall) {
-        barcodeBatchModule.setModeEnabled(enabled: call.getBool("enabled", false))
+    @objc(setBarcodeTrackingModeEnabledState:)
+    func setBarcodeTrackingModeEnabledState(_ call: CAPPluginCall) {
+        barcodeTrackingModule.setModeEnabled(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
@@ -760,33 +761,17 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        dispatchMainSync {
-            barcodeFindModule.addViewToContainer(container: barcodeFindViewHandler.webView,
-                                                 jsonString: viewJson,
-                                                 result: CapacitorResult(call))
-            barcodeFindViewHandler.barcodeFindView = barcodeFindModule.barcodeFindView
-        }
+        barcodeFindModule.addViewToContainer(container: barcodeFindViewHandler.webView,
+                                             jsonString: viewJson,
+                                             result: CapacitorResult(call))
+        barcodeFindViewHandler.barcodeFindView = barcodeFindModule.barcodeFindView
     }
 
     @objc(updateFindView:)
     func updateFindView(_ call: CAPPluginCall) {
-        do {
-            if let viewJson = String(
-                data: try JSONSerialization.data(withJSONObject: call.options["View"] as! [String: Any]),
-                encoding: .utf8)
-            {
-                barcodeFindModule.updateBarcodeFindView(viewJson: viewJson,
-                                                        result: CapacitorResult(call))
-            }
-        } catch {
-            call.reject("Error serializing 'View' to JSON: \(error)")
-        }
-    }
-
-    @objc(removeFindView:)
-    func removeFindView(_ call: CAPPluginCall) {
-        barcodeFindViewHandler.barcodeFindView = nil
-        barcodeFindModule.removeBarcodeFindView(result: CapacitorResult(call))
+        let viewJson = call.options["BarcodeFindView"] as! String
+        barcodeFindModule.updateBarcodeFindView(viewJson: viewJson,
+                                                result: CapacitorResult(call))
     }
 
     @objc(updateFindMode:)
@@ -1075,49 +1060,40 @@ class ScanditCapacitorBarcode: CAPPlugin {
         barcodeSelectionModule.applyModeSettings(modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
     }
 
-    @objc(updateBarcodeSelectionFeedback:)
-    func updateBarcodeSelectionFeedback(_ call: CAPPluginCall) {
-        guard let feedbackJson = call.getString("feedbackJson") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeSelectionModule.updateFeedback(feedbackJson: feedbackJson, result: CapacitorResult(call))
-    }
-
-    @objc(updateBarcodeBatchBasicOverlay:)
-    func updateBarcodeBatchBasicOverlay(_ call: CAPPluginCall) {
+    @objc(updateBarcodeTrackingBasicOverlay:)
+    func updateBarcodeTrackingBasicOverlay(_ call: CAPPluginCall) {
         guard let overlayJson = call.getString("overlayJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.updateBasicOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
+        barcodeTrackingModule.updateBasicOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
     }
 
-    @objc(updateBarcodeBatchAdvancedOverlay:)
-    func updateBarcodeBatchAdvancedOverlay(_ call: CAPPluginCall) {
+    @objc(updateBarcodeTrackingAdvancedOverlay:)
+    func updateBarcodeTrackingAdvancedOverlay(_ call: CAPPluginCall) {
         guard let overlayJson = call.getString("overlayJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.updateAdvancedOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
+        barcodeTrackingModule.updateAdvancedOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
     }
 
-    @objc(updateBarcodeBatchMode:)
-    func updateBarcodeBatchMode(_ call: CAPPluginCall) {
+    @objc(updateBarcodeTrackingMode:)
+    func updateBarcodeTrackingMode(_ call: CAPPluginCall) {
         guard let modeJson = call.getString("modeJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.updateModeFromJson(modeJson: modeJson, result: CapacitorResult(call))
+        barcodeTrackingModule.updateModeFromJson(modeJson: modeJson, result: CapacitorResult(call))
     }
 
-    @objc(applyBarcodeBatchModeSettings:)
-    func applyBarcodeBatchModeSettings(_ call: CAPPluginCall) {
+    @objc(applyBarcodeTrackingModeSettings:)
+    func applyBarcodeTrackingModeSettings(_ call: CAPPluginCall) {
         guard let modeSettingsJson = call.getString("modeSettingsJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.applyModeSettings(modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
+        barcodeTrackingModule.applyModeSettings(modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
     }
 
     // MARK: SparkScan
@@ -1202,6 +1178,15 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
+    @objc(emitSparkScanViewFeedback:)
+    func emitSparkScanViewFeedback(_ call: CAPPluginCall) {
+        guard let feedbackJson = call.getString("feedback") else {
+            call.reject(CommandError.invalidJSON.toJSONString())
+            return
+        }
+        sparkScanModule.emitFeedback(feedbackJson: feedbackJson, result: CapacitorResult(call))
+    }
+
     @objc(finishSparkScanDidUpdateSessionCallback:)
     func finishSparkScanDidUpdateSessionCallback(_ call: CAPPluginCall) {
         sparkScanModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
@@ -1228,7 +1213,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(prepareSparkScanViewScanning:)
     func prepareSparkScanViewScanning(_ call: CAPPluginCall) {
-        sparkScanModule.prepareScanning(result: CapacitorResult(call))
+        sparkScanModule.onResume(result: CapacitorResult(call))
     }
 
     @objc(startSparkScanViewScanning:)
@@ -1244,8 +1229,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(stopSparkScanViewScanning:)
     func stopSparkScanViewScanning(_ call: CAPPluginCall) {
-        sparkScanModule.stopScanning()
-        call.resolve()
+        sparkScanModule.onPause(result: CapacitorResult(call))
     }
 
     @objc(addSparkScanFeedbackDelegate:)
@@ -1272,67 +1256,5 @@ class ScanditCapacitorBarcode: CAPPlugin {
             return
         }
         sparkScanModule.showToast(text: text, result: CapacitorResult(call))
-    }
-
-    @objc(createBarcodeGenerator:)
-    func createBarcodeGenerator(_ call: CAPPluginCall) {
-        guard let barcodeGeneratorJson = call.getString("barcodeGeneratorJson") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeGeneratorModule.createGenerator(generatorJson: barcodeGeneratorJson, result: CapacitorResult(call))
-    }
-
-    @objc(generateFromBase64EncodedData:)
-    func generateFromBase64EncodedData(_ call: CAPPluginCall) {
-        guard let generatorId = call.getString("generatorId") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        guard let data = call.getString("data") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        guard let imageWidth = call.getInt("imageWidth") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeGeneratorModule.generateFromBase64EncodedData(
-            generatorId: generatorId,
-            data: data,
-            imageWidth: imageWidth,
-            result: CapacitorResult(call)
-        )
-    }
-
-    @objc(generateFromString:)
-    func generateFromString(_ call: CAPPluginCall) {
-        guard let generatorId = call.getString("generatorId") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        guard let text = call.getString("text") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        guard let imageWidth = call.getInt("imageWidth") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeGeneratorModule.generate(
-            generatorId: generatorId,
-            text: text,
-            imageWidth: imageWidth,
-            result: CapacitorResult(call)
-        )
-    }
-
-    @objc(disposeBarcodeGenerator:)
-    func disposeBarcodeGenerator(_ call: CAPPluginCall) {
-        guard let generatorId = call.getString("generatorId") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeGeneratorModule.disposeGenerator(generatorId: generatorId, result: CapacitorResult(call))
     }
 }
