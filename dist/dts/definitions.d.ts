@@ -1,33 +1,36 @@
+import { NativeCallResult } from 'scandit-datacapture-frameworks-core';
 export { Barcode, Checksum, CompositeFlag, CompositeType, EncodingRange, LocalizedOnlyBarcode, Range, Symbology, SymbologyDescription, SymbologySettings, TrackedBarcode, TargetBarcode } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeSelection, BarcodeSelectionSettings } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeCapture, BarcodeCaptureSettings, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureOverlayStyle, BarcodeCaptureSession } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection } from 'scandit-datacapture-frameworks-barcode';
-export { BarcodeTracking, BarcodeTrackingScenario, BarcodeTrackingSettings } from 'scandit-datacapture-frameworks-barcode';
-export { BarcodeTrackingBasicOverlay, BarcodeTrackingBasicOverlayStyle, BarcodeTrackingSession } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodeBatch, BarcodeBatchScenario, BarcodeBatchSettings } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession } from 'scandit-datacapture-frameworks-barcode';
 export { TrackedBarcodeView, } from './ts/TrackedBarcodeView';
 export { BarcodeCount, BarcodeCountFeedback, BarcodeCountSession, BarcodeCountSettings, BarcodeCountViewStyle } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeCountView } from './ts/BarcodeCountView';
 export { BarcodeCountToolbarSettings } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeCountCaptureList, BarcodeCountCaptureListSession } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeFilterSettings, BarcodeFilterHighlightType, BarcodeFilterHighlightSettingsBrush } from 'scandit-datacapture-frameworks-barcode';
-export { BarcodeTrackingBasicOverlayListener, BarcodeSelectionListener, BarcodeCountCaptureListListener } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodeBatchBasicOverlayListener, BarcodeSelectionListener, BarcodeCountCaptureListListener, BarcodeCountNotInListActionSettings } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeSelectionType, BarcodeCountListener, BarcodeCaptureListener, BarcodeFilterHighlightSettings } from 'scandit-datacapture-frameworks-barcode';
-export { BarcodeTrackingListener, BarcodeSelectionStrategy, StructuredAppendData } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodeBatchListener, BarcodeSelectionStrategy, StructuredAppendData } from 'scandit-datacapture-frameworks-barcode';
 export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker } from 'scandit-datacapture-frameworks-barcode';
-export { BarcodeTrackingAdvancedOverlayListener } from './ts/BarcodeTrackingAdvancedOverlayListener';
-export { BarcodeTrackingAdvancedOverlay } from './ts/BarcodeTrackingAdvancedOverlay';
+export { BarcodeBatchAdvancedOverlayListener } from './ts/BarcodeBatchAdvancedOverlayListener';
+export { BarcodeBatchAdvancedOverlay } from './ts/BarcodeBatchAdvancedOverlay';
 export { BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeFindListener, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeFindViewUiListener, BarcodeFindTransformer } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeFindView } from './ts/BarcodeFindView';
-export { SparkScan, SparkScanFeedback, SparkScanListener, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningMode, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanViewHandMode } from 'scandit-datacapture-frameworks-barcode';
-export { SparkScanSettings, SparkScanViewSettings, SparkScanViewFeedback, SparkScanViewErrorFeedback, SparkScanViewSuccessFeedback, SparkScanScanningPrecision, SparkScanSession, SparkScanToastSettings, BatterySavingMode } from 'scandit-datacapture-frameworks-barcode';
+export { SparkScan, SparkScanListener, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningMode, SparkScanScanningModeDefault, SparkScanScanningModeTarget } from 'scandit-datacapture-frameworks-barcode';
+export { SparkScanSettings, SparkScanViewState, SparkScanViewSettings, SparkScanSession, SparkScanToastSettings, BatterySavingMode, SparkScanMiniPreviewSize } from 'scandit-datacapture-frameworks-barcode';
 export { SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanBarcodeErrorFeedback, SparkScanFeedbackDelegate, SparkScanViewUiListener } from 'scandit-datacapture-frameworks-barcode';
 export { SparkScanView } from './ts/SparkScanView';
 export { BarcodePickView } from './ts/BarcodePickView';
 export { BarcodePick, BarcodePickActionCallback, BarcodePickActionListener, BarcodePickAsyncMapperProductProvider, BarcodePickAsyncMapperProductProviderCallback, BarcodePickIconStyle, BarcodePickProduct, BarcodePickProductProvider, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodePickScanningListener, BarcodePickScanningSession, BarcodePickSettings, BarcodePickState, BarcodePickViewHighlightStyle, BarcodePickViewListener, BarcodePickViewSettings, BarcodePickViewUiListener } from 'scandit-datacapture-frameworks-barcode';
 export { Dot, DotWithIcons, Rectangular, RectangularWithIcons, BarcodePickStatusIconSettings } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodeGenerator, BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, Code128BarcodeGeneratorBuilder, Ean13BarcodeGeneratorBuilder } from 'scandit-datacapture-frameworks-barcode';
+export { UpcaBarcodeGeneratorBuilder, InterleavedTwoOfFiveBarcodeGeneratorBuilder, QrCodeBarcodeGeneratorBuilder, DataMatrixBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, AztecBarcodeGeneratorBuilder } from 'scandit-datacapture-frameworks-barcode';
 export type Optional<T> = T | null;
 export interface SymbologySettingsJSON {
     enabled: boolean;
@@ -60,6 +63,7 @@ export interface ScanditBarcodePluginInterface {
 export interface ScanditBarcodeCountNativeInterface {
     finishBarcodeCountListenerOnScan(): Promise<void>;
     createView(data: any): Promise<void>;
+    removeView(): Promise<void>;
     updateView(data: {
         View: any;
     }): Promise<void>;
@@ -95,6 +99,14 @@ export interface ScanditBarcodeCountNativeInterface {
         brush: string | null;
         trackedBarcodeId: number;
     }): Promise<void>;
+    finishBarcodeCountViewListenerOnBrushForAcceptedBarcode(data: {
+        brush: string | null;
+        trackedBarcodeId: number;
+    }): Promise<void>;
+    finishBarcodeCountViewListenerOnBrushForRejectedBarcode(data: {
+        brush: string | null;
+        trackedBarcodeId: number;
+    }): Promise<void>;
     getSpatialMap(): Promise<any>;
     getSpatialMapWithHints(data: {
         expectedNumberOfRows: number;
@@ -106,6 +118,9 @@ export interface ScanditBarcodeCountNativeInterface {
     updateBarcodeCountFeedback(data: {
         feedbackJson: string;
     }): void;
+    barcodeCountViewEnableHardwareTrigger(data: {
+        hardwareTriggerKeyCode: number | null;
+    }): Promise<void>;
 }
 export interface ScanditBarcodeSelectionNativeInterface {
     selectAimedBarcode(): Promise<void>;
@@ -119,9 +134,7 @@ export interface ScanditBarcodeSelectionNativeInterface {
     }): void;
     getCountForBarcodeInBarcodeSelectionSession(data: {
         selectionIdentifier: string;
-    }): Promise<{
-        data: number;
-    }>;
+    }): Promise<NativeCallResult>;
     resetBarcodeSelectionSession(): Promise<void>;
     subscribeBarcodeSelectionListener(): void;
     finishBarcodeSelectionDidSelect(data: {
@@ -146,6 +159,9 @@ export interface ScanditBarcodeSelectionNativeInterface {
     }): Promise<void>;
     applyBarcodeSelectionModeSettings(data: {
         modeSettingsJson: string;
+    }): Promise<void>;
+    updateBarcodeSelectionFeedback(data: {
+        feedbackJson: string;
     }): Promise<void>;
 }
 export interface ScanditBarcodeFindNativeInterface {
@@ -174,6 +190,7 @@ export interface ScanditBarcodeFindNativeInterface {
     updateFindView(barcodeFindViewJson: {
         BarcodeFindView: string;
     }): Promise<void>;
+    removeFindView(): Promise<void>;
     showFindView(): Promise<void>;
     hideFindView(): Promise<void>;
     setBarcodeTransformer(): Promise<void>;
@@ -213,6 +230,7 @@ export interface ScanditBarcodePickNativeInterface {
     createPickView(data: {
         json: string;
     }): Promise<void>;
+    removePickView(): Promise<void>;
     updatePickView(data: {
         json: string;
     }): Promise<void>;
@@ -225,9 +243,6 @@ export interface ScanditSparkScantNativeInterface {
     startSparkScanViewScanning(): Promise<void>;
     pauseSparkScanViewScanning(): Promise<void>;
     stopSparkScanViewScanning(): Promise<void>;
-    emitSparkScanViewFeedback(data: {
-        feedback: string;
-    }): Promise<void>;
     finishSparkScanDidUpdateSessionCallback(data: {
         enabled: boolean;
     }): Promise<void>;

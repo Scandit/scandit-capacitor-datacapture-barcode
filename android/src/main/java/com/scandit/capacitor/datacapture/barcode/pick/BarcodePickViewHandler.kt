@@ -69,7 +69,7 @@ class BarcodePickViewHandler (
         disposeCurrentWebView()
     }
 
-    private fun disposeCurrentView() {
+    fun disposeCurrentView() {
         val view = barcodePickViewContainer ?: return
         removeBarcodePickViewContainer(view)
     }
