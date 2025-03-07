@@ -2880,7 +2880,7 @@ class NativeSparkScanViewProxy extends BaseNativeProxy {
         super(...arguments);
         this.nativeEventSubscriptions = [];
     }
-    updateSparkScanView(viewJson) {
+    updateSparkScanView(_viewId, viewJson) {
         return ScanditSparkScanPluginNative.updateSparkScanView({ View: viewJson });
     }
     createSparkScanView(viewJson) {
@@ -3147,8 +3147,8 @@ function initBarcodeProxy() {
     FactoryMaker.bindInstance('BarcodePickViewProxy', new NativeBarcodePickViewProxy());
     FactoryMaker.bindInstance('BarcodeFindProxy', new NativeBarcodeFindListenerProxy());
     FactoryMaker.bindInstance('BarcodeFindViewProxy', new NativeBarcodeFindViewProxy());
-    FactoryMaker.bindInstance('SparkScanListenerProxy', new NativeSparkScanListenerProxy());
-    FactoryMaker.bindInstance('SparkScanViewProxy', new NativeSparkScanViewProxy());
+    FactoryMaker.bindLazyInstance('SparkScanListenerProxy', () => new NativeSparkScanListenerProxy());
+    FactoryMaker.bindLazyInstance('SparkScanViewProxy', () => new NativeSparkScanViewProxy());
     FactoryMaker.bindInstance('BarcodeGeneratorProxy', new NativeBarcodeGeneratorProxy());
 }
 

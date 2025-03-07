@@ -6,7 +6,7 @@ export declare class NativeSparkScanViewProxy extends BaseNativeProxy implements
     private barcodeFindButtonTappedListenerHandler;
     private didChangeViewStateHandler;
     private nativeEventSubscriptions;
-    updateSparkScanView(viewJson: string): Promise<void>;
+    updateSparkScanView(_viewId: number | null, viewJson: string): Promise<void>;
     createSparkScanView(viewJson: string): Promise<void>;
     disposeSparkScanView(): Promise<void>;
     showSparkScanView(): Promise<void>;
