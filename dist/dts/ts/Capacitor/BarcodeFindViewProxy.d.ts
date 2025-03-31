@@ -5,8 +5,6 @@ export declare class NativeBarcodeFindViewProxy extends BaseNativeProxy implemen
     private subscriptionBarcodeFindViewListener;
     showView(): Promise<void>;
     hideView(): Promise<void>;
-    onPause(): Promise<void>;
-    onResume(): Promise<void>;
     startSearching(): Promise<void>;
     stopSearching(): Promise<void>;
     pauseSearching(): Promise<void>;

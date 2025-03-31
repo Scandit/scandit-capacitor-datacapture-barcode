@@ -1,4 +1,3 @@
-import { NativeCallResult } from 'scandit-datacapture-frameworks-core';
 export { Barcode, Checksum, CompositeFlag, CompositeType, EncodingRange, LocalizedOnlyBarcode, Range, Symbology, SymbologyDescription, SymbologySettings, TrackedBarcode, TargetBarcode } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeSelection, BarcodeSelectionSettings } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeCapture, BarcodeCaptureSettings, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureOverlayStyle, BarcodeCaptureSession } from 'scandit-datacapture-frameworks-barcode';
@@ -61,107 +60,8 @@ export interface ScanditBarcodePluginInterface {
     initialize(coreDefaults: any): Promise<any>;
 }
 export interface ScanditBarcodeCountNativeInterface {
-    finishBarcodeCountListenerOnScan(): Promise<void>;
-    createView(data: any): Promise<void>;
-    removeView(): Promise<void>;
-    updateView(data: {
-        View: any;
-    }): Promise<void>;
-    updateMode(data: {
-        BarcodeCount: any;
-    }): Promise<void>;
-    setViewPositionAndSize(data: any): Promise<void>;
-    showView(): Promise<void>;
-    hideView(): Promise<void>;
-    registerBarcodeCountListener(): Promise<void>;
-    unregisterBarcodeCountListener(): Promise<void>;
-    registerBarcodeCountViewListener(): Promise<void>;
-    unregisterBarcodeCountViewListener(): Promise<void>;
-    registerBarcodeCountViewUiListener(): Promise<void>;
-    unregisterBarcodeCountViewUiListener(): Promise<void>;
-    setBarcodeCountCaptureList(data: {
-        TargetBarcodes: string;
-    }): Promise<void>;
-    resetBarcodeCountSession(): Promise<void>;
-    resetBarcodeCount(): Promise<void>;
-    startScanningPhase(): Promise<void>;
-    endScanningPhase(): Promise<void>;
-    clearBarcodeCountViewHighlights(): Promise<void>;
-    finishBarcodeCountViewListenerBrushForRecognizedBarcode(data: {
-        brush: string | null;
-        trackedBarcodeId: number;
-    }): Promise<void>;
-    finishBarcodeCountViewListenerBrushForRecognizedBarcodeNotInList(data: {
-        brush: string | null;
-        trackedBarcodeId: number;
-    }): Promise<void>;
-    finishBarcodeCountViewListenerOnBrushForUnrecognizedBarcode(data: {
-        brush: string | null;
-        trackedBarcodeId: number;
-    }): Promise<void>;
-    finishBarcodeCountViewListenerOnBrushForAcceptedBarcode(data: {
-        brush: string | null;
-        trackedBarcodeId: number;
-    }): Promise<void>;
-    finishBarcodeCountViewListenerOnBrushForRejectedBarcode(data: {
-        brush: string | null;
-        trackedBarcodeId: number;
-    }): Promise<void>;
-    getSpatialMap(): Promise<any>;
-    getSpatialMapWithHints(data: {
-        expectedNumberOfRows: number;
-        expectedNumberOfColumns: number;
-    }): Promise<any>;
-    setBarcodeCountModeEnabledState(data: {
-        enabled: boolean;
-    }): void;
-    updateBarcodeCountFeedback(data: {
-        feedbackJson: string;
-    }): void;
-    barcodeCountViewEnableHardwareTrigger(data: {
+    barcodeCountViewEnableHardwareTrigger({ hardwareTriggerKeyCode }: {
         hardwareTriggerKeyCode: number | null;
-    }): Promise<void>;
-}
-export interface ScanditBarcodeSelectionNativeInterface {
-    selectAimedBarcode(): Promise<void>;
-    unselectBarcodes(barcodesStr: string): Promise<void>;
-    setSelectBarcodeEnabled(barcodeStr: string, _enabled: boolean): Promise<void>;
-    increaseCountForBarcodes(barcodeStr: string): Promise<void>;
-    subscribeBrushForAimedBarcode(): void;
-    subscribeBrushForTrackedBarcode(): void;
-    setBarcodeSelectionModeEnabledState(data: {
-        enabled: boolean;
-    }): void;
-    getCountForBarcodeInBarcodeSelectionSession(data: {
-        selectionIdentifier: string;
-    }): Promise<NativeCallResult>;
-    resetBarcodeSelectionSession(): Promise<void>;
-    subscribeBarcodeSelectionListener(): void;
-    finishBarcodeSelectionDidSelect(data: {
-        enabled: boolean;
-    }): void;
-    finishBarcodeSelectionDidUpdateSession(data: {
-        enabled: boolean;
-    }): void;
-    unsubscribeBarcodeSelectionListener(): void;
-    setTextForAimToSelectAutoHint(text: string): Promise<void>;
-    removeAimedBarcodeBrushProvider(): Promise<void>;
-    setAimedBarcodeBrushProvider(): Promise<void>;
-    finishBrushForAimedBarcode(brushStr: string | null, selectionIdentifier: string): Promise<void>;
-    removeTrackedBarcodeBrushProvider(): Promise<void>;
-    setTrackedBarcodeBrushProvider(): Promise<void>;
-    finishBrushForTrackedBarcode(brushStr: string | null, selectionIdentifier: string): Promise<void>;
-    updateBarcodeSelectionBasicOverlay(data: {
-        overlayJson: string;
-    }): Promise<void>;
-    updateBarcodeSelectionMode(data: {
-        modeJson: string;
-    }): Promise<void>;
-    applyBarcodeSelectionModeSettings(data: {
-        modeSettingsJson: string;
-    }): Promise<void>;
-    updateBarcodeSelectionFeedback(data: {
-        feedbackJson: string;
     }): Promise<void>;
 }
 export interface ScanditBarcodeFindNativeInterface {
@@ -178,8 +78,6 @@ export interface ScanditBarcodeFindNativeInterface {
     }): void;
     registerBarcodeFindViewListener(): Promise<void>;
     unregisterBarcodeFindViewListener(): Promise<void>;
-    barcodeFindViewOnPause(): Promise<void>;
-    barcodeFindViewOnResume(): Promise<void>;
     barcodeFindViewStartSearching(): Promise<void>;
     barcodeFindViewStopSearching(): Promise<void>;
     barcodeFindViewPauseSearching(): Promise<void>;

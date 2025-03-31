@@ -3,9 +3,6 @@ import { Optional } from '../../definitions';
 import { CapacitorNativeCaller } from 'scandit-capacitor-datacapture-core';
 export declare enum CapacitorFunction {
     GetDefaults = "getDefaults",
-    SubscribeBarcodeCaptureListener = "subscribeBarcodeCaptureListener",
-    FinishBarcodeCaptureDidScan = "finishBarcodeCaptureDidScan",
-    FinishBarcodeCaptureDidUpdateSession = "finishBarcodeCaptureDidUpdateSession",
     SubscribeBarcodeBatchListener = "subscribeBarcodeBatchListener",
     UnsubscribeBarcodeBatchListener = "unsubscribeBarcodeBatchListener",
     FinishBarcodeBatchDidUpdateSession = "finishBarcodeBatchDidUpdateSession",
@@ -19,13 +16,7 @@ export declare enum CapacitorFunction {
     SetAnchorForTrackedBarcode = "setAnchorForTrackedBarcode",
     SetOffsetForTrackedBarcode = "setOffsetForTrackedBarcode",
     ClearTrackedBarcodeViews = "clearTrackedBarcodeViews",
-    SubscribeBarcodeSelectionListener = "subscribeBarcodeSelectionListener",
-    GetCountForBarcodeInBarcodeSelectionSession = "getCountForBarcodeInBarcodeSelectionSession",
-    ResetBarcodeCaptureSession = "resetBarcodeCaptureSession",
     ResetBarcodeBatchSession = "resetBarcodeBatchSession",
-    ResetBarcodeSelectionSession = "resetBarcodeSelectionSession",
-    ResetBarcodeSelection = "resetBarcodeSelection",
-    UnfreezeCameraInBarcodeSelection = "unfreezeCameraInBarcodeSelection",
     SubscribeBarcodeCountListener = "registerBarcodeCountListener",
     UnsubscribeBarcodeCountListener = "unregisterBarcodeCountListener",
     ResetBarcodeCountSession = "resetBarcodeCountSession",

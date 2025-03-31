@@ -11,7 +11,8 @@
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(getDefaults, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(subscribeBarcodeCaptureListener, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(registerBarcodeCaptureListenerForEvents, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(unregisterBarcodeCaptureListenerForEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(finishBarcodeCaptureDidScan, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(finishBarcodeCaptureDidUpdateSession, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(subscribeBarcodeBatchListener, CAPPluginReturnPromise);
@@ -29,8 +30,8 @@ CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(setAnchorForTrackedBarcode, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setOffsetForTrackedBarcode, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(clearTrackedBarcodeViews, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(subscribeBarcodeSelectionListener, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(unsubscribeBarcodeSelectionListener, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(registerBarcodeSelectionListenerForEvents, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(unregisterBarcodeSelectionListenerForEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(resetBarcodeSelection, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(resetBarcodeCaptureSession, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(resetBarcodeBatchSession, CAPPluginReturnPromise);
@@ -46,29 +47,25 @@ CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(unegisterBarcodeCountListener, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(unregisterBarcodeCountViewListener, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(unregisterBarcodeCountViewUiListener, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(setViewPositionAndSize, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(showView, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(hideView, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(createView, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(removeView, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(updateView, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(updateMode, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setBarcodeCountViewPositionAndSize, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(showBarcodeCountView, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(hideBarcodeCountView, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(createBarcodeCountView, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(removeBarcodeCountView, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(updateBarcodeCountView, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(updateBarcodeCountMode, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(resetBarcodeCount, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(resetBarcodeCountSession, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(startScanningPhase, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(endScanningPhase, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(startBarcodeCountScanningPhase, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(endBarcodeCountScanningPhase, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(clearBarcodeCountViewHighlights, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setBarcodeCountCaptureList, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeCountListenerOnScan, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeCountViewListenerBrushForRecognizedBarcode,
+           CAP_PLUGIN_METHOD(finishBarcodeCountOnScan, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(finishBarcodeCountBrushForRecognizedBarcode, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(finishBarcodeCountBrushForRecognizedBarcodeNotInList,
                              CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeCountViewListenerBrushForRecognizedBarcodeNotInList,
-                             CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeCountViewListenerOnBrushForAcceptedBarcode,
-                             CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeCountViewListenerOnBrushForRejectedBarcode,
-                             CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(setBarcodeFindModeEnabledState, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(finishBarcodeCountBrushForAcceptedBarcode, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(finishBarcodeCountBrushForRejectedBarcode, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setBarcodeCountModeEnabledState, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(updateBarcodeCountFeedback, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setBarcodeBatchModeEnabledState, CAPPluginReturnPromise);
@@ -79,6 +76,7 @@ CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(removeFindView, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(updateFindView, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(updateFindMode, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setBarcodeFindModeEnabledState, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(registerBarcodeFindListener, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(unregisterBarcodeFindListener, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(registerBarcodeFindViewListener, CAPPluginReturnPromise);
