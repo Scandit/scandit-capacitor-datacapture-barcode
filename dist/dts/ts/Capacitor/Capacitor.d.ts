@@ -1,22 +1,30 @@
 import { BarcodeDefaults } from 'scandit-datacapture-frameworks-barcode';
 import { Optional } from '../../definitions';
-import { CapacitorNativeCaller } from 'scandit-capacitor-datacapture-core';
 export declare enum CapacitorFunction {
     GetDefaults = "getDefaults",
-    SubscribeBarcodeBatchListener = "subscribeBarcodeBatchListener",
-    UnsubscribeBarcodeBatchListener = "unsubscribeBarcodeBatchListener",
-    FinishBarcodeBatchDidUpdateSession = "finishBarcodeBatchDidUpdateSession",
-    SubscribeBarcodeBatchBasicOverlayListener = "subscribeBarcodeBatchBasicOverlayListener",
-    UnsubscribeBarcodeBatchBasicOverlayListener = "unsubscribeBarcodeBatchBasicOverlayListener",
+    SubscribeBarcodeCaptureListener = "subscribeBarcodeCaptureListener",
+    FinishBarcodeCaptureDidScan = "finishBarcodeCaptureDidScan",
+    FinishBarcodeCaptureDidUpdateSession = "finishBarcodeCaptureDidUpdateSession",
+    SubscribeBarcodeTrackingListener = "subscribeBarcodeTrackingListener",
+    UnsubscribeBarcodeTrackingListener = "unsubscribeBarcodeTrackingListener",
+    FinishBarcodeTrackingDidUpdateSession = "finishBarcodeTrackingDidUpdateSession",
+    SubscribeBarcodeTrackingBasicOverlayListener = "subscribeBarcodeTrackingBasicOverlayListener",
+    UnsubscribeBarcodeTrackingBasicOverlayListener = "unsubscribeBarcodeTrackingBasicOverlayListener",
     SetBrushForTrackedBarcode = "setBrushForTrackedBarcode",
     ClearTrackedBarcodeBrushes = "clearTrackedBarcodeBrushes",
-    SubscribeBarcodeBatchAdvancedOverlayListener = "subscribeBarcodeBatchAdvancedOverlayListener",
-    UnsubscribeBarcodeBatchAdvancedOverlayListener = "unsubscribeBarcodeBatchAdvancedOverlayListener",
+    SubscribeBarcodeTrackingAdvancedOverlayListener = "subscribeBarcodeTrackingAdvancedOverlayListener",
+    UnsubscribeBarcodeTrackingAdvancedOverlayListener = "unsubscribeBarcodeTrackingAdvancedOverlayListener",
     SetViewForTrackedBarcode = "setViewForTrackedBarcode",
     SetAnchorForTrackedBarcode = "setAnchorForTrackedBarcode",
     SetOffsetForTrackedBarcode = "setOffsetForTrackedBarcode",
     ClearTrackedBarcodeViews = "clearTrackedBarcodeViews",
-    ResetBarcodeBatchSession = "resetBarcodeBatchSession",
+    SubscribeBarcodeSelectionListener = "subscribeBarcodeSelectionListener",
+    GetCountForBarcodeInBarcodeSelectionSession = "getCountForBarcodeInBarcodeSelectionSession",
+    ResetBarcodeCaptureSession = "resetBarcodeCaptureSession",
+    ResetBarcodeTrackingSession = "resetBarcodeTrackingSession",
+    ResetBarcodeSelectionSession = "resetBarcodeSelectionSession",
+    ResetBarcodeSelection = "resetBarcodeSelection",
+    UnfreezeCameraInBarcodeSelection = "unfreezeCameraInBarcodeSelection",
     SubscribeBarcodeCountListener = "registerBarcodeCountListener",
     UnsubscribeBarcodeCountListener = "unregisterBarcodeCountListener",
     ResetBarcodeCountSession = "resetBarcodeCountSession",
@@ -24,18 +32,14 @@ export declare enum CapacitorFunction {
     EndBarcodeCountScanningPhase = "endScanningPhase",
     SetBarcodeCountCaptureList = "setBarcodeCountCaptureList",
     SetBarcodeCaptureModeEnabledState = "setBarcodeCaptureModeEnabledState",
-    SetBarcodeBatchModeEnabledState = "setBarcodeBatchModeEnabledState",
+    SetBarcodeTrackingModeEnabledState = "setBarcodeTrackingModeEnabledState",
     UpdateBarcodeCaptureOverlay = "updateBarcodeCaptureOverlay",
     UpdateBarcodeCaptureMode = "updateBarcodeCaptureMode",
     ApplyBarcodeCaptureModeSettings = "applyBarcodeCaptureModeSettings",
-    UpdateBarcodeBatchBasicOverlay = "updateBarcodeBatchBasicOverlay",
-    UpdateBarcodeBatchAdvancedOverlay = "updateBarcodeBatchAdvancedOverlay",
-    UpdateBarcodeBatchMode = "updateBarcodeBatchMode",
-    ApplyBarcodeBatchModeSettings = "applyBarcodeBatchModeSettings",
-    CreateBarcodeGenerator = "createBarcodeGenerator",
-    DisposeBarcodeGenerator = "disposeBarcodeGenerator",
-    GenerateFromBase64EncodedData = "generateFromBase64EncodedData",
-    GenerateFromString = "generateFromString"
+    UpdateBarcodeTrackingBasicOverlay = "updateBarcodeTrackingBasicOverlay",
+    UpdateBarcodeTrackingAdvancedOverlay = "updateBarcodeTrackingAdvancedOverlay",
+    UpdateBarcodeTrackingMode = "updateBarcodeTrackingMode",
+    ApplyBarcodeTrackingModeSettings = "applyBarcodeTrackingModeSettings"
 }
 export declare const Capacitor: {
     pluginName: string;
@@ -49,4 +53,3 @@ export interface CapacitorWindow extends Window {
     Capacitor: any;
 }
 export declare const getDefaults: () => Promise<BarcodeDefaults>;
-export declare const capacitorBarcodeNativeCaller: CapacitorNativeCaller;

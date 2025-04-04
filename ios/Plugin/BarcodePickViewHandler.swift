@@ -12,13 +12,21 @@ class BarcodePickViewHandler {
     let webView: WKWebView
 
     var barcodePickView: BarcodePickView? {
+        willSet {
+            barcodePickView?.uiDelegate = nil
+            barcodePickView?.removeFromSuperview()
+        }
         didSet {
             guard let barcodePickView = barcodePickView else { return }
             barcodePickView.translatesAutoresizingMaskIntoConstraints = false
+            barcodePickView.uiDelegate = barcodePickViewUIDelegate
+            webView.addSubview(barcodePickView)
             resetConstraints()
             update()
         }
     }
+
+    weak var barcodePickViewUIDelegate: BarcodePickViewUIDelegate?
 
     private var top: NSLayoutConstraint?
     private var left: NSLayoutConstraint?

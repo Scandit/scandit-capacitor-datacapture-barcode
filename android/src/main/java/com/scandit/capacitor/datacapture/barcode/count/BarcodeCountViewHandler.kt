@@ -67,7 +67,7 @@ internal class BarcodeCountViewHandler (
         disposeCurrentWebView()
     }
 
-    fun disposeCurrentView() {
+    private fun disposeCurrentView() {
         val view = barcodeCountView ?: return
         removeBarcodeCountView(view)
     }

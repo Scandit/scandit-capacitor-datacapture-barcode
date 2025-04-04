@@ -1,16 +1,17 @@
 import { BaseNativeProxy } from 'scandit-datacapture-frameworks-core';
 import { SparkScanViewProxy } from 'scandit-datacapture-frameworks-barcode';
 export declare class NativeSparkScanViewProxy extends BaseNativeProxy implements SparkScanViewProxy {
+    private fastFindButtonTappedListenerHandler;
     private barcodeCountButtonTappedListenerHandler;
     private feedbackForBarcodeHandler;
     private barcodeFindButtonTappedListenerHandler;
-    private didChangeViewStateHandler;
     private nativeEventSubscriptions;
-    updateSparkScanView(_viewId: number | null, viewJson: string): Promise<void>;
+    updateSparkScanView(viewJson: string): Promise<void>;
     createSparkScanView(viewJson: string): Promise<void>;
     disposeSparkScanView(): Promise<void>;
     showSparkScanView(): Promise<void>;
     hideSparkScanView(): Promise<void>;
+    emitSparkScanViewFeedback(feedbackJson: string): Promise<void>;
     registerSparkScanViewListenerEvents(): void;
     unregisterSparkScanViewListenerEvents(): Promise<void>;
     showToast(text: string): Promise<void>;
