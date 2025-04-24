@@ -6,30 +6,21 @@
 
 import ScanditBarcodeCapture
 import ScanditCapacitorDatacaptureCore
+import ScanditFrameworksCore
 import WebKit
 
 class BarcodeCountViewHandler {
     let webView: WKWebView
 
     var barcodeCountView: BarcodeCountView? {
-        willSet {
-            barcodeCountView?.delegate = nil
-            barcodeCountView?.uiDelegate = nil
-            barcodeCountView?.removeFromSuperview()
-        }
         didSet {
             guard let barcodeCountView = barcodeCountView else { return }
             barcodeCountView.translatesAutoresizingMaskIntoConstraints = false
-            barcodeCountView.delegate = barcodeCountViewDelegate
-            barcodeCountView.uiDelegate = barcodeCountViewUIDelegate
-            webView.addSubview(barcodeCountView)
             resetConstraints()
             update()
+
         }
     }
-
-    weak var barcodeCountViewDelegate: BarcodeCountViewDelegate?
-    weak var barcodeCountViewUIDelegate: BarcodeCountViewUIDelegate?
 
     private var top: NSLayoutConstraint?
     private var left: NSLayoutConstraint?

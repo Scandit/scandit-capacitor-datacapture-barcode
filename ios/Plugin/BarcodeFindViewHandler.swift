@@ -12,21 +12,13 @@ class BarcodeFindViewHandler {
     let webView: WKWebView
 
     var barcodeFindView: BarcodeFindView? {
-        willSet {
-            barcodeFindView?.uiDelegate = nil
-            barcodeFindView?.removeFromSuperview()
-        }
         didSet {
             guard let barcodeFindView = barcodeFindView else { return }
             barcodeFindView.translatesAutoresizingMaskIntoConstraints = false
-            barcodeFindView.uiDelegate = barcodeFindViewUIDelegate
-            webView.addSubview(barcodeFindView)
             resetConstraints()
             update()
         }
     }
-
-    weak var barcodeFindViewUIDelegate: BarcodeFindViewUIDelegate?
 
     private var top: NSLayoutConstraint?
     private var left: NSLayoutConstraint?

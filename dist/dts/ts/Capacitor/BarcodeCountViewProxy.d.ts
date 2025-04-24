@@ -1,40 +1,7 @@
-import { BarcodeCountView } from '../BarcodeCountView';
-import { BarcodeCountViewListener, BarcodeCountViewUiListener } from 'scandit-datacapture-frameworks-barcode';
-export declare class BarcodeCountViewProxy {
-    private view;
-    private barcodeCount;
-    private isInListenerCallback;
-    private singleScanButtonTappedListenerHandle;
-    private listButtonTappedListenerHandle;
-    private exitButtonTappedListenerHandle;
-    private brushForRecognizedBarcodeListenerHandle;
-    private brushForRecognizedBarcodeNotInListListenerHandle;
-    private brushForUnrecognizedBarcodeListenerHandle;
-    private filteredBarcodeTappedListenerHandle;
-    private recognizedBarcodeNotInListTappedListenerHandle;
-    private recognizedBarcodeTappedListenerHandle;
-    private unrecognizedBarcodeTappedListenerHandle;
-    private captureListCompletedListenerHandle;
-    static forBarcodeCount(view: BarcodeCountView): BarcodeCountViewProxy;
-    private constructor();
-    update(): Promise<void>;
-    private create;
-    dispose(): void;
-    setUiListener(listener: BarcodeCountViewUiListener | null): void;
-    setListener(listener: BarcodeCountViewListener | null): void;
-    clearHighlights(): Promise<void>;
-    setPositionAndSize(top: number, left: number, width: number, height: number, shouldBeUnderWebView: boolean): Promise<void>;
-    show(): Promise<void>;
-    hide(): Promise<void>;
-    private subscribeListeners;
-    private unsubscribeListeners;
-    private singleScanButtonTappedHandler;
-    private listButtonTappedHandler;
-    private exitButtonTappedHandler;
-    private filteredBarcodeTappedHandler;
-    private recognizedBarcodeNotInListTappedHandler;
-    private recognizedBarcodeTappedHandler;
-    private unrecognizedBarcodeTappedHandler;
-    private captureListCompletedHandler;
-    private notifyListeners;
+import { BarcodeCountViewProxy } from 'scandit-datacapture-frameworks-barcode';
+import { AdvancedNativeProxy } from 'scandit-datacapture-frameworks-core';
+export declare class NativeBarcodeCountViewProxy extends AdvancedNativeProxy implements Partial<BarcodeCountViewProxy> {
+    $enableBarcodeCountHardwareTrigger({ hardwareTriggerKeyCode }: {
+        hardwareTriggerKeyCode: number | null;
+    }): Promise<void>;
 }
