@@ -25,7 +25,7 @@ export { SparkScanSettings, SparkScanViewState, SparkScanViewSettings, SparkScan
 export { SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanBarcodeErrorFeedback, SparkScanFeedbackDelegate, SparkScanViewUiListener } from 'scandit-datacapture-frameworks-barcode';
 export { SparkScanView } from './ts/SparkScanView';
 export { BarcodePickView } from './ts/BarcodePickView';
-export { BarcodePick, BarcodePickActionCallback, BarcodePickActionListener, BarcodePickAsyncMapperProductProvider, BarcodePickAsyncMapperProductProviderCallback, BarcodePickIconStyle, BarcodePickProduct, BarcodePickProductProvider, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodePick, BarcodePickActionCallback, BarcodePickActionListener, BarcodePickAsyncMapperProductProvider, BarcodePickAsyncMapperProductProviderCallback, BarcodePickProduct, BarcodePickProductProvider, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodePickScanningListener, BarcodePickScanningSession, BarcodePickSettings, BarcodePickState, BarcodePickViewHighlightStyle, BarcodePickViewListener, BarcodePickViewSettings, BarcodePickViewUiListener } from 'scandit-datacapture-frameworks-barcode';
 export { Dot, DotWithIcons, Rectangular, RectangularWithIcons, BarcodePickStatusIconSettings } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeGenerator, BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, Code128BarcodeGeneratorBuilder, Ean13BarcodeGeneratorBuilder } from 'scandit-datacapture-frameworks-barcode';
@@ -133,47 +133,4 @@ export interface ScanditBarcodePickNativeInterface {
         json: string;
     }): Promise<void>;
     setPickViewPositionAndSize(data: any): Promise<void>;
-}
-export interface ScanditSparkScantNativeInterface {
-    unregisterSparkScanViewListenerEvents(): Promise<void>;
-    registerSparkScanViewListenerEvents(): Promise<void>;
-    prepareSparkScanViewScanning(): Promise<void>;
-    startSparkScanViewScanning(): Promise<void>;
-    pauseSparkScanViewScanning(): Promise<void>;
-    stopSparkScanViewScanning(): Promise<void>;
-    finishSparkScanDidUpdateSessionCallback(data: {
-        enabled: boolean;
-    }): Promise<void>;
-    finishSparkScanDidScanCallback(data: {
-        enabled: boolean;
-    }): Promise<void>;
-    registerSparkScanListenerForEvents(): void;
-    unregisterSparkScanListenerForEvents(): unknown;
-    setSparkScanModeEnabledState(data: {
-        enabled: boolean;
-    }): void;
-    updatSparkScanMode(data: {
-        sparkScanJson: string;
-    }): Promise<void>;
-    resetSession(): Promise<void>;
-    createSparkScanView(data: {
-        viewJson: string;
-    }): Promise<void>;
-    disposeSparkScanView(): Promise<void>;
-    updateSparkScanView(data: {
-        View: any;
-    }): Promise<void>;
-    updateSparkScanMode(data: {
-        SparkScan: any;
-    }): Promise<void>;
-    showSparkScanView(): Promise<void>;
-    hideSparkScanView(): Promise<void>;
-    addSparkScanFeedbackDelegate(): Promise<void>;
-    removeSparkScanFeedbackDelegate(): Promise<void>;
-    submitSparkScanFeedbackForBarcode(data: {
-        feedbackJson: string;
-    }): Promise<void>;
-    showToast(data: {
-        text: string;
-    }): Promise<void>;
 }
