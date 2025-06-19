@@ -948,7 +948,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
         }
     }
 
-    @objc(updateePickView:)
+    @objc(updatePickView:)
     func updatePickView(_ call: CAPPluginCall) {
         let viewJson = call.options["BarcodePickView"] as! String
         barcodePickModule.updateView(viewJson: viewJson,
@@ -959,8 +959,25 @@ class ScanditCapacitorBarcode: CAPPlugin {
     @objc(setPickViewPositionAndSize:)
     func setPickViewPositionAndSize(_ call: CAPPluginCall) {
         dispatchMain {
-            let jsonObject = call.getObject("position")
-            guard let viewPositionAndSizeJSON = try? ViewPositionAndSizeJSON.fromJSONObject(jsonObject as Any) else {
+            guard let top = call.getDouble("top"),
+                let left = call.getDouble("left"),
+                let width = call.getDouble("width"),
+                let height = call.getDouble("height")
+            else {
+                call.reject("Missing required position parameters")
+                return
+            }
+            
+            let shouldBeUnderWebView = call.getBool("shouldBeUnderWebView", false)
+            let jsonObject: [String: Any] = [
+                "top": top,
+                "left": left,
+                "width": width,
+                "height": height,
+                "shouldBeUnderWebView": shouldBeUnderWebView
+            ]
+
+            guard let viewPositionAndSizeJSON = try? ViewPositionAndSizeJSON.fromJSONObject(jsonObject) else {
                 call.reject(CommandError.invalidJSON.toJSONString())
                 return
             }
@@ -982,38 +999,38 @@ class ScanditCapacitorBarcode: CAPPlugin {
         }
     }
 
-    @objc(addActionListener:)
-    func addActionListener(_ call: CAPPluginCall) {
+    @objc(addPickActionListener:)
+    func addPickActionListener(_ call: CAPPluginCall) {
         barcodePickModule.addActionListener()
         call.resolve()
     }
 
-    @objc(removeActionListener:)
-    func removeActionListener(_ call: CAPPluginCall) {
+    @objc(removePickActionListener:)
+    func removePickActionListener(_ call: CAPPluginCall) {
         barcodePickModule.removeActionListener()
         call.resolve()
     }
 
-    @objc(addScanningListener:)
-    func addScanningListener(_ call: CAPPluginCall) {
+    @objc(addBarcodePickScanningListener:)
+    func addBarcodePickScanningListener(_ call: CAPPluginCall) {
         barcodePickModule.addScanningListener()
         call.resolve()
     }
 
-    @objc(removeScanningListener:)
-    func removeScanningListener(_ call: CAPPluginCall) {
+    @objc(removeBarcodePickScanningListener:)
+    func removeBarcodePickScanningListener(_ call: CAPPluginCall) {
         barcodePickModule.removeScanningListener()
         call.resolve()
     }
 
-    @objc(addViewListener:)
-    func addViewListener(_ call: CAPPluginCall) {
+    @objc(addPickViewListener:)
+    func addPickViewListener(_ call: CAPPluginCall) {
         barcodePickModule.addViewListener()
         call.resolve()
     }
 
-    @objc(removeViewListener:)
-    func removeViewListener(_ call: CAPPluginCall) {
+    @objc(removePickViewListener:)
+    func removePickViewListener(_ call: CAPPluginCall) {
         barcodePickModule.removeViewListener()
         call.resolve()
     }
@@ -1037,20 +1054,30 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
-    @objc(viewStop:)
-    func viewStop(_ call: CAPPluginCall) {
-        barcodePickModule.viewPause()
+    @objc(registerOnProductIdentifierForItemsListener:)
+    func registerOnProductIdentifierForItemsListener(_ call: CAPPluginCall) {
         call.resolve()
     }
 
-    @objc(viewStart:)
-    func viewStart(_ call: CAPPluginCall) {
+    @objc(unregisterOnProductIdentifierForItemsListener:)
+    func unregisterOnProductIdentifierForItemsListener(_ call: CAPPluginCall) {
+        call.resolve()
+    }
+
+    @objc(pickViewStop:)
+    func pickViewStop(_ call: CAPPluginCall) {
+        barcodePickModule.viewStop()
+        call.resolve()
+    }
+
+    @objc(pickViewStart:)
+    func pickViewStart(_ call: CAPPluginCall) {
         barcodePickModule.viewStart()
         call.resolve()
     }
 
-    @objc(viewFreeze:)
-    func viewFreeze(_ call: CAPPluginCall) {
+    @objc(pickViewFreeze:)
+    func pickViewFreeze(_ call: CAPPluginCall) {
         barcodePickModule.viewFreeze()
         call.resolve()
     }
