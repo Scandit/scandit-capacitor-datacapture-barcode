@@ -9,6 +9,7 @@ interface BarcodePickViewProps {
 }
 export declare class BarcodePickView extends DefaultSerializeable {
     private baseBarcodePickView;
+    private viewProxy;
     private htmlElement;
     private _htmlElementState;
     private domObserver;
