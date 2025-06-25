@@ -63,11 +63,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
             barcodeTransformer: FrameworksBarcodeFindTransformer(emitter: emitter)
         )
         barcodePickModule = BarcodePickModule(emitter: emitter)
-        sparkScanModule = SparkScanModule(
-            sparkScanListener: FrameworksSparkScanListener(emitter: emitter),
-            sparkScanViewUIListener: FrameworksSparkScanViewUIListener(emitter: emitter),
-            feedbackDelegate: FrameworksSparkScanFeedbackDelegate(emitter: emitter)
-        )
+        sparkScanModule = SparkScanModule(emitter: emitter)
         barcodeGeneratorModule = BarcodeGeneratorModule()
 
         barcodeModule.didStart()
@@ -1183,7 +1179,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
             return
         }
         dispatchMain {
-            self.sparkScanModule.addViewToContainer(
+            _ = self.sparkScanModule.addViewToContainer(
                 container,
                 jsonString: viewJson,
                 result: CapacitorResult(call)
@@ -1193,20 +1189,29 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(disposeSparkScanView:)
     func disposeSparkScanView(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+
         dispatchMain {
-            self.sparkScanModule.disposeView()
+            self.sparkScanModule.disposeView(viewId: viewId)
         }
         call.resolve()
     }
 
     @objc(updateSparkScanView:)
     func updateSparkScanView(_ call: CAPPluginCall) {
-        guard let viewJson = call.getObject("View")?.jsonString else {
+        guard let viewJson = call.getString("viewJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
         dispatchMain {
-            self.sparkScanModule.updateView(viewJson: viewJson, result: CapacitorResult(call))
+            self.sparkScanModule.updateView(viewId: viewId, viewJson: viewJson, result: CapacitorResult(call))
         }
     }
 
@@ -1216,111 +1221,186 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        sparkScanModule.updateMode(modeJson: modeJson, result: CapacitorResult(call))
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.updateMode(viewId: viewId, modeJson: modeJson, result: CapacitorResult(call))
     }
 
     @objc(showSparkScanView:)
     func showSparkScanView(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
         dispatchMain {
-            self.sparkScanModule.sparkScanView?.isHidden = false
+            self.sparkScanModule.showView(viewId)
         }
     }
 
     @objc(hideSparkScanView:)
     func hideSparkScanView(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
         dispatchMain {
-            self.sparkScanModule.sparkScanView?.isHidden = true
+            self.sparkScanModule.hideView(viewId)
         }
     }
 
     @objc(registerSparkScanListenerForEvents:)
     func registerSparkScanListenerForEvents(_ call: CAPPluginCall) {
-        sparkScanModule.addSparkScanListener()
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.addSparkScanListener(viewId: viewId)
         call.resolve()
     }
 
     @objc(unregisterSparkScanListenerForEvents:)
     func unregisterSparkScanListenerForEvents(_ call: CAPPluginCall) {
-        sparkScanModule.removeSparkScanListener()
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.removeSparkScanListener(viewId: viewId)
         call.resolve()
     }
 
     @objc(setSparkScanModeEnabledState:)
     func setSparkScanModeEnabledState(_ call: CAPPluginCall) {
-        sparkScanModule.setModeEnabled(enabled: call.getBool("enabled", false))
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.setModeEnabled(viewId: viewId, enabled: call.getBool("isEnabled", false))
         call.resolve()
     }
 
-    @objc(finishSparkScanDidUpdateSessionCallback:)
-    func finishSparkScanDidUpdateSessionCallback(_ call: CAPPluginCall) {
-        sparkScanModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
+    @objc(finishSparkScanDidUpdateSession:)
+    func finishSparkScanDidUpdateSession(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.finishDidUpdateSession(viewId: viewId, enabled: call.getBool("isEnabled", false))
         call.resolve()
     }
 
-    @objc(finishSparkScanDidScanCallback:)
-    func finishSparkScanDidScanCallback(_ call: CAPPluginCall) {
-        sparkScanModule.finishDidScan(enabled: call.getBool("enabled", false))
+    @objc(finishSparkScanDidScan:)
+    func finishSparkScanDidScan(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.finishDidScan(viewId: viewId, enabled: call.getBool("isEnabled", false))
         call.resolve()
     }
 
     @objc(registerSparkScanViewListenerEvents:)
     func registerSparkScanViewListenerEvents(_ call: CAPPluginCall) {
-        sparkScanModule.addSparkScanViewUiListener()
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.addSparkScanViewUiListener(viewId: viewId)
         call.resolve()
     }
 
     @objc(unregisterSparkScanViewListenerEvents:)
     func unregisterSparkScanViewListenerEvents(_ call: CAPPluginCall) {
-        sparkScanModule.removeSparkScanViewUiListener()
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.removeSparkScanViewUiListener(viewId: viewId)
         call.resolve()
     }
 
     @objc(prepareSparkScanViewScanning:)
     func prepareSparkScanViewScanning(_ call: CAPPluginCall) {
-        sparkScanModule.prepareScanning(result: CapacitorResult(call))
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.prepareScanning(viewId: viewId, result: CapacitorResult(call))
     }
 
     @objc(startSparkScanViewScanning:)
     func startSparkScanViewScanning(_ call: CAPPluginCall) {
-        sparkScanModule.startScanning(result: CapacitorResult(call))
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.startScanning(viewId: viewId, result: CapacitorResult(call))
     }
 
     @objc(pauseSparkScanViewScanning:)
     func pauseSparkScanViewScanning(_ call: CAPPluginCall) {
-        sparkScanModule.pauseScanning()
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.pauseScanning(viewId: viewId)
         call.resolve()
     }
 
     @objc(stopSparkScanViewScanning:)
     func stopSparkScanViewScanning(_ call: CAPPluginCall) {
-        sparkScanModule.stopScanning()
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.stopScanning(viewId: viewId)
         call.resolve()
     }
 
-    @objc(addSparkScanFeedbackDelegate:)
-    func addSparkScanFeedbackDelegate(_ call: CAPPluginCall) {
-        sparkScanModule.addFeedbackDelegate(result: CapacitorResult(call))
+    @objc(registerSparkScanFeedbackDelegateForEvents:)
+    func registerSparkScanFeedbackDelegateForEvents(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.addFeedbackDelegate(viewId)
+        call.resolve()
     }
 
-    @objc(removeSparkScanFeedbackDelegate:)
-    func removeSparkScanFeedbackDelegate(_ call: CAPPluginCall) {
-        sparkScanModule.removeFeedbackDelegate(result: CapacitorResult(call))
+    @objc(unregisterSparkScanFeedbackDelegateForEvents:)
+    func unregisterSparkScanFeedbackDelegateForEvents(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
+        sparkScanModule.removeFeedbackDelegate(viewId)
+        call.resolve()
     }
 
     @objc(submitSparkScanFeedbackForBarcode:)
     func submitSparkScanFeedbackForBarcode(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
         sparkScanModule.submitFeedbackForBarcode(
+            viewId: viewId,
             feedbackJson: call.getString("feedbackJson"),
             result: CapacitorResult(call))
     }
 
-    @objc(showToast:)
-    func showToast(_ call: CAPPluginCall) {
+    @objc(showSparkScanViewToast:)
+    func showSparkScanViewToast(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject(CommandError.noViewIdParameter.toJSONString())
+            return
+        }
         guard let text = call.getString("text") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        sparkScanModule.showToast(text: text, result: CapacitorResult(call))
+        sparkScanModule.showToast(viewId: viewId, text: text, result: CapacitorResult(call))
     }
 
     @objc(createBarcodeGenerator:)

@@ -9,7 +9,6 @@ import android.Manifest
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
-import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import com.getcapacitor.JSObject
@@ -57,9 +56,6 @@ import com.scandit.datacapture.frameworks.barcode.selection.listeners.Frameworks
 import com.scandit.datacapture.frameworks.barcode.selection.listeners.FrameworksBarcodeSelectionListener
 import com.scandit.datacapture.frameworks.barcode.selection.listeners.FrameworksBarcodeSelectionTrackedBrushProvider
 import com.scandit.datacapture.frameworks.barcode.spark.SparkScanModule
-import com.scandit.datacapture.frameworks.barcode.spark.delegates.FrameworksSparkScanFeedbackDelegate
-import com.scandit.datacapture.frameworks.barcode.spark.listeners.FrameworksSparkScanListener
-import com.scandit.datacapture.frameworks.barcode.spark.listeners.FrameworksSparkScanViewUiListener
 import com.scandit.datacapture.frameworks.core.events.Emitter
 import com.scandit.datacapture.frameworks.core.utils.DefaultFrameworksLog
 import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
@@ -116,11 +112,7 @@ class ScanditBarcodeNative :
     private val barcodePickModule = BarcodePickModule(
         this
     )
-    private val sparkScanModule = SparkScanModule(
-        FrameworksSparkScanListener(this),
-        FrameworksSparkScanViewUiListener(this),
-        FrameworksSparkScanFeedbackDelegate(this)
-    )
+    private val sparkScanModule = SparkScanModule.create(this)
 
     private val barcodeGeneratorModule = BarcodeGeneratorModule()
 
@@ -735,7 +727,9 @@ class ScanditBarcodeNative :
 
     @PluginMethod
     fun setBarcodeCountCaptureList(call: PluginCall) {
-        if (!call.data.has("TargetBarcodes") || call.data.getJSONArray("TargetBarcodes").length() == 0) {
+        if (!call.data.has("TargetBarcodes") || call.data.getJSONArray("TargetBarcodes")
+                .length() == 0
+        ) {
             call.reject("No data provided")
             return
         }
@@ -888,6 +882,10 @@ class ScanditBarcodeNative :
     }
 
     override fun hasListenersForEvent(eventName: String): Boolean = this.hasListeners(eventName)
+
+    override fun hasViewSpecificListenersForEvent(viewId: Int, eventName: String): Boolean {
+        return this.hasListenersForEvent(eventName)
+    }
 
     private fun isFinishBarcodeSelectionDidUpdateSession(data: JSONObject): Boolean {
         return checkFinishCallbackIdFieldForValue(
@@ -1042,7 +1040,10 @@ class ScanditBarcodeNative :
     @PluginMethod
     fun submitBarcodeFindTransformerResult(call: PluginCall) {
         val transformedBarcode = call.data.getString("transformedBarcode", null)
-        barcodeFindModule.submitBarcodeFindTransformerResult(transformedBarcode, CapacitorResult(call))
+        barcodeFindModule.submitBarcodeFindTransformerResult(
+            transformedBarcode,
+            CapacitorResult(call)
+        )
     }
 
     @PluginMethod
@@ -1278,23 +1279,24 @@ class ScanditBarcodeNative :
             )
         }
 
-        sparkScanModule.sparkScanView?.bringToFront()
         checkOrRequestCameraPermissions(call)
     }
 
     @PluginMethod
     fun disposeSparkScanView(call: PluginCall) {
         mainThread.runOnMainThread {
-            sparkScanModule.disposeView()
+            sparkScanModule.disposeView(getViewId(call))
         }
         call.resolve()
     }
 
     @PluginMethod
     fun updateSparkScanView(call: PluginCall) {
-        val viewJson = call.data.toString()
+        val viewJson = call.data.getString("viewJson").orEmpty()
         sparkScanModule.updateView(
-            viewJson, CapacitorResult(call)
+            getViewId(call),
+            viewJson,
+            CapacitorResult(call)
         )
     }
 
@@ -1302,65 +1304,70 @@ class ScanditBarcodeNative :
     fun updateSparkScanMode(call: PluginCall) {
         val modeJson = call.data.getString("sparkScanJson").orEmpty()
         sparkScanModule.updateMode(
-            modeJson, CapacitorResult(call)
+            getViewId(call),
+            modeJson,
+            CapacitorResult(call)
         )
     }
 
     @PluginMethod
     fun showSparkScanView(call: PluginCall) {
         mainThread.runOnMainThread {
-            sparkScanModule.sparkScanView?.visibility = View.VISIBLE
+            sparkScanModule.showView(getViewId(call), CapacitorResult(call))
         }
-        call.resolve()
     }
 
     @PluginMethod
     fun hideSparkScanView(call: PluginCall) {
         mainThread.runOnMainThread {
-            sparkScanModule.sparkScanView?.visibility = View.GONE
+            sparkScanModule.hideView(getViewId(call), CapacitorResult(call))
         }
-        call.resolve()
     }
 
     @PluginMethod
     fun registerSparkScanListenerForEvents(call: PluginCall) {
-        sparkScanModule.addSparkScanListener()
+        sparkScanModule.addSparkScanListener(getViewId(call))
         call.resolve()
     }
 
     @PluginMethod
     fun unregisterSparkScanListenerForEvents(call: PluginCall) {
-        sparkScanModule.removeSparkScanListener()
+        sparkScanModule.removeSparkScanListener(getViewId(call))
         call.resolve()
     }
 
     @PluginMethod
     fun setSparkScanModeEnabledState(call: PluginCall) {
-        sparkScanModule.setModeEnabled(call.data.getBoolean("enabled"))
+        val enabled = call.data.getBoolean("isEnabled")
+        sparkScanModule.setModeEnabled(getViewId(call), enabled)
         call.resolve()
     }
 
     @PluginMethod
-    fun finishSparkScanDidUpdateSessionCallback(call: PluginCall) {
-        sparkScanModule.finishDidUpdateSessionCallback(call.data.getBoolean("enabled"))
+    fun finishSparkScanDidUpdateSession(call: PluginCall) {
+        val enabled = call.data.getBoolean("isEnabled")
+        sparkScanModule.finishDidUpdateSessionCallback(
+            getViewId(call),
+            enabled
+        )
         call.resolve()
     }
 
     @PluginMethod
-    fun finishSparkScanDidScanCallback(call: PluginCall) {
-        sparkScanModule.finishDidScanCallback(call.data.getBoolean("enabled"))
+    fun finishSparkScanDidScan(call: PluginCall) {
+        sparkScanModule.finishDidScanCallback(getViewId(call), call.data.getBoolean("isEnabled"))
         call.resolve()
     }
 
     @PluginMethod
     fun registerSparkScanViewListenerEvents(call: PluginCall) {
-        sparkScanModule.addSparkScanViewUiListener()
+        sparkScanModule.addSparkScanViewUiListener(getViewId(call))
         call.resolve()
     }
 
     @PluginMethod
     fun unregisterSparkScanViewListenerEvents(call: PluginCall) {
-        sparkScanModule.removeSparkScanViewUiListener()
+        sparkScanModule.removeSparkScanViewUiListener(getViewId(call))
         call.resolve()
     }
 
@@ -1372,13 +1379,12 @@ class ScanditBarcodeNative :
 
     @PluginMethod
     fun startSparkScanViewScanning(call: PluginCall) {
-        sparkScanModule.startScanning(CapacitorResult(call))
+        sparkScanModule.startScanning(getViewId(call), CapacitorResult(call))
     }
 
     @PluginMethod
     fun pauseSparkScanViewScanning(call: PluginCall) {
-        sparkScanModule.pauseScanning()
-        call.resolve()
+        sparkScanModule.pauseScanning(getViewId(call), CapacitorResult(call))
     }
 
     @PluginMethod
@@ -1388,31 +1394,37 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
-    fun addSparkScanFeedbackDelegate(call: PluginCall) {
-        sparkScanModule.addFeedbackDelegate(CapacitorResult(call))
+    fun registerSparkScanFeedbackDelegateForEvents(call: PluginCall) {
+        sparkScanModule.addFeedbackDelegate(getViewId(call), CapacitorResult(call))
     }
 
     @PluginMethod
-    fun removeSparkScanFeedbackDelegate(call: PluginCall) {
-        sparkScanModule.removeFeedbackDelegate(CapacitorResult(call))
+    fun unregisterSparkScanFeedbackDelegateForEvents(call: PluginCall) {
+        sparkScanModule.removeFeedbackDelegate(getViewId(call), CapacitorResult(call))
     }
 
     @PluginMethod
     fun submitSparkScanFeedbackForBarcode(call: PluginCall) {
         sparkScanModule.submitFeedbackForBarcode(
+            getViewId(call),
             call.data.getString("feedbackJson", null),
             CapacitorResult(call)
         )
     }
 
     @PluginMethod
-    fun showToast(call: PluginCall) {
+    fun showSparkScanViewToast(call: PluginCall) {
         val text = call.data.getString("text")
             ?: return call.reject(WRONG_INPUT)
         sparkScanModule.showToast(
+            getViewId(call),
             text,
             CapacitorResult(call)
         )
+    }
+
+    private fun getViewId(call: PluginCall): Int {
+        return call.data.getInt("viewId")
     }
 
     @PluginMethod

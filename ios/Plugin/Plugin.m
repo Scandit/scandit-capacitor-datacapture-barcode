@@ -153,18 +153,18 @@ CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(registerSparkScanListenerForEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(unregisterSparkScanListenerForEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setSparkScanModeEnabledState, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishSparkScanDidUpdateSessionCallback, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishSparkScanDidScanCallback, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(finishSparkScanDidUpdateSession, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(finishSparkScanDidScan, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(registerSparkScanViewListenerEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(unregisterSparkScanViewListenerEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(prepareSparkScanViewScanning, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(startSparkScanViewScanning, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(pauseSparkScanViewScanning, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(stopSparkScanViewScanning, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(addSparkScanFeedbackDelegate, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(removeSparkScanFeedbackDelegate, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(registerSparkScanFeedbackDelegateForEvents, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(unregisterSparkScanFeedbackDelegateForEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(submitSparkScanFeedbackForBarcode, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(showToast, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(showSparkScanViewToast, CAPPluginReturnPromise);
            // Generator
            CAP_PLUGIN_METHOD(createBarcodeGenerator, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(generateFromBase64EncodedData, CAPPluginReturnPromise);
