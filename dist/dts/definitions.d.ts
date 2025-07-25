@@ -100,5 +100,37 @@ export interface ScanditBarcodeFindNativeInterface {
     }): Promise<void>;
 }
 export interface ScanditBarcodePickNativeInterface {
+    finishOnProductIdentifierForItems(data: {
+        itemsJson: string;
+    }): Promise<void>;
+    viewStart(): Promise<void>;
+    viewFreeze(): Promise<void>;
+    pickViewStop(): Promise<void>;
+    registerBarcodePickViewUiListener(): Promise<void>;
+    unregisterBarcodePickViewUiListener(): Promise<void>;
+    addActionListener(): Promise<void>;
+    removeActionListener(): Promise<void>;
+    addScanningListener(): Promise<void>;
+    removeScanningListener(): Promise<void>;
+    addViewListener(): Promise<void>;
+    removeViewListener(): Promise<void>;
+    finishPickAction(data: {
+        code: string;
+        result: boolean;
+    }): Promise<void>;
+    findNodeHandle(data: {
+        data: {
+            view?: string | undefined;
+        };
+    }): Promise<{
+        data: number;
+    }>;
+    createPickView(data: {
+        json: string;
+    }): Promise<void>;
+    removePickView(): Promise<void>;
+    updatePickView(data: {
+        json: string;
+    }): Promise<void>;
     setPickViewPositionAndSize(data: any): Promise<void>;
 }

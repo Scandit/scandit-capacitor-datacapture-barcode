@@ -19,8 +19,6 @@ export declare class SparkScanView {
     set barcodeFindButtonVisible(newValue: boolean);
     get targetModeButtonVisible(): boolean;
     set targetModeButtonVisible(newValue: boolean);
-    get labelCaptureButtonVisible(): boolean;
-    set labelCaptureButtonVisible(newValue: boolean);
     /**
      * @deprecated The trigger button no longer displays text.
      */

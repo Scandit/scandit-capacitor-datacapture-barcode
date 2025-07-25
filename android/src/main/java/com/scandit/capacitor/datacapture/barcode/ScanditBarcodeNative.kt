@@ -1073,7 +1073,7 @@ class ScanditBarcodeNative :
 
             call.resolve()
         } ?: run {
-            call.reject("missing parameter for createPickView()")
+            error("missing parameter for createPickView()")
         }
     }
 
@@ -1094,19 +1094,9 @@ class ScanditBarcodeNative :
     @PluginMethod
     fun setPickViewPositionAndSize(call: PluginCall) {
         try {
-            val top = call.getDouble("top") ?: return call.reject("Missing top position")
-            val left = call.getDouble("left") ?: return call.reject("Missing left position")
-            val width = call.getDouble("width") ?: return call.reject("Missing width")
-            val height = call.getDouble("height") ?: return call.reject("Missing height")
-            val shouldBeUnderWebView = call.getBoolean("shouldBeUnderWebView", false)
-
-            val info = JSONObject().apply {
-                put("top", top)
-                put("left", left)
-                put("width", width)
-                put("height", height)
-                put("shouldBeUnderWebView", shouldBeUnderWebView)
-            }
+            val positionJson = call.data.getString("position")
+                ?: return call.reject("No position was given for setting the view.")
+            val info = JSONObject(positionJson)
             barcodePickViewHandler.setResizeAndMoveInfo(ResizeAndMoveInfo(info))
             call.resolve()
         } catch (e: JSONException) {
@@ -1115,34 +1105,34 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
-    fun addPickActionListener(call: PluginCall) {
+    fun addActionListener(call: PluginCall) {
         barcodePickModule.addActionListener()
         call.resolve()
     }
 
     @PluginMethod
-    fun removePickActionListener(call: PluginCall) {
+    fun removeActionListener(call: PluginCall) {
         barcodePickModule.removeActionListener()
         call.resolve()
     }
 
     @PluginMethod
-    fun addBarcodePickScanningListener(call: PluginCall) {
+    fun addScanningListener(call: PluginCall) {
         barcodePickModule.addScanningListener(CapacitorResult(call))
     }
 
     @PluginMethod
-    fun removeBarcodePickScanningListener(call: PluginCall) {
+    fun removeScanningListener(call: PluginCall) {
         barcodePickModule.removeScanningListener(CapacitorResult(call))
     }
 
     @PluginMethod
-    fun addPickViewListener(call: PluginCall) {
+    fun addViewListener(call: PluginCall) {
         barcodePickModule.addViewListener(CapacitorResult(call))
     }
 
     @PluginMethod
-    fun removePickViewListener(call: PluginCall) {
+    fun removeViewListener(call: PluginCall) {
         barcodePickModule.removeViewListener(CapacitorResult(call))
     }
 
@@ -1167,25 +1157,13 @@ class ScanditBarcodeNative :
     }
 
     @PluginMethod
-    fun registerOnProductIdentifierForItemsListener(call: PluginCall) {
-        // Noop
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun unregisterOnProductIdentifierForItemsListener(call: PluginCall) {
-        // Noop
-        call.resolve()
-    }
-
-    @PluginMethod
-    fun pickViewStart(call: PluginCall) {
+    fun viewStart(call: PluginCall) {
         barcodePickModule.viewStart()
         call.resolve()
     }
 
     @PluginMethod
-    fun pickViewFreeze(call: PluginCall) {
+    fun viewFreeze(call: PluginCall) {
         barcodePickModule.viewFreeze(CapacitorResult(call))
     }
 
