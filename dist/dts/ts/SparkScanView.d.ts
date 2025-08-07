@@ -1,5 +1,5 @@
 import { Brush, Color, DataCaptureContext } from 'scandit-datacapture-frameworks-core';
-import { SparkScan, SparkScanFeedbackDelegate, SparkScanViewFeedback, SparkScanViewSettings, SparkScanViewUiListener } from 'scandit-datacapture-frameworks-barcode';
+import { SparkScan, SparkScanFeedbackDelegate, SparkScanViewSettings, SparkScanViewUiListener } from 'scandit-datacapture-frameworks-barcode';
 export declare class SparkScanView {
     private baseSparkScanView;
     get uiListener(): SparkScanViewUiListener | null;
@@ -7,67 +7,73 @@ export declare class SparkScanView {
     static forContext(context: DataCaptureContext, sparkScan: SparkScan, settings: SparkScanViewSettings | null): SparkScanView;
     static get defaultBrush(): Brush;
     private constructor();
-    /**
-     * @deprecated This property is deprecated as it's no longer needed.
-     */
-    get shouldShowScanAreaGuides(): boolean;
-    /**
-     * @deprecated This property is deprecated as it's no longer needed.
-     */
-    set shouldShowScanAreaGuides(newValue: boolean);
-    get brush(): Brush;
-    set brush(newValue: Brush);
     get previewSizeControlVisible(): boolean;
     set previewSizeControlVisible(newValue: boolean);
     get torchButtonVisible(): boolean;
     set torchButtonVisible(newValue: boolean);
     get scanningBehaviorButtonVisible(): boolean;
     set scanningBehaviorButtonVisible(newValue: boolean);
-    get handModeButtonVisible(): boolean;
-    set handModeButtonVisible(newValue: boolean);
     get barcodeCountButtonVisible(): boolean;
     set barcodeCountButtonVisible(newValue: boolean);
-    /**
-     * @deprecated This property was renamed. Use the property `barcodeFindButtonVisible` instead.
-     */
-    get fastFindButtonVisible(): boolean;
-    /**
-     * @deprecated This property was renamed. Use the property `barcodeFindButtonVisible` instead.
-     */
-    set fastFindButtonVisible(newValue: boolean);
     get barcodeFindButtonVisible(): boolean;
     set barcodeFindButtonVisible(newValue: boolean);
     get targetModeButtonVisible(): boolean;
     set targetModeButtonVisible(newValue: boolean);
     /**
-     * @deprecated This property is deprecated as sound mode button will be removed in the future.
+     * @deprecated The trigger button no longer displays text.
      */
-    get soundModeButtonVisible(): boolean;
-    /**
-     * @deprecated This property is deprecated as sound mode button will be removed in the future.
-     */
-    set soundModeButtonVisible(newValue: boolean);
-    /**
-     * @deprecated This property is deprecated as haptic mode button will be removed in the future.
-     */
-    get hapticModeButtonVisible(): boolean;
-    /**
-     * @deprecated This property is deprecated as haptic mode button will be removed in the future.
-     */
-    set hapticModeButtonVisible(newValue: boolean);
     get stopCapturingText(): string | null;
+    /**
+     * @deprecated The trigger button no longer displays text.
+     */
     set stopCapturingText(newValue: string | null);
+    /**
+     * @deprecated The trigger button no longer displays text.
+     */
     get startCapturingText(): string | null;
+    /**
+     * @deprecated The trigger button no longer displays text.
+     */
     set startCapturingText(newValue: string | null);
+    /**
+     * @deprecated The trigger button no longer displays text.
+     */
     get resumeCapturingText(): string | null;
+    /**
+     * @deprecated The trigger button no longer displays text.
+     */
     set resumeCapturingText(newValue: string | null);
+    /**
+     * @deprecated The trigger button no longer displays text.
+     */
     get scanningCapturingText(): string | null;
+    /**
+     * @deprecated The trigger button no longer displays text.
+     */
     set scanningCapturingText(newValue: string | null);
+    /**
+     * @deprecated This property is not relevant anymore.
+     */
     get captureButtonActiveBackgroundColor(): Color | null;
+    /**
+     * @deprecated This property is not relevant anymore.
+     */
     set captureButtonActiveBackgroundColor(newValue: Color | null);
+    /**
+     * @deprecated use triggerButtonCollapsedColor and triggerButtonExpandedColor instead.
+     */
     get captureButtonBackgroundColor(): Color | null;
+    /**
+     * @deprecated use triggerButtonCollapsedColor and triggerButtonExpandedColor instead.
+     */
     set captureButtonBackgroundColor(newValue: Color | null);
+    /**
+     * @deprecated use triggerButtonTintColor instead.
+     */
     get captureButtonTintColor(): Color | null;
+    /**
+     * @deprecated use triggerButtonTintColor instead.
+     */
     set captureButtonTintColor(newValue: Color | null);
     get toolbarBackgroundColor(): Color | null;
     set toolbarBackgroundColor(newValue: Color | null);
@@ -75,13 +81,24 @@ export declare class SparkScanView {
     set toolbarIconActiveTintColor(newValue: Color | null);
     get toolbarIconInactiveTintColor(): Color | null;
     set toolbarIconInactiveTintColor(newValue: Color | null);
-    get targetModeHintText(): string | null;
-    set targetModeHintText(newValue: string | null);
-    get shouldShowTargetModeHint(): boolean;
-    set shouldShowTargetModeHint(newValue: boolean);
     get cameraSwitchButtonVisible(): boolean;
     set cameraSwitchButtonVisible(newValue: boolean);
-    emitFeedback(feedback: SparkScanViewFeedback): void;
+    get torchControlVisible(): boolean;
+    set torchControlVisible(newValue: boolean);
+    get previewCloseControlVisible(): boolean;
+    set previewCloseControlVisible(newValue: boolean);
+    get triggerButtonAnimationColor(): Color | null;
+    set triggerButtonAnimationColor(newValue: Color | null);
+    get triggerButtonExpandedColor(): Color | null;
+    set triggerButtonExpandedColor(newValue: Color | null);
+    get triggerButtonCollapsedColor(): Color | null;
+    set triggerButtonCollapsedColor(newValue: Color | null);
+    get triggerButtonTintColor(): Color | null;
+    set triggerButtonTintColor(newValue: Color | null);
+    get triggerButtonVisible(): boolean;
+    set triggerButtonVisible(newValue: boolean);
+    get triggerButtonImage(): string | null;
+    set triggerButtonImage(newValue: string | null);
     prepareScanning(): void;
     startScanning(): void;
     pauseScanning(): void;
