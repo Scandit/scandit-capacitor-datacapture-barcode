@@ -64,6 +64,41 @@ export interface ScanditBarcodeCountNativeInterface {
         hardwareTriggerKeyCode: number | null;
     }): Promise<void>;
 }
+export interface ScanditBarcodeFindNativeInterface {
+    updateFindMode(data: {
+        BarcodeFind: string;
+    }): Promise<void>;
+    barcodeFindModeStart(): Promise<void>;
+    barcodeFindModePause(): Promise<void>;
+    barcodeFindModeStop(): Promise<void>;
+    registerBarcodeFindListener(): Promise<void>;
+    unregisterBarcodeFindListener(): Promise<void>;
+    setBarcodeFindModeEnabledState(data: {
+        enabled: boolean;
+    }): void;
+    registerBarcodeFindViewListener(): Promise<void>;
+    unregisterBarcodeFindViewListener(): Promise<void>;
+    barcodeFindViewStartSearching(): Promise<void>;
+    barcodeFindViewStopSearching(): Promise<void>;
+    barcodeFindViewPauseSearching(): Promise<void>;
+    barcodeFindSetItemList(data: {
+        BarcodeFindItemList: string;
+    }): Promise<void>;
+    createFindView(viewJson: object): Promise<void>;
+    updateFindView(barcodeFindViewJson: {
+        BarcodeFindView: string;
+    }): Promise<void>;
+    removeFindView(): Promise<void>;
+    showFindView(): Promise<void>;
+    hideFindView(): Promise<void>;
+    setBarcodeTransformer(): Promise<void>;
+    submitBarcodeFindTransformerResult(data: {
+        transformedBarcode: string | null;
+    }): Promise<void>;
+    updateBarcodeFindFeedback(data: {
+        feedbackJson: string;
+    }): Promise<void>;
+}
 export interface ScanditBarcodePickNativeInterface {
     setPickViewPositionAndSize(data: any): Promise<void>;
 }

@@ -15,14 +15,14 @@ CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(unregisterBarcodeCaptureListenerForEvents, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(finishBarcodeCaptureDidScan, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(finishBarcodeCaptureDidUpdateSession, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(registerBarcodeBatchListenerForEvents, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(unregisterBarcodeBatchListenerForEvents, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(finishBarcodeBatchDidUpdateSessionCallback, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(registerListenerForBasicOverlayEvents, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(unregisterListenerForBasicOverlayEvents, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(updateSizeOfTrackedBarcodeView, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(registerListenerForAdvancedOverlayEvents, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(unregisterListenerForAdvancedOverlayEvents, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(subscribeBarcodeBatchListener, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(unsubscribeBarcodeBatchListener, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(finishBarcodeBatchDidUpdateSession, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(subscribeBarcodeBatchBasicOverlayListener, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(unsubscribeBarcodeBatchBasicOverlayListener, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(subscribeBarcodeBatchAdvancedOverlayListener, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(unsubscribeBarcodeBatchAdvancedOverlayListener,
+                             CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(finishCallback, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setBrushForTrackedBarcode, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(clearTrackedBarcodeBrushes, CAPPluginReturnPromise);
@@ -108,7 +108,6 @@ CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(getSpatialMap, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getSpatialMapWithHints, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setBarcodeTransformer, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(unsetBarcodeTransformer, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(submitBarcodeFindTransformerResult, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(updateBarcodeFindFeedback, CAPPluginReturnPromise);
            // Barcode Pick
@@ -130,8 +129,6 @@ CAP_PLUGIN(ScanditCapacitorBarcode, "ScanditBarcodeNative",
            CAP_PLUGIN_METHOD(pickViewStop, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(pickViewStart, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(pickViewFreeze, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(pickViewPause, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(pickViewResume, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(finishPickAction, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(findNodeHandle, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(showPickView, CAPPluginReturnPromise);

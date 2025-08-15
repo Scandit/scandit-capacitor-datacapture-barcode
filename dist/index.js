@@ -1,6 +1,6 @@
-import { SymbologyDescription, BaseBarcodeCountView, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeFindView, BaseSparkScanView, BaseBarcodePickView, getBarcodeCountDefaults, loadBarcodeDefaults, loadBarcodeCaptureDefaults, loadBarcodeBatchDefaults, loadBarcodeSelectionDefaults, loadBarcodeCountDefaults, loadBarcodePickDefaults, loadBarcodeFindDefaults, loadSparkScanDefaults, getBarcodeDefaults, BarcodeSelectionListenerEvents, BarcodeSelectionBrushProviderEvents, BarcodeCountViewEvents, SparkScanViewEvents, ArucoDictionary, ArucoDictionaryPreset, Barcode, BatterySavingMode, Checksum, CompositeFlag, CompositeType, Dot, DotWithIcons, Symbology, SymbologySettings, BarcodeCapture, BarcodeCaptureSettings, BarcodeCaptureSession, BarcodeCaptureOverlay, BarcodeCaptureOverlayStyle, BarcodeCaptureFeedback, BarcodeSelection, BarcodeSelectionSettings, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionTapBehavior, BarcodeSelectionTypeName, BarcodeSelectionTapSelection, BarcodeBatch, BarcodeBatchSession, BarcodeBatchScenario, BarcodeBatchSettings, TrackedBarcode, TargetBarcode, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, EncodingRange, LocalizedOnlyBarcode, Range, BarcodeCount, BarcodeCountFeedback, BarcodeCountSession, BarcodeCountSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountToolbarSettings, BarcodeCountNotInListActionSettings, BarcodeFilterSettings, BarcodeFilterHighlightType, BarcodeFilterHighlightSettingsBrush, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodePick, BarcodePickActionCallback, BarcodePickSession, BarcodePickState, BarcodePickSettings, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickAsyncMapperProductProvider, BarcodePickStatusIconSettings, BarcodePickScanningSession, BarcodePickViewEvents, BarcodePickViewSettings, Rectangular, RectangularWithIcons, SparkScan, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewState, SparkScanViewSettings, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanBarcodeErrorFeedback, BarcodeGenerator, BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, Code128BarcodeGeneratorBuilder, Ean13BarcodeGeneratorBuilder, UpcaBarcodeGeneratorBuilder, InterleavedTwoOfFiveBarcodeGeneratorBuilder, QrCodeBarcodeGeneratorBuilder, DataMatrixBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, AztecBarcodeGeneratorBuilder } from './barcode.js';
+import { SymbologyDescription, BaseBarcodeCountView, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeFindView, BaseSparkScanView, BarcodeBatchAdvancedOverlayListenerEvents, BaseBarcodePickView, getBarcodeCountDefaults, loadBarcodeDefaults, loadBarcodeCaptureDefaults, loadBarcodeBatchDefaults, loadBarcodeSelectionDefaults, loadBarcodeCountDefaults, loadBarcodePickDefaults, loadBarcodeFindDefaults, loadSparkScanDefaults, getBarcodeDefaults, BarcodeSelectionListenerEvents, BarcodeSelectionBrushProviderEvents, BarcodeCountListenerEvents, BarcodeCountViewEvents, BarcodePickListenerEvents, BarcodePickProductIdentifierEvents, BarcodePickViewEvents, SparkScanViewEvents, ArucoDictionary, ArucoDictionaryPreset, Barcode, BatterySavingMode, Checksum, CompositeFlag, CompositeType, Dot, DotWithIcons, Symbology, SymbologySettings, BarcodeCapture, BarcodeCaptureSettings, BarcodeCaptureSession, BarcodeCaptureOverlay, BarcodeCaptureOverlayStyle, BarcodeCaptureFeedback, BarcodeSelection, BarcodeSelectionSettings, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionTapBehavior, BarcodeSelectionTypeName, BarcodeSelectionTapSelection, BarcodeBatch, BarcodeBatchSession, BarcodeBatchScenario, BarcodeBatchSettings, TrackedBarcode, TargetBarcode, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, EncodingRange, LocalizedOnlyBarcode, Range, BarcodeCount, BarcodeCountFeedback, BarcodeCountSession, BarcodeCountSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountToolbarSettings, BarcodeCountNotInListActionSettings, BarcodeFilterSettings, BarcodeFilterHighlightType, BarcodeFilterHighlightSettingsBrush, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodePick, BarcodePickActionCallback, BarcodePickState, BarcodePickSettings, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickAsyncMapperProductProvider, BarcodePickStatusIconSettings, BarcodePickScanningSession, BarcodePickViewSettings, Rectangular, RectangularWithIcons, SparkScan, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewState, SparkScanViewSettings, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanBarcodeErrorFeedback, BarcodeGenerator, BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, Code128BarcodeGeneratorBuilder, Ean13BarcodeGeneratorBuilder, UpcaBarcodeGeneratorBuilder, InterleavedTwoOfFiveBarcodeGeneratorBuilder, QrCodeBarcodeGeneratorBuilder, DataMatrixBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, AztecBarcodeGeneratorBuilder, BarcodeBatchListenerEvents, BarcodeBatchBasicOverlayListenerEvents, BarcodeFindListenerEvents, BarcodeFindViewEvents } from './barcode.js';
 export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchScenario, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureOverlayStyle, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountToolbarSettings, BarcodeCountViewStyle, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodePick, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BatterySavingMode, Checksum, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologyDescription, SymbologySettings, TargetBarcode, TrackedBarcode, UpcaBarcodeGeneratorBuilder } from './barcode.js';
-import { DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize, ignoreFromSerialization, FactoryMaker, createNativeProxy, createAdvancedNativeProxy, createAdvancedInstanceAwareNativeProxy } from 'scandit-capacitor-datacapture-core/dist/core';
+import { DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize, ignoreFromSerialization, BaseNativeProxy, FactoryMaker, createNativeProxy, createAdvancedNativeProxy, createAdvancedNativeFromCtorProxy, createAdvancedInstanceAwareNativeProxy, AdvancedNativeProxy } from 'scandit-capacitor-datacapture-core/dist/core';
 import { CapacitorNativeCaller, capacitorExec, CapacitorCore } from 'scandit-capacitor-datacapture-core';
 
 class TrackedBarcodeView extends DefaultSerializeable {
@@ -455,7 +455,6 @@ class BarcodeCountView {
         return view;
     }
     constructor({ context, barcodeCount, style }) {
-        this.viewId = Math.floor(Math.random() * 1000000);
         this.htmlElement = null;
         this._htmlElementState = new HTMLElementState();
         this.scrollListener = this.elementDidChange.bind(this);
@@ -470,8 +469,9 @@ class BarcodeCountView {
         this.baseBarcodeCountView = new BaseBarcodeCountView({
             context,
             barcodeCount,
-            viewStyle: style,
-            platformView: this,
+            style,
+            nativeView: this,
+            autoCreateNativeView: false
         });
     }
     clearHighlights() {
@@ -481,7 +481,7 @@ class BarcodeCountView {
         this.baseBarcodeCountView.setToolbarSettings(settings);
     }
     connectToElement(element) {
-        this.baseBarcodeCountView.createNativeView(this.viewId).then(() => {
+        this.baseBarcodeCountView.createNativeView().then(() => {
             this.htmlElement = element;
             this.htmlElementState = new HTMLElementState();
             // Initial update
@@ -647,7 +647,8 @@ class BarcodeFindView {
             setTimeout(this.elementDidChange.bind(this), 300);
             setTimeout(this.elementDidChange.bind(this), 1000);
         });
-        this.baseBarcodeFindView = new BaseBarcodeFindView(dataCaptureContext, barcodeFind, barcodeFindViewSettings, cameraSettings);
+        this.baseBarcodeFindView = new BaseBarcodeFindView(dataCaptureContext, barcodeFind, barcodeFindViewSettings, cameraSettings, false);
+        this.baseBarcodeFindView.initialize(this);
     }
     set htmlElementState(newState) {
         const didChangeShown = this._htmlElementState.isShown !== newState.isShown;
@@ -785,8 +786,7 @@ class BarcodeFindView {
         return this.baseBarcodeFindView.pauseSearching();
     }
     connectToElement(element) {
-        const viewId = (Date.now() / 1000) | 0;
-        this.baseBarcodeFindView.createNativeView(viewId).then(() => {
+        this.baseBarcodeFindView.createNativeView().then(() => {
             this.htmlElement = element;
             this.htmlElementState = new HTMLElementState();
             // Initial update
@@ -1782,6 +1782,20 @@ registerPlugin('CapacitorHttp', {
 var CapacitorFunction;
 (function (CapacitorFunction) {
     CapacitorFunction["GetDefaults"] = "getDefaults";
+    CapacitorFunction["SubscribeBarcodeBatchListener"] = "subscribeBarcodeBatchListener";
+    CapacitorFunction["UnsubscribeBarcodeBatchListener"] = "unsubscribeBarcodeBatchListener";
+    CapacitorFunction["FinishBarcodeBatchDidUpdateSession"] = "finishBarcodeBatchDidUpdateSession";
+    CapacitorFunction["SubscribeBarcodeBatchBasicOverlayListener"] = "subscribeBarcodeBatchBasicOverlayListener";
+    CapacitorFunction["UnsubscribeBarcodeBatchBasicOverlayListener"] = "unsubscribeBarcodeBatchBasicOverlayListener";
+    CapacitorFunction["SetBrushForTrackedBarcode"] = "setBrushForTrackedBarcode";
+    CapacitorFunction["ClearTrackedBarcodeBrushes"] = "clearTrackedBarcodeBrushes";
+    CapacitorFunction["SubscribeBarcodeBatchAdvancedOverlayListener"] = "subscribeBarcodeBatchAdvancedOverlayListener";
+    CapacitorFunction["UnsubscribeBarcodeBatchAdvancedOverlayListener"] = "unsubscribeBarcodeBatchAdvancedOverlayListener";
+    CapacitorFunction["SetViewForTrackedBarcode"] = "setViewForTrackedBarcode";
+    CapacitorFunction["SetAnchorForTrackedBarcode"] = "setAnchorForTrackedBarcode";
+    CapacitorFunction["SetOffsetForTrackedBarcode"] = "setOffsetForTrackedBarcode";
+    CapacitorFunction["ClearTrackedBarcodeViews"] = "clearTrackedBarcodeViews";
+    CapacitorFunction["ResetBarcodeBatchSession"] = "resetBarcodeBatchSession";
     CapacitorFunction["SubscribeBarcodeCountListener"] = "registerBarcodeCountListener";
     CapacitorFunction["UnsubscribeBarcodeCountListener"] = "unregisterBarcodeCountListener";
     CapacitorFunction["ResetBarcodeCountSession"] = "resetBarcodeCountSession";
@@ -1833,6 +1847,317 @@ const getDefaults = () => __awaiter(void 0, void 0, void 0, function* () {
 SymbologyDescription.defaults = () => Capacitor.defaults;
 const capacitorBarcodeNativeCaller = new CapacitorNativeCaller(Capacitor.pluginName);
 
+class NativeBarcodeBatchListenerProxy {
+    constructor() {
+        this.eventEmitter = FactoryMaker.getInstance('EventEmitter');
+        this.notifyListeners = this.notifyListeners.bind(this);
+    }
+    updateBarcodeBatchMode(modeJson) {
+        return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.UpdateBarcodeBatchMode]({
+            modeJson: modeJson
+        });
+    }
+    applyBarcodeBatchModeSettings(newSettingsJson) {
+        return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.ApplyBarcodeBatchModeSettings]({
+            modeSettingsJson: newSettingsJson
+        });
+    }
+    resetSession() {
+        return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.ResetBarcodeBatchSession]();
+    }
+    registerListenerForEvents() {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.SubscribeBarcodeBatchListener]();
+    }
+    unregisterListenerForEvents() {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.UnsubscribeBarcodeBatchListener]();
+    }
+    subscribeDidUpdateSession() {
+        window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeBatchListenerEvents.didUpdateSession, this.notifyListeners.bind(this));
+    }
+    finishDidUpdateSessionCallback(enabled) {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.FinishBarcodeBatchDidUpdateSession]({ enabled });
+    }
+    setModeEnabledState(enabled) {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.SetBarcodeBatchModeEnabledState]({ 'enabled': enabled });
+    }
+    notifyListeners(event) {
+        const done = () => {
+            this.eventEmitter.emit(BarcodeBatchListenerEvents.inCallback, false);
+            return { enabled: this.isModeEnabled() };
+        };
+        this.eventEmitter.emit(BarcodeBatchListenerEvents.inCallback, true);
+        if (!event) {
+            // The event could be undefined/null in case the plugin result did not pass a "message",
+            // which could happen e.g. in case of "ok" results, which could signal e.g. successful
+            // listener subscriptions.
+            return done();
+        }
+        this.eventEmitter.emit(event.name, event.data);
+        return done();
+    }
+}
+
+class NativeBarcodeBatchAdvancedOverlayProxy extends BaseNativeProxy {
+    constructor() {
+        super();
+        this.notifyListeners = this.notifyListeners.bind(this);
+    }
+    setBrushForTrackedBarcode(brushJson, trackedBarcodeIdentifer, sessionFrameSequenceId) {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchAdvancedOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.SetBrushForTrackedBarcode, {
+                trackedBarcodeId: trackedBarcodeIdentifer,
+                sessionFrameSequenceId: sessionFrameSequenceId,
+                brush: brushJson
+            });
+        });
+    }
+    setViewForTrackedBarcode(viewJson, trackedBarcodeIdentifer, sessionFrameSequenceID) {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchAdvancedOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.SetViewForTrackedBarcode, {
+                view: viewJson,
+                sessionFrameSequenceID: sessionFrameSequenceID,
+                trackedBarcodeID: trackedBarcodeIdentifer,
+            });
+        });
+    }
+    setAnchorForTrackedBarcode(anchor, trackedBarcodeIdentifer, sessionFrameSequenceID) {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchAdvancedOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.SetAnchorForTrackedBarcode, {
+                anchor,
+                sessionFrameSequenceID: sessionFrameSequenceID,
+                trackedBarcodeID: trackedBarcodeIdentifer,
+            });
+        });
+    }
+    setOffsetForTrackedBarcode(offsetJson, trackedBarcodeIdentifer, sessionFrameSequenceID) {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchAdvancedOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.SetOffsetForTrackedBarcode, {
+                offset: offsetJson,
+                sessionFrameSequenceID: sessionFrameSequenceID,
+                trackedBarcodeID: trackedBarcodeIdentifer,
+            });
+        });
+    }
+    clearTrackedBarcodeViews() {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchAdvancedOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.ClearTrackedBarcodeViews, null);
+        });
+    }
+    updateBarcodeBatchAdvancedOverlay(overlayJson) {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchAdvancedOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.UpdateBarcodeBatchAdvancedOverlay, {
+                overlayJson: overlayJson
+            });
+        });
+    }
+    registerListenerForAdvancedOverlayEvents() {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.SubscribeBarcodeBatchAdvancedOverlayListener]();
+    }
+    unregisterListenerForAdvancedOverlayEvents() {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.UnsubscribeBarcodeBatchAdvancedOverlayListener]();
+    }
+    subscribeViewForTrackedBarcode() {
+        window.Capacitor.Plugins[Capacitor.pluginName].addListener(BarcodeBatchAdvancedOverlayListenerEvents.viewForTrackedBarcode, this.notifyListeners.bind(this));
+    }
+    subscribeAnchorForTrackedBarcode() {
+        window.Capacitor.Plugins[Capacitor.pluginName].addListener(BarcodeBatchAdvancedOverlayListenerEvents.anchorForTrackedBarcode, this.notifyListeners.bind(this));
+    }
+    subscribeOffsetForTrackedBarcode() {
+        window.Capacitor.Plugins[Capacitor.pluginName].addListener(BarcodeBatchAdvancedOverlayListenerEvents.offsetForTrackedBarcode, this.notifyListeners.bind(this));
+    }
+    subscribeDidTapViewForTrackedBarcode() {
+        window.Capacitor.Plugins[Capacitor.pluginName].addListener(BarcodeBatchAdvancedOverlayListenerEvents.didTapViewForTrackedBarcode, this.notifyListeners.bind(this));
+    }
+    getJSONStringForView(view) {
+        return view ? view.toJSON() : null;
+    }
+    notifyListeners(event) {
+        if (!event) {
+            // The event could be undefined/null in case the plugin result did not pass a "message",
+            // which could happen e.g. in case of "ok" results, which could signal e.g. successful
+            // listener subscriptions.
+            return {};
+        }
+        this.eventEmitter.emit(event.name, event.data);
+        return {};
+    }
+}
+NativeBarcodeBatchAdvancedOverlayProxy.capacitorExec = Capacitor.exec;
+
+class NativeBarcodeBatchBasicOverlayProxy {
+    constructor() {
+        this.eventEmitter = FactoryMaker.getInstance('EventEmitter');
+        this.notifyListeners = this.notifyListeners.bind(this);
+    }
+    updateBarcodeBatchBasicOverlay(overlayJson) {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchBasicOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.UpdateBarcodeBatchBasicOverlay, {
+                overlayJson: overlayJson
+            });
+        });
+    }
+    setBrushForTrackedBarcode(brushJson, trackedBarcodeIdentifer, _sessionFrameSequenceID) {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchBasicOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.SetBrushForTrackedBarcode, {
+                brush: brushJson,
+                trackedBarcodeID: trackedBarcodeIdentifer,
+            });
+        });
+    }
+    clearTrackedBarcodeBrushes() {
+        return new Promise((resolve, reject) => {
+            NativeBarcodeBatchBasicOverlayProxy.capacitorExec(resolve, reject, CapacitorFunction.ClearTrackedBarcodeBrushes, null);
+        });
+    }
+    registerListenerForBasicOverlayEvents() {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.SubscribeBarcodeBatchBasicOverlayListener]();
+    }
+    unregisterListenerForBasicOverlayEvents() {
+        window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.UnsubscribeBarcodeBatchBasicOverlayListener]();
+    }
+    subscribeBrushForTrackedBarcode() {
+        window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeBatchBasicOverlayListenerEvents.brushForTrackedBarcode, this.notifyListeners.bind(this));
+    }
+    subscribeDidTapTrackedBarcode() {
+        window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeBatchBasicOverlayListenerEvents.didTapTrackedBarcode, this.notifyListeners.bind(this));
+    }
+    notifyListeners(event) {
+        this.eventEmitter.emit(event.name, event.data);
+        return null;
+    }
+}
+NativeBarcodeBatchBasicOverlayProxy.capacitorExec = Capacitor.exec;
+
+class NativeBarcodeFindListenerProxy extends BaseNativeProxy {
+    constructor() {
+        super(...arguments);
+        this.nativeEventSubscriptions = [];
+        this.isModeEnabled = () => false;
+    }
+    setItemList(itemsJson) {
+        return ScanditBarcodeFindPluginNative.barcodeFindSetItemList({ BarcodeFindItemList: itemsJson });
+    }
+    updateFindMode(barcodeFindJson) {
+        return ScanditBarcodeFindPluginNative.updateFindMode({ BarcodeFind: barcodeFindJson });
+    }
+    barcodeFindModeStart() {
+        return ScanditBarcodeFindPluginNative.barcodeFindModeStart();
+    }
+    barcodeFindModePause() {
+        return ScanditBarcodeFindPluginNative.barcodeFindModePause();
+    }
+    barcodeFindModeStop() {
+        return ScanditBarcodeFindPluginNative.barcodeFindModeStop();
+    }
+    setModeEnabledState(isEnabled) {
+        ScanditBarcodeFindPluginNative.setBarcodeFindModeEnabledState({ enabled: isEnabled });
+    }
+    setBarcodeTransformer() {
+        const onTransformSubscription = window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeFindListenerEvents.onTransformBarcodeData, this.notifyListeners.bind(this));
+        this.nativeEventSubscriptions.push(onTransformSubscription);
+        return ScanditBarcodeFindPluginNative.setBarcodeTransformer();
+    }
+    submitBarcodeFindTransformerResult(transformedBarcode) {
+        return ScanditBarcodeFindPluginNative.submitBarcodeFindTransformerResult({ transformedBarcode: transformedBarcode });
+    }
+    subscribeBarcodeFindListener() {
+        const onSearchStartedSubscription = window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeFindListenerEvents.onSearchStartedEvent, this.notifyListeners.bind(this));
+        const onSearchPausedSubscription = window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeFindListenerEvents.onSearchPausedEvent, this.notifyListeners.bind(this));
+        const onSearchStoppedSubscription = window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeFindListenerEvents.onSearchStoppedEvent, this.notifyListeners.bind(this));
+        const onDidUpdateSessionSubscription = window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeFindListenerEvents.didUpdateSession, this.notifyListeners.bind(this));
+        this.nativeEventSubscriptions.push(onSearchStartedSubscription, onSearchPausedSubscription, onSearchStoppedSubscription, onDidUpdateSessionSubscription);
+        return ScanditBarcodeFindPluginNative.registerBarcodeFindListener();
+    }
+    unsubscribeBarcodeFindListener() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const removePromises = this.nativeEventSubscriptions.map((subscription) => __awaiter(this, void 0, void 0, function* () { return yield subscription.remove(); }));
+            yield Promise.all(removePromises);
+            this.nativeEventSubscriptions = [];
+            return ScanditBarcodeFindPluginNative.unregisterBarcodeFindListener();
+        });
+    }
+    updateFeedback(feedbackJson) {
+        return ScanditBarcodeFindPluginNative.updateBarcodeFindFeedback({ feedbackJson: feedbackJson });
+    }
+    notifyListeners(event) {
+        const done = () => {
+            this.eventEmitter.emit(BarcodeFindListenerEvents.inCallback, false);
+            return { enabled: this.isModeEnabled() };
+        };
+        this.eventEmitter.emit(BarcodeFindListenerEvents.inCallback, true);
+        if (!event) {
+            // The event could be undefined/null in case the plugin result did not pass a "message",
+            // which could happen e.g. in case of "ok" results, which could signal e.g. successful
+            // listener subscriptions.
+            return done();
+        }
+        this.eventEmitter.emit(event.name, event.data);
+    }
+}
+
+class NativeBarcodeFindViewProxy extends BaseNativeProxy {
+    showView() {
+        return ScanditBarcodeFindPluginNative.showFindView();
+    }
+    hideView() {
+        return ScanditBarcodeFindPluginNative.hideFindView();
+    }
+    startSearching() {
+        return ScanditBarcodeFindPluginNative.barcodeFindViewStartSearching();
+    }
+    stopSearching() {
+        return ScanditBarcodeFindPluginNative.barcodeFindViewStopSearching();
+    }
+    pauseSearching() {
+        return ScanditBarcodeFindPluginNative.barcodeFindViewPauseSearching();
+    }
+    findNodeHandle(_view) {
+        // This is used on RN only to retrieve the view id
+        return null;
+    }
+    createView(_id, barcodeFindViewJson) {
+        return ScanditBarcodeFindPluginNative.createFindView(JSON.parse(barcodeFindViewJson));
+    }
+    updateView(barcodeFindViewJson) {
+        return ScanditBarcodeFindPluginNative.updateFindView(JSON.parse(barcodeFindViewJson));
+    }
+    removeView() {
+        return ScanditBarcodeFindPluginNative.removeFindView();
+    }
+    subscribeBarcodeFindViewListener() {
+        this.subscriptionBarcodeFindViewListener = window.Capacitor.Plugins[Capacitor.pluginName]
+            .addListener(BarcodeFindViewEvents.onFinishButtonTappedEventName, this.notifyListeners.bind(this));
+        return ScanditBarcodeFindPluginNative.registerBarcodeFindViewListener();
+    }
+    unsubscribeBarcodeFindViewListener() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.eventEmitter.off(BarcodeFindViewEvents.onFinishButtonTappedEventName);
+            yield this.subscriptionBarcodeFindViewListener.remove();
+            return ScanditBarcodeFindPluginNative.unregisterBarcodeFindViewListener();
+        });
+    }
+    notifyListeners(event) {
+        const done = () => {
+            return {};
+        };
+        if (!event) {
+            // The event could be undefined/null in case the plugin result did not pass a "message",
+            // which could happen e.g. in case of "ok" results, which could signal e.g. successful
+            // listener subscriptions.
+            return done();
+        }
+        this.eventEmitter.emit(event.name, event.data);
+    }
+}
+
 class NativeBarcodeGeneratorProxy {
     create(barcodeGeneratorJson) {
         return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.CreateBarcodeGenerator]({
@@ -1860,19 +2185,23 @@ class NativeBarcodeGeneratorProxy {
     }
 }
 
+class NativeBarcodeCountViewProxy extends AdvancedNativeProxy {
+    $enableBarcodeCountHardwareTrigger({ hardwareTriggerKeyCode }) {
+        // Hardware trigger is only supported on iOS
+        if (Capacitor$1.getPlatform() === 'ios') {
+            return Promise.resolve();
+        }
+        return ScanditBarcodeCountPluginNative.barcodeCountViewEnableHardwareTrigger({ hardwareTriggerKeyCode: hardwareTriggerKeyCode });
+    }
+}
+
 function initBarcodeProxy() {
     FactoryMaker.bindLazyInstance('BarcodeCaptureListenerProxy', () => {
         return createNativeProxy(capacitorBarcodeNativeCaller);
     });
-    FactoryMaker.bindLazyInstance('BarcodeBatchListenerProxy', () => {
-        return createNativeProxy(capacitorBarcodeNativeCaller);
-    });
-    FactoryMaker.bindLazyInstance('BarcodeBatchBasicOverlayProxy', () => {
-        return createNativeProxy(capacitorBarcodeNativeCaller);
-    });
-    FactoryMaker.bindLazyInstance('BarcodeBatchAdvancedOverlayProxy', () => {
-        return createNativeProxy(capacitorBarcodeNativeCaller);
-    });
+    FactoryMaker.bindInstance('BarcodeBatchListenerProxy', new NativeBarcodeBatchListenerProxy());
+    FactoryMaker.bindInstance('BarcodeBatchBasicOverlayProxy', new NativeBarcodeBatchBasicOverlayProxy());
+    FactoryMaker.bindInstance('BarcodeBatchAdvancedOverlayProxy', new NativeBarcodeBatchAdvancedOverlayProxy());
     FactoryMaker.bindLazyInstance('BarcodeSelectionListenerProxy', () => {
         return createAdvancedNativeProxy(capacitorBarcodeNativeCaller, BarcodeSelectionListenerEvents);
     });
@@ -1882,18 +2211,26 @@ function initBarcodeProxy() {
     FactoryMaker.bindLazyInstance('BarcodeSelectionProxy', () => {
         return createAdvancedNativeProxy(capacitorBarcodeNativeCaller);
     });
+    FactoryMaker.bindLazyInstance('BarcodeCountListenerProxy', () => {
+        return createAdvancedNativeProxy(capacitorBarcodeNativeCaller, BarcodeCountListenerEvents);
+    });
     FactoryMaker.bindLazyInstance('BarcodeCountSessionProxy', () => {
-        return createAdvancedInstanceAwareNativeProxy(capacitorBarcodeNativeCaller);
+        return createAdvancedNativeProxy(capacitorBarcodeNativeCaller);
     });
     FactoryMaker.bindLazyInstance('BarcodeCountViewProxy', () => {
-        return createAdvancedInstanceAwareNativeProxy(capacitorBarcodeNativeCaller, BarcodeCountViewEvents);
+        return createAdvancedNativeFromCtorProxy(NativeBarcodeCountViewProxy, capacitorBarcodeNativeCaller, BarcodeCountViewEvents);
+    });
+    FactoryMaker.bindLazyInstance('BarcodePickListenerProxy', () => {
+        return createAdvancedNativeProxy(capacitorBarcodeNativeCaller, BarcodePickListenerEvents);
+    });
+    FactoryMaker.bindLazyInstance('BarcodePickProductProxy', () => {
+        return createAdvancedNativeProxy(capacitorBarcodeNativeCaller, BarcodePickProductIdentifierEvents);
     });
     FactoryMaker.bindLazyInstance('BarcodePickViewProxy', () => {
-        return createNativeProxy(capacitorBarcodeNativeCaller);
+        return createAdvancedNativeProxy(capacitorBarcodeNativeCaller, BarcodePickViewEvents);
     });
-    FactoryMaker.bindLazyInstance('BarcodeFindViewProxy', () => {
-        return createNativeProxy(capacitorBarcodeNativeCaller);
-    });
+    FactoryMaker.bindInstance('BarcodeFindProxy', new NativeBarcodeFindListenerProxy());
+    FactoryMaker.bindInstance('BarcodeFindViewProxy', new NativeBarcodeFindViewProxy());
     FactoryMaker.bindLazyInstance('SparkScanViewProxy', () => {
         return createAdvancedInstanceAwareNativeProxy(capacitorBarcodeNativeCaller, SparkScanViewEvents);
     });
@@ -1976,10 +2313,11 @@ class ScanditBarcodePluginImplementation {
                 BarcodeFindView,
                 BarcodePick,
                 BarcodePickActionCallback,
-                BarcodePickSession,
+                BarcodePickListenerEvents,
                 BarcodePickState,
                 BarcodePickSettings,
                 BarcodePickProduct,
+                BarcodePickProductIdentifierEvents,
                 BarcodePickProductProviderCallback,
                 BarcodePickProductProviderCallbackItem,
                 BarcodePickAsyncMapperProductProvider,
@@ -2030,27 +2368,28 @@ registerPlugin('ScanditBarcodePlugin', {
 const ScanditBarcodePlugin = new ScanditBarcodePluginImplementation();
 const ScanditBarcodeCountPluginNative = registerPlugin('ScanditBarcodeNative');
 const ScanditBarcodePickPluginNative = registerPlugin('ScanditBarcodeNative');
+const ScanditBarcodeFindPluginNative = registerPlugin('ScanditBarcodeNative');
 
 class BarcodePickView extends DefaultSerializeable {
     constructor(props) {
         super();
-        this.viewId = Math.floor(Math.random() * 1000000);
         this.htmlElement = null;
         this._htmlElementState = new HTMLElementState();
         this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
         this.scrollListener = this.elementDidChange.bind(this);
-        this.orientationChangeListener = () => {
+        this.orientationChangeListener = (() => {
             this.elementDidChange();
             // SDC-1784 -> workaround because at the moment of this callback the element doesn't have the updated size.
             setTimeout(this.elementDidChange.bind(this), 100);
             setTimeout(this.elementDidChange.bind(this), 300);
             setTimeout(this.elementDidChange.bind(this), 1000);
-        };
+        });
         this.baseBarcodePickView = new BaseBarcodePickView({
             context: props.context,
             barcodePick: props.barcodePick,
             settings: props.settings,
             cameraSettings: props.cameraSettings,
+            autoCreateNativeView: false
         });
         this.baseBarcodePickView.initialize(this);
     }
@@ -2080,7 +2419,7 @@ class BarcodePickView extends DefaultSerializeable {
         return this._htmlElementState;
     }
     connectToElement(element) {
-        this.baseBarcodePickView.createNativeView(this.viewId).then(() => {
+        this.baseBarcodePickView.createNativeView().then(() => {
             this.htmlElement = element;
             this.htmlElementState = new HTMLElementState();
             // Initial update
@@ -2114,10 +2453,10 @@ class BarcodePickView extends DefaultSerializeable {
         const boundingRect = this.htmlElement.getBoundingClientRect();
         newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
         newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
-        newState.shouldBeUnderContent =
-            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
-                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
-        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
+        newState.shouldBeUnderContent = parseInt(this.htmlElement.style.zIndex || '1', 10) < 0
+            || parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none'
+            && this.htmlElement.style.display !== 'none';
         const isInDOM = document.body.contains(this.htmlElement);
         newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
         this.htmlElementState = newState;
@@ -2142,12 +2481,6 @@ class BarcodePickView extends DefaultSerializeable {
     }
     freeze() {
         this.baseBarcodePickView.freeze();
-    }
-    pause() {
-        this.baseBarcodePickView.pause();
-    }
-    resume() {
-        this.baseBarcodePickView.resume();
     }
     addListener(listener) {
         this.baseBarcodePickView.addListener(listener);
@@ -2184,4 +2517,4 @@ __decorate([
     ignoreFromSerialization
 ], BarcodePickView.prototype, "orientationChangeListener", void 0);
 
-export { BarcodeBatchAdvancedOverlay, BarcodeCountView, BarcodeFindView, BarcodePickView, ScanditBarcodeCountPluginNative, ScanditBarcodePickPluginNative, ScanditBarcodePlugin, ScanditBarcodePluginImplementation, SparkScanView, TrackedBarcodeView };
+export { BarcodeBatchAdvancedOverlay, BarcodeCountView, BarcodeFindView, BarcodePickView, ScanditBarcodeCountPluginNative, ScanditBarcodeFindPluginNative, ScanditBarcodePickPluginNative, ScanditBarcodePlugin, ScanditBarcodePluginImplementation, SparkScanView, TrackedBarcodeView };
