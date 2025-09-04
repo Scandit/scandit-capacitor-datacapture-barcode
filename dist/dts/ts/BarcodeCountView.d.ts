@@ -10,6 +10,7 @@ export declare enum BarcodeCountViewStyle {
     Dot = "dot"
 }
 export declare class BarcodeCountView {
+    private viewId;
     static get defaultRecognizedBrush(): Brush;
     static get defaultNotInListBrush(): Brush;
     static get defaultAcceptedBrush(): Brush;
