@@ -30,9 +30,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     override func load() {
         let emitter = CapacitorEventEmitter(with: self)
-        barcodeCaptureModule = BarcodeCaptureModule(
-            barcodeCaptureListener: FrameworksBarcodeCaptureListener(emitter: emitter)
-        )
+        barcodeCaptureModule = BarcodeCaptureModule(emitter: emitter)
         barcodeBatchModule = BarcodeBatchModule(emitter: emitter)
         barcodeSelectionModule = BarcodeSelectionModule(
             barcodeSelectionListener: FrameworksBarcodeSelectionListener(emitter: emitter),
@@ -97,32 +95,93 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(registerBarcodeCaptureListenerForEvents:)
     func registerBarcodeCaptureListenerForEvents(_ call: CAPPluginCall) {
-        barcodeCaptureModule.addListener()
+        guard let modeId = call.getInt("modeId") else {
+            call.reject("Missing modeId parameter")
+            return
+        }
+        barcodeCaptureModule.addListener(modeId: modeId)
         call.resolve()
     }
 
     @objc(unregisterBarcodeCaptureListenerForEvents:)
     func unregisterBarcodeCaptureListenerForEvents(_ call: CAPPluginCall) {
-        barcodeCaptureModule.removeListener()
-        call.resolve()
-    }
-
-    @objc(finishBarcodeCaptureDidScan:)
-    func finishBarcodeCaptureDidScan(_ call: CAPPluginCall) {
-        barcodeCaptureModule.finishDidScan(enabled: call.getBool("enabled", false))
+        guard let modeId = call.getInt("modeId") else {
+            call.reject("Missing modeId parameter")
+            return
+        }
+        barcodeCaptureModule.removeListener(modeId: modeId)
         call.resolve()
     }
 
     @objc(finishBarcodeCaptureDidUpdateSession:)
     func finishBarcodeCaptureDidUpdateSession(_ call: CAPPluginCall) {
-        barcodeCaptureModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
+        guard let modeId = call.getInt("modeId") else {
+            call.reject("Missing modeId parameter")
+            return
+        }
+        let enabled = call.getBool("enabled", false)
+        barcodeCaptureModule.finishDidUpdateSession(modeId: modeId, enabled: enabled)
+        call.resolve()
+    }
+
+    @objc(finishBarcodeCaptureDidScan:)
+    func finishBarcodeCaptureDidScan(_ call: CAPPluginCall) {
+        guard let modeId = call.getInt("modeId") else {
+            call.reject("Missing modeId parameter")
+            return
+        }
+        let enabled = call.getBool("enabled", false)
+        barcodeCaptureModule.finishDidScan(modeId: modeId, enabled: enabled)
         call.resolve()
     }
 
     @objc(resetBarcodeCaptureSession:)
     func resetBarcodeCaptureSession(_ call: CAPPluginCall) {
-        barcodeCaptureModule.resetSession(frameSequenceId: nil)
+        let frameSequenceId = call.getInt("frameSequenceId")
+        barcodeCaptureModule.resetSession(frameSequenceId: frameSequenceId)
         call.resolve()
+    }
+
+    @objc(setBarcodeCaptureModeEnabledState:)
+    func setBarcodeCaptureModeEnabledState(_ call: CAPPluginCall) {
+        guard let modeId = call.getInt("modeId") else {
+            call.reject("Missing modeId parameter")
+            return
+        }
+        let enabled = call.getBool("enabled", false)
+        barcodeCaptureModule.setModeEnabled(modeId: modeId, enabled: enabled)
+        call.resolve()
+    }
+
+    @objc(updateBarcodeCaptureOverlay:)
+    func updateBarcodeCaptureOverlay(_ call: CAPPluginCall) {
+        guard let viewId = call.getInt("viewId") else {
+            call.reject("Missing viewId parameter")
+            return
+        }
+        guard let overlayJson = call.getString("overlayJson") else {
+            call.reject("Missing overlayJson parameter")
+            return
+        }
+        barcodeCaptureModule.updateOverlay(viewId, overlayJson: overlayJson, result: CapacitorResult(call))
+    }
+
+    @objc(updateBarcodeCaptureMode:)
+    func updateBarcodeCaptureMode(_ call: CAPPluginCall) {
+        guard let modeJson = call.getString("modeJson") else {
+            call.reject("Missing modeJson parameter")
+            return
+        }
+        barcodeCaptureModule.updateModeFromJson(modeJson: modeJson, result: CapacitorResult(call))
+    }
+
+    @objc(applyBarcodeCaptureModeSettings:)
+    func applyBarcodeCaptureModeSettings(_ call: CAPPluginCall) {
+        guard let modeId = call.getInt("modeId"), let modeSettingsJson = call.getString("modeSettingsJson") else {
+            call.reject("Missing modeId or modeSettingsJson parameter")
+            return
+        }
+        barcodeCaptureModule.applyModeSettings(modeId: modeId, modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
     }
 
     // MARK: Barcode Batch
@@ -881,12 +940,6 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
-    @objc(setBarcodeCaptureModeEnabledState:)
-    func setBarcodeCaptureModeEnabledState(_ call: CAPPluginCall) {
-        barcodeCaptureModule.setModeEnabled(enabled: call.getBool("enabled", false))
-        call.resolve()
-    }
-
     // MARK: BarcodeFind
 
     @objc(createFindView:)
@@ -1003,7 +1056,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
         }
         barcodeFindModule.setBarcodeFindTransformer(viewId, result: CapacitorResult(call))
     }
-    
+
     @objc(unsetBarcodeTransformer:)
     func unsetBarcodeTransformer(_ call: CAPPluginCall) {
         guard let viewId = call.getInt("viewId") else {
@@ -1403,33 +1456,6 @@ class ScanditCapacitorBarcode: CAPPlugin {
             return
         }
         barcodePickModule.finishPickAction(viewId: viewId, data: code, actionResult: result, result: CapacitorResult(call))
-    }
-
-    @objc(updateBarcodeCaptureOverlay:)
-    func updateBarcodeCaptureOverlay(_ call: CAPPluginCall) {
-        guard let overlayJson = call.getString("overlayJson") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeCaptureModule.updateOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
-    }
-
-    @objc(updateBarcodeCaptureMode:)
-    func updateBarcodeCaptureMode(_ call: CAPPluginCall) {
-        guard let modeJson = call.getString("modeJson") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeCaptureModule.updateModeFromJson(modeJson: modeJson, result: CapacitorResult(call))
-    }
-
-    @objc(applyBarcodeCaptureModeSettings:)
-    func applyBarcodeCaptureModeSettings(_ call: CAPPluginCall) {
-        guard let modeSettingsJson = call.getString("modeSettingsJson") else {
-            call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        barcodeCaptureModule.applyModeSettings(modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
     }
 
     @objc(updateBarcodeSelectionBasicOverlay:)

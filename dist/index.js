@@ -601,13 +601,21 @@ class BarcodeBatchAdvancedOverlay {
     set listener(listener) {
         this.baseBarcodeBatchOverlay.listener = listener;
     }
+    /**
+     * @deprecated Since 7.6. This factory will be removed in 8.0.
+     * Create the overlay and add it to the view manually instead:
+     * ```ts
+     * const overlay = new BarcodeBatchAdvancedOverlay();
+     * view.addOverlay(overlay);
+     * ```
+     */
     static withBarcodeBatchForView(barcodeBatch, view) {
-        const overlay = new BarcodeBatchAdvancedOverlay();
-        overlay.baseBarcodeBatchOverlay.initialize(barcodeBatch, view);
+        const overlay = new BarcodeBatchAdvancedOverlay(barcodeBatch);
+        view === null || view === void 0 ? void 0 : view.addOverlay(overlay.baseBarcodeBatchOverlay);
         return overlay;
     }
-    constructor() {
-        this.baseBarcodeBatchOverlay = new BaseBarcodeBatchAdvancedOverlay();
+    constructor(mode) {
+        this.baseBarcodeBatchOverlay = new BaseBarcodeBatchAdvancedOverlay(mode);
     }
     setViewForTrackedBarcode(view, trackedBarcode) {
         return this.baseBarcodeBatchOverlay.setViewForTrackedBarcode(view, trackedBarcode);
@@ -627,16 +635,25 @@ class BarcodeBatchAdvancedOverlay {
 }
 
 class BarcodeFindView {
+    /**
+     * @deprecated Use the constructor instead.
+     */
     static forMode(dataCaptureContext, barcodeFind) {
-        return new BarcodeFindView(dataCaptureContext, barcodeFind);
+        return new BarcodeFindView({ context: dataCaptureContext, barcodeFind });
     }
+    /**
+     * @deprecated Use the constructor instead.
+     */
     static forModeWithViewSettings(dataCaptureContext, barcodeFind, viewSettings) {
-        return new BarcodeFindView(dataCaptureContext, barcodeFind, viewSettings);
+        return new BarcodeFindView({ context: dataCaptureContext, barcodeFind, viewSettings });
     }
+    /**
+     * @deprecated Use the constructor instead.
+     */
     static forModeWithViewSettingsAndCameraSettings(dataCaptureContext, barcodeFind, viewSettings, cameraSettings) {
-        return new BarcodeFindView(dataCaptureContext, barcodeFind, viewSettings, cameraSettings);
+        return new BarcodeFindView({ context: dataCaptureContext, barcodeFind, viewSettings, cameraSettings });
     }
-    constructor(dataCaptureContext, barcodeFind, barcodeFindViewSettings, cameraSettings) {
+    constructor(props) {
         this.htmlElement = null;
         this._htmlElementState = new HTMLElementState();
         this.scrollListener = this.elementDidChange.bind(this);
@@ -647,7 +664,7 @@ class BarcodeFindView {
             setTimeout(this.elementDidChange.bind(this), 300);
             setTimeout(this.elementDidChange.bind(this), 1000);
         });
-        this.baseBarcodeFindView = new BaseBarcodeFindView(dataCaptureContext, barcodeFind, barcodeFindViewSettings, cameraSettings);
+        this.baseBarcodeFindView = new BaseBarcodeFindView(props);
     }
     set htmlElementState(newState) {
         const didChangeShown = this._htmlElementState.isShown !== newState.isShown;
@@ -1862,6 +1879,9 @@ class NativeBarcodeGeneratorProxy {
 
 function initBarcodeProxy() {
     FactoryMaker.bindLazyInstance('BarcodeCaptureListenerProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeCaptureOverlayProxy', () => {
         return createNativeProxy(capacitorBarcodeNativeCaller);
     });
     FactoryMaker.bindLazyInstance('BarcodeBatchListenerProxy', () => {

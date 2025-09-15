@@ -18,7 +18,7 @@ export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker } from 'scandit-dat
 export { BarcodeBatchAdvancedOverlayListener } from './ts/BarcodeBatchAdvancedOverlayListener';
 export { BarcodeBatchAdvancedOverlay } from './ts/BarcodeBatchAdvancedOverlay';
 export { BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions } from 'scandit-datacapture-frameworks-barcode';
-export { BarcodeFindListener, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeFindViewUiListener, BarcodeFindTransformer } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodeFindListener, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeFindViewUiListener, BarcodeFindTransformer, BarcodeFindViewProps } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeFindView } from './ts/BarcodeFindView';
 export { SparkScan, SparkScanListener, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningMode, SparkScanScanningModeDefault, SparkScanScanningModeTarget } from 'scandit-datacapture-frameworks-barcode';
 export { SparkScanSettings, SparkScanViewState, SparkScanViewSettings, SparkScanSession, SparkScanToastSettings, BatterySavingMode, SparkScanMiniPreviewSize } from 'scandit-datacapture-frameworks-barcode';
