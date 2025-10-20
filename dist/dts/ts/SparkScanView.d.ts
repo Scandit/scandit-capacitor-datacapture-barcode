@@ -101,10 +101,10 @@ export declare class SparkScanView {
     set triggerButtonVisible(newValue: boolean);
     get triggerButtonImage(): string | null;
     set triggerButtonImage(newValue: string | null);
-    prepareScanning(): void;
-    startScanning(): void;
-    pauseScanning(): void;
-    stopScanning(): void;
+    prepareScanning(): Promise<void>;
+    startScanning(): Promise<void>;
+    pauseScanning(): Promise<void>;
+    stopScanning(): Promise<void>;
     dispose(): void;
     show(): Promise<void>;
     hide(): Promise<void>;

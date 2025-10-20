@@ -248,7 +248,7 @@ class ScanditBarcodeNative :
 
     @PluginMethod
     fun resetBarcodeCaptureSession(call: PluginCall) {
-        barcodeCaptureModule.resetSession(call.data.getLong("frameSequenceId"))
+        barcodeCaptureModule.resetSession()
         call.resolve()
     }
 
@@ -1500,8 +1500,7 @@ class ScanditBarcodeNative :
 
     @PluginMethod
     fun stopSparkScanViewScanning(call: PluginCall) {
-        // Noop
-        call.resolve()
+        sparkScanModule.stopScanning(getViewId(call), CapacitorResult(call))
     }
 
     @PluginMethod

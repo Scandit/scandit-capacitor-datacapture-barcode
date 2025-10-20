@@ -137,8 +137,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(resetBarcodeCaptureSession:)
     func resetBarcodeCaptureSession(_ call: CAPPluginCall) {
-        let frameSequenceId = call.getInt("frameSequenceId")
-        barcodeCaptureModule.resetSession(frameSequenceId: frameSequenceId)
+        barcodeCaptureModule.resetSession()
         call.resolve()
     }
 

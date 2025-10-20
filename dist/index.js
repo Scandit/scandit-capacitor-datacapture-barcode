@@ -1100,25 +1100,37 @@ class SparkScanView {
         this.baseSparkScanView.triggerButtonImage = newValue;
     }
     prepareScanning() {
-        this.baseSparkScanView.prepareScanning();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.prepareScanning();
+        });
     }
     startScanning() {
-        this.baseSparkScanView.startScanning();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.startScanning();
+        });
     }
     pauseScanning() {
-        this.baseSparkScanView.pauseScanning();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.pauseScanning();
+        });
     }
     stopScanning() {
-        this.baseSparkScanView.stopScanning();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.stopScanning();
+        });
     }
     dispose() {
         this.baseSparkScanView.dispose();
     }
     show() {
-        return this.baseSparkScanView.show();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.show();
+        });
     }
     hide() {
-        return this.baseSparkScanView.hide();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.hide();
+        });
     }
     get feedbackDelegate() {
         return this.baseSparkScanView.feedbackDelegate;
@@ -1127,7 +1139,9 @@ class SparkScanView {
         this.baseSparkScanView.feedbackDelegate = delegate;
     }
     showToast(text) {
-        return this.baseSparkScanView.showToast(text);
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.showToast(text);
+        });
     }
     toJSON() {
         return this.baseSparkScanView.toJSON();
