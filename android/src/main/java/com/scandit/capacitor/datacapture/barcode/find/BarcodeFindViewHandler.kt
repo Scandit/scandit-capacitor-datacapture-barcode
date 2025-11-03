@@ -12,101 +12,72 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
+import com.scandit.capacitor.datacapture.core.data.ResizeAndMoveInfo
+import com.scandit.capacitor.datacapture.core.utils.pxFromDp
 import com.scandit.capacitor.datacapture.core.utils.removeFromParent
+import com.scandit.datacapture.barcode.find.ui.BarcodeFindView
 import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
-import java.util.concurrent.ConcurrentHashMap
 
 class BarcodeFindViewHandler(
     private val mainThread: MainThread = DefaultMainThread.getInstance()
 ) {
-    private val containers: MutableMap<Int, WeakReference<FrameLayout>> = ConcurrentHashMap()
-    private val containerVisibility: MutableMap<Int, Boolean> = ConcurrentHashMap()
-
+    private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
+    private var isVisible: Boolean = true
+    private var barcodeFindViewContainerReference: WeakReference<FrameLayout>? = null
     private var webViewReference: WeakReference<View>? = null
 
-    private val webView: View?
-        get() = webViewReference?.get()
+    val barcodeFindViewContainer: FrameLayout?
+    get() = barcodeFindViewContainerReference?.get()
 
-    fun prepareContainer(context: Context): FrameLayout {
-        return FrameLayout(
-            context
-        )
+    private val webView: View?
+    get() = webViewReference?.get()
+
+
+    fun prepareContainer(context: Context) : FrameLayout {
+        return FrameLayout(context)
     }
 
-    fun addBarcodeFindViewContainer(viewId: Int, container: FrameLayout, activity: AppCompatActivity) {
-        if (containers.containsKey(viewId)) {
-            val existingContainer = containers.remove(viewId)?.get()
-            if (existingContainer != null) {
-                removeView(existingContainer)
-            }
+    fun addBarcodeFindViewContainer(container: FrameLayout, activity: AppCompatActivity) {
+        if (this.barcodeFindViewContainer != container) {
+            disposeCurrentView()
+            addContainer(container, activity)
         }
-
-        containers[viewId] = WeakReference(container)
-        containerVisibility[viewId] = true
-
-        addContainer(
-            viewId,
-            container,
-            activity
-        )
     }
 
     fun attachWebView(webView: View) {
         if (this.webView != webView) {
             webViewReference = WeakReference(webView)
-            mainThread.runOnMainThread {
-                webView.bringToFront()
-                webView.setBackgroundColor(Color.TRANSPARENT)
-            }
+            webView.bringToFront()
+            webView.setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
-    fun setVisible(viewId: Int) {
-        mainThread.runOnMainThread {
-            containerVisibility[viewId] = true
-            renderNoAnimate(
-                containers[viewId]?.get() ?: return@runOnMainThread,
-                containerVisibility[viewId] == true
-            )
-        }
+    fun setVisible() {
+        isVisible = true
+        render()
     }
 
-    fun setInvisible(viewId: Int) {
-        mainThread.runOnMainThread {
-            containerVisibility[viewId] = false
-            renderNoAnimate(
-                containers[viewId]?.get() ?: return@runOnMainThread,
-                containerVisibility[viewId] == true
-            )
-        }
+    fun setInvisible() {
+        isVisible = false
+        render()
     }
 
-    fun disposeContainer(viewId: Int) {
-        mainThread.runOnMainThread {
-            containers.remove(viewId)?.get()?.also {
-                removeView(it)
-            }
-        }
-
-        containerVisibility.remove(viewId)
-
-        if (containers.isEmpty()) {
-            mainThread.runOnMainThread {
-                setWebViewVisible()
-            }
-        }
+    fun setResizeAndMoveInfo(info: ResizeAndMoveInfo) {
+        latestInfo = info
+        render()
     }
 
-    fun disposeAll() {
-        mainThread.runOnMainThread {
-            for (viewId in containers.keys) {
-                disposeContainer(viewId)
-            }
+    fun disposeCurrent() {
+        disposeCurrentView()
+        disposeCurrentWebView()
+    }
 
-            disposeCurrentWebView()
-        }
+    private fun disposeCurrentView() {
+        val view = barcodeFindViewContainer ?: return
+        removeView(view)
     }
 
     private fun disposeCurrentWebView() {
@@ -114,50 +85,60 @@ class BarcodeFindViewHandler(
     }
 
     private fun addContainer(
-        viewId: Int,
-        container: FrameLayout,
+        barcodeFindViewContainer: FrameLayout,
         activity: AppCompatActivity
     ) {
+        barcodeFindViewContainerReference = WeakReference(barcodeFindViewContainer)
+
         mainThread.runOnMainThread {
             activity.addContentView(
-                container,
+                barcodeFindViewContainer,
                 ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
             )
-            renderNoAnimate(container, containerVisibility[viewId] == true)
+            render()
         }
     }
 
-    private fun removeView(view: View) {
+    private fun removeBarcodeFindViewContainer(barcodeFindViewContainer: FrameLayout) {
+        barcodeFindViewContainerReference = null
+        removeView(barcodeFindViewContainer) {
+            (barcodeFindViewContainer.children.firstOrNull() as? BarcodeFindView)?.setListener(null)
+        }
+    }
+
+    private fun removeView(view: View, uiBlock: (() -> Unit)? = null) {
         mainThread.runOnMainThread {
             view.removeFromParent()
+            uiBlock?.invoke()
         }
     }
 
-    private fun renderNoAnimate(container: FrameLayout, isVisible: Boolean) {
-        container.visibility = if (isVisible) View.VISIBLE else View.GONE
-        container.layoutParams.apply {
-            width = ViewGroup.LayoutParams.MATCH_PARENT
-            height = ViewGroup.LayoutParams.MATCH_PARENT
-        }
-        if (isVisible) {
-            container.bringToFront()
-            setWebViewInvisible()
-        } else {
-            setWebViewVisible()
-        }
-        container.requestLayout()
-
+    // Update the view visibility, position and size.
+    fun render() {
+        val view = barcodeFindViewContainer ?: return
+        renderNoAnimate(view)
     }
 
-    private fun setWebViewVisible() {
-        webView?.bringToFront()
-        (webView?.parent as View).translationZ = 1F
-    }
-
-    private fun setWebViewInvisible() {
-        (webView?.parent as View).translationZ = -1F
+    private fun renderNoAnimate(barcodeFindViewContainer: FrameLayout) {
+        barcodeFindViewContainer.post {
+            barcodeFindViewContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+            barcodeFindViewContainer.x = latestInfo.left.pxFromDp()
+            barcodeFindViewContainer.y = latestInfo.top.pxFromDp()
+            barcodeFindViewContainer.layoutParams.apply {
+                width = ViewGroup.LayoutParams.MATCH_PARENT
+                height = ViewGroup.LayoutParams.MATCH_PARENT
+            }
+            if (latestInfo.shouldBeUnderWebView) {
+                webView?.bringToFront()
+                (webView?.parent as View).translationZ = 1F
+            } else {
+                barcodeFindViewContainer.bringToFront()
+                (webView?.parent as View).translationZ = -1F
+            }
+            barcodeFindViewContainer.requestLayout()
+        }
     }
 }

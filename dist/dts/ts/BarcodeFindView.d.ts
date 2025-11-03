@@ -1,4 +1,4 @@
-import { BarcodeFind, BarcodeFindViewProps, BarcodeFindViewSettings, BarcodeFindViewUiListener } from 'scandit-datacapture-frameworks-barcode';
+import { BarcodeFind, BarcodeFindViewSettings, BarcodeFindViewUiListener } from 'scandit-datacapture-frameworks-barcode';
 import { Anchor, CameraSettings, DataCaptureContext } from 'scandit-datacapture-frameworks-core';
 export declare class BarcodeFindView {
     private baseBarcodeFindView;
@@ -6,25 +6,15 @@ export declare class BarcodeFindView {
     private _htmlElementState;
     private scrollListener;
     private domObserver;
-    /**
-     * @deprecated Use the constructor instead.
-     */
     static forMode(dataCaptureContext: DataCaptureContext, barcodeFind: BarcodeFind): BarcodeFindView;
-    /**
-     * @deprecated Use the constructor instead.
-     */
     static forModeWithViewSettings(dataCaptureContext: DataCaptureContext, barcodeFind: BarcodeFind, viewSettings: BarcodeFindViewSettings): BarcodeFindView;
-    /**
-     * @deprecated Use the constructor instead.
-     */
     static forModeWithViewSettingsAndCameraSettings(dataCaptureContext: DataCaptureContext, barcodeFind: BarcodeFind, viewSettings: BarcodeFindViewSettings, cameraSettings: CameraSettings): BarcodeFindView;
-    constructor(props: BarcodeFindViewProps);
+    private constructor();
     private set htmlElementState(value);
     private get htmlElementState();
     private orientationChangeListener;
     get barcodeFindViewUiListener(): BarcodeFindViewUiListener | null;
     set barcodeFindViewUiListener(value: BarcodeFindViewUiListener | null);
-    static get hardwareTriggerSupported(): boolean;
     get shouldShowUserGuidanceView(): boolean;
     set shouldShowUserGuidanceView(value: boolean);
     get shouldShowHints(): boolean;
@@ -39,8 +29,6 @@ export declare class BarcodeFindView {
     set shouldShowProgressBar(value: boolean);
     get shouldShowTorchControl(): boolean;
     set shouldShowTorchControl(value: boolean);
-    get shouldShowZoomControl(): boolean;
-    set shouldShowZoomControl(value: boolean);
     get torchControlPosition(): Anchor;
     set torchControlPosition(value: Anchor);
     get textForCollapseCardsButton(): string | null;

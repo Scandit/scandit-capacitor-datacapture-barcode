@@ -26,14 +26,14 @@ internal class BarcodeCountViewHandler (
     private var barcodeCountViewReference: WeakReference<BarcodeCountView>? = null
     private var webViewReference: WeakReference<View>? = null
 
-    val currentBarcodeCountView: BarcodeCountView?
+    val barcodeCountView: BarcodeCountView?
         get() = barcodeCountViewReference?.get()
 
     private val webView: View?
         get() = webViewReference?.get()
 
     fun attachBarcodeCountView(barcodeCountView: BarcodeCountView, activity: AppCompatActivity) {
-        if (this.currentBarcodeCountView != barcodeCountView) {
+        if (this.barcodeCountView != barcodeCountView) {
             disposeCurrentView()
             addBarcodeCountView(barcodeCountView, activity)
         }
@@ -67,8 +67,8 @@ internal class BarcodeCountViewHandler (
         disposeCurrentWebView()
     }
 
-    fun disposeCurrentView() {
-        val view = currentBarcodeCountView ?: return
+    private fun disposeCurrentView() {
+        val view = barcodeCountView ?: return
         removeBarcodeCountView(view)
     }
 
@@ -111,7 +111,7 @@ internal class BarcodeCountViewHandler (
 
     // Update the view visibility, position and size.
     fun render() {
-        val view = currentBarcodeCountView ?: return
+        val view = barcodeCountView ?: return
         renderNoAnimate(view)
     }
 
