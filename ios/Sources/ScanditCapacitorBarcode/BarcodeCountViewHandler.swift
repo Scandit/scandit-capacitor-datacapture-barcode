@@ -6,27 +6,21 @@
 
 import ScanditBarcodeCapture
 import ScanditCapacitorDatacaptureCore
+import ScanditFrameworksCore
 import WebKit
 
-class BarcodeFindViewHandler {
+class BarcodeCountViewHandler {
     let webView: WKWebView
 
-    var barcodeFindView: BarcodeFindView? {
-        willSet {
-            barcodeFindView?.uiDelegate = nil
-            barcodeFindView?.removeFromSuperview()
-        }
+    var currentBarcodeCountView: BarcodeCountView? {
         didSet {
-            guard let barcodeFindView = barcodeFindView else { return }
-            barcodeFindView.translatesAutoresizingMaskIntoConstraints = false
-            barcodeFindView.uiDelegate = barcodeFindViewUIDelegate
-            webView.addSubview(barcodeFindView)
+            guard let barcodeCountView = currentBarcodeCountView else { return }
+            barcodeCountView.translatesAutoresizingMaskIntoConstraints = false
             resetConstraints()
             update()
+
         }
     }
-
-    weak var barcodeFindViewUIDelegate: BarcodeFindViewUIDelegate?
 
     private var top: NSLayoutConstraint?
     private var left: NSLayoutConstraint?
@@ -45,7 +39,7 @@ class BarcodeFindViewHandler {
         self.webView = webView
     }
 
-    /// Update the constraints that set the position and size of the barcode find view,
+    /// Update the constraints that set the position and size of the barcode count view,
     /// based on a JSON passed in as the argument to a Capacitor command.
     ///
     /// If the view does not exist yet, the position and size are stored and will be applied to the view
@@ -76,7 +70,7 @@ class BarcodeFindViewHandler {
     }
 
     private func updateConstraints() {
-        guard let barcodeFindView = barcodeFindView else {
+        guard let barcodeCountView = currentBarcodeCountView else {
             return
         }
 
@@ -86,52 +80,43 @@ class BarcodeFindViewHandler {
         if let top = top {
             top.constant = topConstant
         } else {
-            top = barcodeFindView.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
+            top = barcodeCountView.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
             top?.isActive = true
         }
 
         if let left = left {
             left.constant = leftConstant
         } else {
-            left = barcodeFindView.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
+            left = barcodeCountView.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
             left?.isActive = true
         }
 
         if let width = width {
             width.constant = size.width
         } else {
-            width = barcodeFindView.widthAnchor.constraint(equalToConstant: size.width)
+            width = barcodeCountView.widthAnchor.constraint(equalToConstant: size.width)
             width?.isActive = true
         }
 
         if let height = height {
             height.constant = size.height
         } else {
-            height = barcodeFindView.heightAnchor.constraint(equalToConstant: size.height)
+            height = barcodeCountView.heightAnchor.constraint(equalToConstant: size.height)
             height?.isActive = true
         }
 
-        barcodeFindView.superview?.layoutIfNeeded()
+        barcodeCountView.superview?.layoutIfNeeded()
     }
 
     private func updatePosition() {
-        guard let barcodeFindView = barcodeFindView else {
+        guard let barcodeCountView = currentBarcodeCountView else {
             return
         }
 
         if shouldBeUnderWebView {
-            #if swift(>=5.0)
-            barcodeFindView.superview?.sendSubviewToBack(barcodeFindView)
-            #else
-            barcodeFindView.superview?.sendSubview(toBack: barcodeFindView)
-            #endif
+            barcodeCountView.superview?.sendSubviewToBack(barcodeCountView)
         } else {
-            #if swift(>=5.0)
-            barcodeFindView.superview?.bringSubviewToFront(barcodeFindView)
-            #else
-            barcodeFindView.superview?.bringSubview(toFront: barcodeFindView)
-            #endif
+            barcodeCountView.superview?.bringSubviewToFront(barcodeCountView)
         }
     }
 }
-

@@ -18,7 +18,7 @@ import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
 
-internal class BarcodeCountViewHandler (
+internal class BarcodeCountViewHandler(
     private val mainThread: MainThread = DefaultMainThread.getInstance()
 ) {
     private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
@@ -26,14 +26,14 @@ internal class BarcodeCountViewHandler (
     private var barcodeCountViewReference: WeakReference<BarcodeCountView>? = null
     private var webViewReference: WeakReference<View>? = null
 
-    val barcodeCountView: BarcodeCountView?
+    val currentBarcodeCountView: BarcodeCountView?
         get() = barcodeCountViewReference?.get()
 
     private val webView: View?
         get() = webViewReference?.get()
 
     fun attachBarcodeCountView(barcodeCountView: BarcodeCountView, activity: AppCompatActivity) {
-        if (this.barcodeCountView != barcodeCountView) {
+        if (this.currentBarcodeCountView != barcodeCountView) {
             disposeCurrentView()
             addBarcodeCountView(barcodeCountView, activity)
         }
@@ -67,8 +67,8 @@ internal class BarcodeCountViewHandler (
         disposeCurrentWebView()
     }
 
-    private fun disposeCurrentView() {
-        val view = barcodeCountView ?: return
+    fun disposeCurrentView() {
+        val view = currentBarcodeCountView ?: return
         removeBarcodeCountView(view)
     }
 
@@ -111,7 +111,7 @@ internal class BarcodeCountViewHandler (
 
     // Update the view visibility, position and size.
     fun render() {
-        val view = barcodeCountView ?: return
+        val view = currentBarcodeCountView ?: return
         renderNoAnimate(view)
     }
 

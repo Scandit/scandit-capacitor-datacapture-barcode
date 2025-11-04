@@ -10,13 +10,12 @@ import androidx.core.view.children
 import com.scandit.capacitor.datacapture.core.data.ResizeAndMoveInfo
 import com.scandit.capacitor.datacapture.core.utils.pxFromDp
 import com.scandit.capacitor.datacapture.core.utils.removeFromParent
-import com.scandit.datacapture.barcode.find.ui.BarcodeFindView
 import com.scandit.datacapture.barcode.pick.ui.BarcodePickView
 import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
 
-class BarcodePickViewHandler (
+class BarcodePickViewHandler(
     private val mainThread: MainThread = DefaultMainThread.getInstance()
 ) {
     private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
@@ -30,9 +29,7 @@ class BarcodePickViewHandler (
     private val webView: View?
         get() = webViewReference?.get()
 
-    fun prepareContainer(context: Context) : FrameLayout {
-        return FrameLayout(context)
-    }
+    fun prepareContainer(context: Context): FrameLayout = FrameLayout(context)
 
     fun addBarcodePickViewContainer(container: FrameLayout, activity: AppCompatActivity) {
         if (this.barcodePickViewContainer != container) {
@@ -69,7 +66,7 @@ class BarcodePickViewHandler (
         disposeCurrentWebView()
     }
 
-    private fun disposeCurrentView() {
+    fun disposeCurrentView() {
         val view = barcodePickViewContainer ?: return
         removeBarcodePickViewContainer(view)
     }
