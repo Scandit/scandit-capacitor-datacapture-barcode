@@ -30,8 +30,15 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     override func load() {
         let emitter = CapacitorEventEmitter(with: self)
-        barcodeCaptureModule = BarcodeCaptureModule(emitter: emitter)
-        barcodeBatchModule = BarcodeBatchModule(emitter: emitter)
+        barcodeCaptureModule = BarcodeCaptureModule(
+            barcodeCaptureListener: FrameworksBarcodeCaptureListener(emitter: emitter)
+        )
+        barcodeBatchModule = BarcodeBatchModule(
+            barcodeBatchListener: FrameworksBarcodeBatchListener(emitter: emitter),
+            barcodeBatchBasicOverlayListener: FrameworksBarcodeBatchBasicOverlayListener(emitter: emitter),
+            barcodeBatchAdvancedOverlayListener: FrameworksBarcodeBatchAdvancedOverlayListener(emitter: emitter),
+            emitter: emitter
+        )
         barcodeSelectionModule = BarcodeSelectionModule(
             barcodeSelectionListener: FrameworksBarcodeSelectionListener(emitter: emitter),
             aimedBrushProvider: FrameworksBarcodeSelectionAimedBrushProvider(
@@ -43,10 +50,24 @@ class ScanditCapacitorBarcode: CAPPlugin {
                 queue: brushProviderQueue
             )
         )
-        barcodeCountModule = BarcodeCountModule(emitter: emitter)
-        barcodeFindModule = BarcodeFindModule(emitter: emitter)
+        barcodeCountModule = BarcodeCountModule(
+            barcodeCountListener: FrameworksBarcodeCountListener(emitter: emitter),
+            captureListListener: FrameworksBarcodeCountCaptureListListener(emitter: emitter),
+            viewListener: FrameworksBarcodeCountViewListener(emitter: emitter),
+            viewUiListener: FrameworksBarcodeCountViewUIListener(emitter: emitter),
+            statusProvider: FrameworksBarcodeCountStatusProvider(emitter: emitter)
+        )
+        barcodeFindModule = BarcodeFindModule(
+            listener: FrameworksBarcodeFindListener(emitter: emitter),
+            viewListener: FrameworksBarcodeFindViewUIListener(emitter: emitter),
+            barcodeTransformer: FrameworksBarcodeFindTransformer(emitter: emitter)
+        )
         barcodePickModule = BarcodePickModule(emitter: emitter)
-        sparkScanModule = SparkScanModule(emitter: emitter)
+        sparkScanModule = SparkScanModule(
+            sparkScanListener: FrameworksSparkScanListener(emitter: emitter),
+            sparkScanViewUIListener: FrameworksSparkScanViewUIListener(emitter: emitter),
+            feedbackDelegate: FrameworksSparkScanFeedbackDelegate(emitter: emitter)
+        )
         barcodeGeneratorModule = BarcodeGeneratorModule()
 
         barcodeModule.didStart()
@@ -95,163 +116,75 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(registerBarcodeCaptureListenerForEvents:)
     func registerBarcodeCaptureListenerForEvents(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject("Missing modeId parameter")
-            return
-        }
-        barcodeCaptureModule.addListener(modeId: modeId)
+        barcodeCaptureModule.addListener()
         call.resolve()
     }
 
     @objc(unregisterBarcodeCaptureListenerForEvents:)
     func unregisterBarcodeCaptureListenerForEvents(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject("Missing modeId parameter")
-            return
-        }
-        barcodeCaptureModule.removeListener(modeId: modeId)
-        call.resolve()
-    }
-
-    @objc(finishBarcodeCaptureDidUpdateSession:)
-    func finishBarcodeCaptureDidUpdateSession(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject("Missing modeId parameter")
-            return
-        }
-        let enabled = call.getBool("enabled", false)
-        barcodeCaptureModule.finishDidUpdateSession(modeId: modeId, enabled: enabled)
+        barcodeCaptureModule.removeListener()
         call.resolve()
     }
 
     @objc(finishBarcodeCaptureDidScan:)
     func finishBarcodeCaptureDidScan(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject("Missing modeId parameter")
-            return
-        }
-        let enabled = call.getBool("enabled", false)
-        barcodeCaptureModule.finishDidScan(modeId: modeId, enabled: enabled)
+        barcodeCaptureModule.finishDidScan(enabled: call.getBool("enabled", false))
+        call.resolve()
+    }
+
+    @objc(finishBarcodeCaptureDidUpdateSession:)
+    func finishBarcodeCaptureDidUpdateSession(_ call: CAPPluginCall) {
+        barcodeCaptureModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
     @objc(resetBarcodeCaptureSession:)
     func resetBarcodeCaptureSession(_ call: CAPPluginCall) {
-        barcodeCaptureModule.resetSession()
+        barcodeCaptureModule.resetSession(frameSequenceId: nil)
         call.resolve()
-    }
-
-    @objc(setBarcodeCaptureModeEnabledState:)
-    func setBarcodeCaptureModeEnabledState(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject("Missing modeId parameter")
-            return
-        }
-        let enabled = call.getBool("enabled", false)
-        barcodeCaptureModule.setModeEnabled(modeId: modeId, enabled: enabled)
-        call.resolve()
-    }
-
-    @objc(updateBarcodeCaptureOverlay:)
-    func updateBarcodeCaptureOverlay(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject("Missing viewId parameter")
-            return
-        }
-        guard let overlayJson = call.getString("overlayJson") else {
-            call.reject("Missing overlayJson parameter")
-            return
-        }
-        barcodeCaptureModule.updateOverlay(viewId, overlayJson: overlayJson, result: CapacitorResult(call))
-    }
-
-    @objc(updateBarcodeCaptureMode:)
-    func updateBarcodeCaptureMode(_ call: CAPPluginCall) {
-        guard let modeJson = call.getString("modeJson") else {
-            call.reject("Missing modeJson parameter")
-            return
-        }
-        barcodeCaptureModule.updateModeFromJson(modeJson: modeJson, result: CapacitorResult(call))
-    }
-
-    @objc(applyBarcodeCaptureModeSettings:)
-    func applyBarcodeCaptureModeSettings(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId"), let modeSettingsJson = call.getString("modeSettingsJson") else {
-            call.reject("Missing modeId or modeSettingsJson parameter")
-            return
-        }
-        barcodeCaptureModule.applyModeSettings(modeId: modeId, modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
     }
 
     // MARK: Barcode Batch
 
-    @objc(registerBarcodeBatchListenerForEvents:)
-    func registerBarcodeBatchListenerForEvents(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject(CommandError.noModeIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.addBarcodeBatchListener(modeId)
+    @objc(subscribeBarcodeBatchListener:)
+    func subscribeBarcodeBatchListener(_ call: CAPPluginCall) {
+        barcodeBatchModule.addBarcodeBatchListener()
         call.resolve()
     }
 
-    @objc(unregisterBarcodeBatchListenerForEvents:)
-    func unregisterBarcodeBatchListenerForEvents(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject(CommandError.noModeIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.removeBarcodeBatchListener(modeId)
+    @objc(unsubscribeBarcodeBatchListener:)
+    func unsubscribeBarcodeBatchListener(_ call: CAPPluginCall) {
+        barcodeBatchModule.removeBarcodeBatchListener()
         call.resolve()
     }
 
-    @objc(finishBarcodeBatchDidUpdateSessionCallback:)
-    func finishBarcodeBatchDidUpdateSessionCallback(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject(CommandError.noModeIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.finishDidUpdateSession(modeId: modeId, enabled: call.getBool("enabled", false))
+    @objc(finishBarcodeBatchDidUpdateSession:)
+    func finishBarcodeBatchDidUpdateSession(_ call: CAPPluginCall) {
+        barcodeBatchModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
-    @objc(registerListenerForBasicOverlayEvents:)
-    func registerListenerForBasicOverlayEvents(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.addBasicOverlayListener(dataCaptureViewId)
+    @objc(subscribeBarcodeBatchBasicOverlayListener:)
+    func subscribeBarcodeBatchBasicOverlayListener(_ call: CAPPluginCall) {
+        barcodeBatchModule.addBasicOverlayListener()
         call.resolve()
     }
 
-    @objc(unregisterListenerForBasicOverlayEvents:)
-    func unregisterListenerForBasicOverlayEvents(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.removeBasicOverlayListener(dataCaptureViewId)
+    @objc(unsubscribeBarcodeBatchBasicOverlayListener:)
+    func unsubscribeBarcodeBatchBasicOverlayListener(_ call: CAPPluginCall) {
+        barcodeBatchModule.removeBasicOverlayListener()
         call.resolve()
     }
 
-    @objc(registerListenerForAdvancedOverlayEvents:)
-    func registerListenerForAdvancedOverlayEvents(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.addAdvancedOverlayListener(dataCaptureViewId)
+    @objc(subscribeBarcodeBatchAdvancedOverlayListener:)
+    func subscribeBarcodeBatchAdvancedOverlayListener(_ call: CAPPluginCall) {
+        barcodeBatchModule.addAdvancedOverlayListener()
         call.resolve()
     }
 
-    @objc(unregisterListenerForAdvancedOverlayEvents:)
-    func unregisterListenerForAdvancedOverlayEvents(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.removeAdvancedOverlayListener(dataCaptureViewId)
+    @objc(unsubscribeBarcodeBatchAdvancedOverlayListener:)
+    func unsubscribeBarcodeBatchAdvancedOverlayListener(_ call: CAPPluginCall) {
+        barcodeBatchModule.removeAdvancedOverlayListener()
         call.resolve()
     }
 
@@ -276,6 +209,12 @@ class ScanditCapacitorBarcode: CAPPlugin {
             barcodeSelectionModule.finishDidUpdate(enabled: result.enabled ?? false)
         } else if result.isForListenerEvent(.didUpdateSelectionInBarcodeSelection) {
             barcodeSelectionModule.finishDidSelect(enabled: result.enabled ?? false)
+        } else if result.isForListenerEvent(.brushForTrackedBarcode) {
+            guard let brushJson = result.result?.brushJSONString else {
+                call.reject(CommandError.invalidJSON.toJSONString())
+                return
+            }
+            barcodeBatchModule.setBasicOverlayBrush(with: brushJson)
         } else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
@@ -285,27 +224,17 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(setBrushForTrackedBarcode:)
     func setBrushForTrackedBarcode(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-
-        guard let brushJson = call.getString("brushJson"),
-              let trackedBarcodeId = call.getInt("trackedBarcodeIdentifier") else {
+        guard let json = call.options.jsonString else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        self.barcodeBatchModule.setBasicOverlayBrush(dataCaptureViewId, brushJson: brushJson, trackedBarcodeId: trackedBarcodeId)
+        self.barcodeBatchModule.setBasicOverlayBrush(with: json)
         call.resolve()
     }
 
     @objc(clearTrackedBarcodeBrushes:)
     func clearTrackedBarcodeBrushes(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.clearBasicOverlayTrackedBarcodeBrushes(dataCaptureViewId)
+        barcodeBatchModule.clearBasicOverlayTrackedBarcodeBrushes()
         call.resolve()
     }
 
@@ -315,63 +244,50 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        guard let viewJson = json.viewJson else {
+        guard let viewJson = json.view else {
             barcodeBatchModule.setViewForTrackedBarcode(view: nil,
-                                                        trackedBarcodeId: json.trackedBarcodeIdentifier,
-                                                        sessionFrameSequenceId: json.sessionFrameSequenceID,
-                                                        dataCaptureViewId: json.dataCaptureViewId)
+                                                           trackedBarcodeId: json.trackedBarcodeID,
+                                                           sessionFrameSequenceId: json.sessionFrameSequenceID)
             return
         }
         let view: TrackedBarcodeView? = dispatchMainSync { TrackedBarcodeView(json: viewJson) }
         barcodeBatchModule.setViewForTrackedBarcode(view: view,
-                                                    trackedBarcodeId: json.trackedBarcodeIdentifier,
-                                                    sessionFrameSequenceId: json.sessionFrameSequenceID,
-                                                    dataCaptureViewId: json.dataCaptureViewId)
+                                                       trackedBarcodeId: json.trackedBarcodeID,
+                                                       sessionFrameSequenceId: json.sessionFrameSequenceID)
         call.resolve()
-    }
-
-    @objc(updateSizeOfTrackedBarcodeView:)
-    func updateSizeOfTrackedBarcodeView(_ call: CAPPluginCall) {
-        // https://scandit.atlassian.net/browse/SDC-26621
     }
 
     @objc(setAnchorForTrackedBarcode:)
     func setAnchorForTrackedBarcode(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
         guard let anchorJson = call.getString("anchor"),
-              let identifier = call.getInt("trackedBarcodeIdentifier") else {
+              let identifier = call.getInt("trackedBarcodeID") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.setAnchorForTrackedBarcode(anchorJson: anchorJson, trackedBarcodeId: identifier, dataCaptureViewId: dataCaptureViewId)
+        barcodeBatchModule.setAnchorForTrackedBarcode(anchorParams: [
+            "anchor": anchorJson,
+            "identifier": identifier
+        ])
         call.resolve()
     }
 
     @objc(setOffsetForTrackedBarcode:)
     func setOffsetForTrackedBarcode(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-        guard let offsetJson = call.getString("offsetJson"),
-              let identifier = call.getInt("trackedBarcodeIdentifier") else {
+        guard let offsetJson = call.getString("offset"),
+              let identifier = call.getInt("trackedBarcodeID") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.setOffsetForTrackedBarcode(offsetJson: offsetJson, trackedBarcodeId: identifier, dataCaptureViewId: dataCaptureViewId)
+        barcodeBatchModule.setOffsetForTrackedBarcode(offsetParams: [
+            "offset": offsetJson,
+            "identifier": identifier
+        ])
         call.resolve()
     }
 
     @objc(clearTrackedBarcodeViews:)
     func clearTrackedBarcodeViews(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
-        self.barcodeBatchModule.clearAdvancedOverlayTrackedBarcodeViews(dataCaptureViewId)
+        self.barcodeBatchModule.clearAdvancedOverlayTrackedBarcodeViews()
         call.resolve()
     }
 
@@ -548,65 +464,34 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(registerBarcodeCountListener:)
     func registerBarcodeCountListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-
-        barcodeCountModule.addBarcodeCountListener(viewId: viewId)
+        barcodeCountModule.addBarcodeCountListener()
         call.resolve()
     }
 
     @objc(registerBarcodeCountViewListener:)
     func registerBarcodeCountViewListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-
-        barcodeCountModule.addBarcodeCountViewListener(viewId: viewId, result: CapacitorResult(call))
+        barcodeCountModule.addBarcodeCountViewListener(result: CapacitorResult(call))
     }
 
     @objc(registerBarcodeCountViewUiListener:)
     func registerBarcodeCountViewUIListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-
-        barcodeCountModule.addBarcodeCountViewUiListener(viewId: viewId, result: CapacitorResult(call))
+        barcodeCountModule.addBarcodeCountViewUiListener(result: CapacitorResult(call))
     }
 
     @objc(unregisterBarcodeCountListener:)
     func unregisterBarcodeCountListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-
-        barcodeCountModule.removeBarcodeCountListener(viewId: viewId)
+        barcodeCountModule.removeBarcodeCountListener()
         call.resolve()
     }
 
     @objc(unregisterBarcodeCountViewListener:)
     func unregisterBarcodeCountViewListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-
-
-        barcodeCountModule.removeBarcodeCountViewListener(viewId: viewId, result: CapacitorResult(call))
+        barcodeCountModule.removeBarcodeCountViewListener(result: CapacitorResult(call))
     }
 
     @objc(unregisterBarcodeCountViewUiListener:)
     func unregisterBarcodeCountViewUIListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-
-        barcodeCountModule.removeBarcodeCountViewUiListener(viewId: viewId, result: CapacitorResult(call))
+        barcodeCountModule.removeBarcodeCountViewUiListener(result: CapacitorResult(call))
     }
 
     @objc(setBarcodeCountViewPositionAndSize:)
@@ -654,33 +539,35 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(showBarcodeCountView:)
     func showBarcodeCountView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
+        dispatchMain {
+            guard let barcodeCountView = self.barcodeCountViewHandler.barcodeCountView else {
+                call.reject(CommandError.noViewToBeShown.toJSONString())
+                return
+            }
 
-        barcodeCountModule.showView(viewId)
-        call.resolve()
+            barcodeCountView.isHidden = false
+
+            call.resolve()
+        }
     }
 
     @objc(hideBarcodeCountView:)
     func hideBarcodeCountView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
+        dispatchMain {
+            guard let barcodeCountView = self.barcodeCountViewHandler.barcodeCountView else {
+                call.reject(CommandError.noViewToBeHidden.toJSONString())
+                return
+            }
 
-        barcodeCountModule.hideView(viewId)
-        call.resolve()
+            barcodeCountView.isHidden = true
+
+            call.resolve()
+        }
     }
 
     @objc(resetBarcodeCount:)
     func resetBarcodeCount(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.resetBarcodeCount(viewId: viewId)
+        barcodeCountModule.resetBarcodeCount()
         call.resolve()
     }
 
@@ -692,195 +579,131 @@ class ScanditCapacitorBarcode: CAPPlugin {
             self.barcodeCountModule.addViewFromJson(parent: self.barcodeCountViewHandler.webView,
                                                viewJson: viewJson,
                                                result: CapacitorResult(call))
-
-            self.barcodeCountViewHandler.currentBarcodeCountView = self.barcodeCountModule.getTopMostView()
+            self.barcodeCountViewHandler.barcodeCountView = self.barcodeCountModule.barcodeCountView
         }
     }
 
     @objc(removeBarcodeCountView:)
     func removeBarcodeCountView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
+        dispatchMain {
+            self.barcodeCountViewHandler.barcodeCountView = nil
+            self.barcodeCountModule.disposeBarcodeCountView()
         }
-        self.barcodeCountModule.disposeBarcodeCountView(viewId: viewId)
-        self.barcodeCountViewHandler.currentBarcodeCountView = self.barcodeCountModule.getTopMostView()
-        call.resolve()
     }
 
     @objc(updateBarcodeCountView:)
     func updateBarcodeCountView(_ call: CAPPluginCall) {
         let viewJson = call.getString("viewJson")!
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.updateBarcodeCountView(viewId: viewId, viewJson: viewJson, result: CapacitorResult(call))
+        barcodeCountModule.updateBarcodeCountView(viewJson: viewJson, result: CapacitorResult(call))
     }
 
     @objc(updateBarcodeCountMode:)
     func updateBarcodeCountMode(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         let barcodeCountJson = call.getString("barcodeCountJson")!
-        barcodeCountModule.updateBarcodeCount(viewId: viewId, modeJson: barcodeCountJson, result: CapacitorResult(call))
+        barcodeCountModule.updateBarcodeCount(modeJson: barcodeCountJson, result: CapacitorResult(call))
     }
 
     @objc(resetBarcodeCountSession:)
     func resetBarcodeCountSession(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.resetBarcodeCountSession(viewId: viewId, frameSequenceId: nil)
+        barcodeCountModule.resetBarcodeCountSession(frameSequenceId: nil)
         call.resolve()
     }
 
     @objc(startBarcodeCountScanningPhase:)
     func startBarcodeCountScanningPhase(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.startScanningPhase(viewId: viewId)
+        barcodeCountModule.startScanningPhase()
         call.resolve()
     }
 
     @objc(endBarcodeCountScanningPhase:)
     func endBarcodeCountScanningPhase(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.endScanningPhase(viewId: viewId)
+        barcodeCountModule.endScanningPhase()
         call.resolve()
     }
 
     @objc(clearBarcodeCountViewHighlights:)
     func clearBarcodeCountViewHighlights(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.clearHighlights(viewId: viewId)
+        barcodeCountModule.clearHighlights()
         call.resolve()
     }
 
     @objc(setBarcodeCountCaptureList:)
     func setBarcodeCountCaptureList(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let barcodesArray = call.options["TargetBarcodes"] as? [[String: Any]],
               let barcodesData = try? JSONSerialization.data(withJSONObject: barcodesArray),
               let barcodes = String(data: barcodesData, encoding: .utf8) else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeCountModule.setBarcodeCountCaptureList(viewId: viewId, barcodesJson: barcodes)
+        barcodeCountModule.setBarcodeCountCaptureList(barcodesJson: barcodes)
         call.resolve()
     }
 
     @objc(finishBarcodeCountOnScan:)
     func finishBarcodeCountOnScan(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.finishOnScan(viewId: viewId, enabled: true)
+        barcodeCountModule.finishOnScan(enabled: true)
         call.resolve()
     }
 
     @objc(finishBarcodeCountBrushForRecognizedBarcode:)
     func finishBarcodeCountBrushForRecognizedBarcode(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let trackedBarcodeId = call.getInt("trackedBarcodeId") else {
             call.reject("Invalid tracked barcode id received.")
             return
         }
         let brushJson = call.getString("brushJson")
         let brush = brushJson.flatMap { Brush(jsonString: $0) }
-        barcodeCountModule.finishBrushForRecognizedBarcodeEvent(viewId: viewId,
-                                                                brush: brush,
-                                                                trackedBarcodeId: trackedBarcodeId,
-                                                                result: CapacitorResult(call))
+        barcodeCountModule.finishBrushForRecognizedBarcodeEvent(brush: brush,
+                                                               trackedBarcodeId: trackedBarcodeId,
+                                                               result: CapacitorResult(call))
     }
 
     @objc(finishBarcodeCountBrushForRecognizedBarcodeNotInList:)
     func finishBarcodeCountBrushForRecognizedBarcodeNotInList(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let trackedBarcodeId = call.getInt("trackedBarcodeId") else {
             call.reject("Invalid tracked barcode id received.")
             return
         }
         let brushJson = call.getString("brushJson")
         let brush = brushJson.flatMap { Brush(jsonString: $0) }
-        barcodeCountModule.finishBrushForRecognizedBarcodeNotInListEvent(viewId: viewId,
-                                                                         brush: brush,
+        barcodeCountModule.finishBrushForRecognizedBarcodeNotInListEvent(brush: brush,
                                                                          trackedBarcodeId: trackedBarcodeId,
                                                                          result: CapacitorResult(call))
     }
 
     @objc(finishBarcodeCountBrushForAcceptedBarcode:)
     func finishBarcodeCountBrushForAcceptedBarcode(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let trackedBarcodeId = call.getInt("trackedBarcodeId") else {
             call.reject("Invalid tracked barcode id received.")
             return
         }
         let brushJson = call.getString("brushJson")
         let brush = brushJson.flatMap { Brush(jsonString: $0) }
-        barcodeCountModule.finishBrushForAcceptedBarcodeEvent(viewId: viewId,
-                                                              brush: brush,
+        barcodeCountModule.finishBrushForAcceptedBarcodeEvent(brush: brush,
                                                               trackedBarcodeId: trackedBarcodeId)
         call.resolve()
     }
 
     @objc(finishBarcodeCountBrushForRejectedBarcode:)
     func finishBarcodeCountBrushForRejectedBarcode(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let trackedBarcodeId = call.getInt("trackedBarcodeId") else {
             call.reject("Invalid tracked barcode id received.")
             return
         }
         let brushJson = call.getString("brushJson")
         let brush = brushJson.flatMap { Brush(jsonString: $0) }
-        barcodeCountModule.finishBrushForRejectedBarcodeEvent(viewId: viewId,
-                                                              brush: brush,
+        barcodeCountModule.finishBrushForRejectedBarcodeEvent(brush: brush,
                                                               trackedBarcodeId: trackedBarcodeId)
         call.resolve()
     }
 
     @objc(getBarcodeCountSpatialMap:)
     func getBarcodeCountSpatialMap(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.submitSpatialMap(viewId: viewId, result: CapacitorResult(call))
+        barcodeCountModule.submitSpatialMap(result: CapacitorResult(call))
     }
 
     @objc(getBarcodeCountSpatialMapWithHints:)
     func getBarcodeCountSpatialMapWithHints(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let expectedNumberOfRows = call.getInt("expectedNumberOfRows") else {
             call.reject("expectedNumberOfRows is missing in the function parameters.")
             return
@@ -892,7 +715,6 @@ class ScanditCapacitorBarcode: CAPPlugin {
         }
 
         barcodeCountModule.submitSpatialMap(
-            viewId: viewId,
             expectedNumberOfRows: expectedNumberOfRows,
             expectedNumberOfColumns: expectedNumberOfColumns,
             result: CapacitorResult(call)
@@ -901,22 +723,14 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(setBarcodeCountModeEnabledState:)
     func setBarcodeCountModeEnabledState(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeCountModule.setModeEnabled(viewId: viewId, enabled: call.getBool("isEnabled", false))
+        barcodeCountModule.setModeEnabled(enabled: call.getBool("isEnabled", false))
         call.resolve()
     }
 
     @objc(updateBarcodeCountFeedback:)
     func updateBarcodeCountFeedback(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         if let feedbackJson = call.getString("feedbackJson") {
-            barcodeCountModule.updateFeedback(viewId: viewId, feedbackJson: feedbackJson, result: CapacitorResult(call))
+            barcodeCountModule.updateFeedback(feedbackJson: feedbackJson, result: CapacitorResult(call))
             return
         }
 
@@ -925,11 +739,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(setBarcodeBatchModeEnabledState:)
     func setBarcodeBatchModeEnabledState(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject(CommandError.noModeIdParameter.toJSONString())
-            return
-        }
-        barcodeBatchModule.setModeEnabled(modeId, enabled: call.getBool("enabled", false))
+        barcodeBatchModule.setModeEnabled(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
@@ -939,38 +749,36 @@ class ScanditCapacitorBarcode: CAPPlugin {
         call.resolve()
     }
 
+    @objc(setBarcodeCaptureModeEnabledState:)
+    func setBarcodeCaptureModeEnabledState(_ call: CAPPluginCall) {
+        barcodeCaptureModule.setModeEnabled(enabled: call.getBool("enabled", false))
+        call.resolve()
+    }
+
     // MARK: BarcodeFind
 
     @objc(createFindView:)
     func createFindView(_ call: CAPPluginCall) {
-        guard let viewJson = call.getString("json") else {
+        guard let viewJson = call.options.jsonString else {
             call.reject(CommandError.invalidJSON.toJSONString())
-            return
-        }
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
             return
         }
         dispatchMain {
             self.barcodeFindModule.addViewToContainer(container: self.barcodeFindViewHandler.webView,
                                                  jsonString: viewJson,
                                                  result: CapacitorResult(call))
-            self.barcodeFindViewHandler.barcodeFindView = self.barcodeFindModule.getViewById(viewId)
+            self.barcodeFindViewHandler.barcodeFindView = self.barcodeFindModule.barcodeFindView
         }
     }
 
     @objc(updateFindView:)
     func updateFindView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         do {
             if let viewJson = String(
-                data: try JSONSerialization.data(withJSONObject: call.options["barcodeFindViewJson"] as! [String: Any]),
+                data: try JSONSerialization.data(withJSONObject: call.options["View"] as! [String: Any]),
                 encoding: .utf8)
             {
-                barcodeFindModule.updateBarcodeFindView(viewId, viewJson: viewJson,
+                barcodeFindModule.updateBarcodeFindView(viewJson: viewJson,
                                                         result: CapacitorResult(call))
             }
         } catch {
@@ -980,103 +788,58 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(removeFindView:)
     func removeFindView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         dispatchMain {
             self.barcodeFindViewHandler.barcodeFindView = nil
-            self.barcodeFindModule.removeBarcodeFindView(viewId, result: CapacitorResult(call))
+            self.barcodeFindModule.removeBarcodeFindView(result: CapacitorResult(call))
         }
     }
 
     @objc(updateFindMode:)
     func updateFindMode(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        let modeJson = call.options["barcodeFindJson"] as! String
-        barcodeFindModule.updateBarcodeFindMode(viewId, modeJson: modeJson,
+        let modeJson = call.options["BarcodeFind"] as! String
+        barcodeFindModule.updateBarcodeFindMode(modeJson: modeJson,
                                                 result: CapacitorResult(call))
     }
 
     @objc(registerBarcodeFindListener:)
     func registerBarcodeFindListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.addBarcodeFindListener(viewId, result: CapacitorResult(call))
+        barcodeFindModule.addBarcodeFindListener(result: CapacitorResult(call))
     }
 
     @objc(unregisterBarcodeFindListener:)
     func unregisterBarcodeFindListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.removeBarcodeFindListener(viewId, result: CapacitorResult(call))
+        barcodeFindModule.removeBarcodeFindListener(result: CapacitorResult(call))
     }
 
     @objc(registerBarcodeFindViewListener:)
     func registerBarcodeFindViewListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.addBarcodeFindViewListener(viewId, result: CapacitorResult(call))
+        barcodeFindModule.addBarcodeFindViewListener(result: CapacitorResult(call))
     }
 
     @objc(unregisterBarcodeFindViewListener:)
     func unregisterBarcodeFindViewListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.removeBarcodeFindViewListener(viewId, result: CapacitorResult(call))
+        barcodeFindModule.removeBarcodeFindViewListener(result: CapacitorResult(call))
     }
 
     @objc(setBarcodeFindModeEnabledState:)
     func setBarcodeFindModeEnabledState(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.setModeEnabled(viewId,  enabled: call.getBool("enabled", false))
+        barcodeFindModule.setModeEnabled(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
     @objc(setBarcodeTransformer:)
     func setBarcodeTransformer(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.setBarcodeFindTransformer(viewId, result: CapacitorResult(call))
+        barcodeFindModule.setBarcodeFindTransformer(result: CapacitorResult(call))
     }
 
-    @objc(unsetBarcodeTransformer:)
-    func unsetBarcodeTransformer(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.setBarcodeFindTransformer(viewId, result: CapacitorResult(call))
-    }
 
     @objc(submitBarcodeFindTransformerResult:)
     func submitBarcodeFindTransformerResult(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let transformedBarcode = call.getString("transformedBarcode") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
         barcodeFindModule.submitBarcodeFindTransformerResult(
-            viewId,
             transformedData: transformedBarcode,
             result: CapacitorResult(call)
         )
@@ -1084,16 +847,11 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(updateBarcodeFindFeedback:)
     func updateBarcodeFindFeedback(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let feedbackJson = call.getString("feedbackJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
         barcodeFindModule.updateFeedback(
-            viewId,
             feedbackJson: feedbackJson,
             result: CapacitorResult(call)
         )
@@ -1107,75 +865,43 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(barcodeFindViewOnResume:)
     func barcodeFindViewOnResume(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.prepareSearching(viewId, result: CapacitorResult(call))
+        barcodeFindModule.prepareSearching(result: CapacitorResult(call))
     }
 
     @objc(barcodeFindSetItemList:)
     func barcodeFindSetItemList(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        let json = call.options["itemsJson"] as! String
-        barcodeFindModule.setItemList(viewId, barcodeFindItemsJson: json, result: CapacitorResult(call))
+        let json = call.options["BarcodeFindItemList"] as! String
+        barcodeFindModule.setItemList(barcodeFindItemsJson: json, result: CapacitorResult(call))
     }
 
     @objc(barcodeFindViewStopSearching:)
     func barcodeFindViewStopSearching(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.stopSearching(viewId, result: CapacitorResult(call))
+        barcodeFindModule.stopSearching(result: CapacitorResult(call))
     }
 
     @objc(barcodeFindViewStartSearching:)
     func barcodeFindViewStartSearching(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.startSearching(viewId, result: CapacitorResult(call))
+        barcodeFindModule.startSearching(result: CapacitorResult(call))
     }
 
     @objc(barcodeFindViewPauseSearching:)
     func barcodeFindViewPauseSearching(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.pauseSearching(viewId, result: CapacitorResult(call))
+        barcodeFindModule.pauseSearching(result: CapacitorResult(call))
     }
 
     @objc(barcodeFindModeStart:)
     func barcodeFindModeStart(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.startMode(viewId, result: CapacitorResult(call))
+        barcodeFindModule.startMode(result: CapacitorResult(call))
     }
 
     @objc(barcodeFindModePause:)
     func barcodeFindModePause(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.pauseMode(viewId, result: CapacitorResult(call))
+        barcodeFindModule.pauseMode(result: CapacitorResult(call))
     }
 
     @objc(barcodeFindModeStop:)
     func barcodeFindModeStop(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodeFindModule.stopMode(viewId, result: CapacitorResult(call))
+        barcodeFindModule.stopMode(result: CapacitorResult(call))
     }
 
     @objc(showFindView:)
@@ -1214,31 +940,22 @@ class ScanditCapacitorBarcode: CAPPlugin {
             self.barcodePickModule.addViewToContainer(container: self.barcodePickViewHandler.webView,
                                                  jsonString: viewJson,
                                                  result: CapacitorResult(call))
-            self.barcodePickViewHandler.currentBarcodePickView = self.barcodePickModule.getTopMostView()
+            self.barcodePickViewHandler.barcodePickView = self.barcodePickModule.barcodePickView
         }
     }
 
     @objc(removePickView:)
     func removePickView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         dispatchMain {
-            self.barcodePickViewHandler.currentBarcodePickView = nil
-            self.barcodePickModule.removeView(viewId: viewId, result: CapacitorResult(call))
+            self.barcodePickViewHandler.barcodePickView = nil
+            self.barcodePickModule.removeBarcodePickView(result: CapacitorResult(call))
         }
     }
 
-    @objc(updatePickView:)
+    @objc(updateePickView:)
     func updatePickView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         let viewJson = call.options["BarcodePickView"] as! String
-        barcodePickModule.updateView(viewId: viewId,
-                                     viewJson: viewJson,
+        barcodePickModule.updateView(viewJson: viewJson,
                                      result: CapacitorResult(call))
 
     }
@@ -1246,25 +963,8 @@ class ScanditCapacitorBarcode: CAPPlugin {
     @objc(setPickViewPositionAndSize:)
     func setPickViewPositionAndSize(_ call: CAPPluginCall) {
         dispatchMain {
-            guard let top = call.getDouble("top"),
-                let left = call.getDouble("left"),
-                let width = call.getDouble("width"),
-                let height = call.getDouble("height")
-            else {
-                call.reject("Missing required position parameters")
-                return
-            }
-
-            let shouldBeUnderWebView = call.getBool("shouldBeUnderWebView", false)
-            let jsonObject: [String: Any] = [
-                "top": top,
-                "left": left,
-                "width": width,
-                "height": height,
-                "shouldBeUnderWebView": shouldBeUnderWebView
-            ]
-
-            guard let viewPositionAndSizeJSON = try? ViewPositionAndSizeJSON.fromJSONObject(jsonObject) else {
+            let jsonObject = call.getObject("position")
+            guard let viewPositionAndSizeJSON = try? ViewPositionAndSizeJSON.fromJSONObject(jsonObject as Any) else {
                 call.reject(CommandError.invalidJSON.toJSONString())
                 return
             }
@@ -1286,175 +986,115 @@ class ScanditCapacitorBarcode: CAPPlugin {
         }
     }
 
-    @objc(addPickActionListener:)
-    func addPickActionListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.addActionListener(viewId: viewId, result: CapacitorResult(call))
+    @objc(addActionListener:)
+    func addActionListener(_ call: CAPPluginCall) {
+        barcodePickModule.addActionListener()
+        call.resolve()
     }
 
-    @objc(removePickActionListener:)
-    func removePickActionListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.removeActionListener(viewId: viewId, result: CapacitorResult(call))
+    @objc(removeActionListener:)
+    func removeActionListener(_ call: CAPPluginCall) {
+        barcodePickModule.removeActionListener()
+        call.resolve()
     }
 
-    @objc(addBarcodePickScanningListener:)
-    func addBarcodePickScanningListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.addScanningListener(viewId: viewId, result: CapacitorResult(call))
+    @objc(addScanningListener:)
+    func addScanningListener(_ call: CAPPluginCall) {
+        barcodePickModule.addScanningListener()
+        call.resolve()
     }
 
-    @objc(removeBarcodePickScanningListener:)
-    func removeBarcodePickScanningListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.removeScanningListener(viewId: viewId, result: CapacitorResult(call))
+    @objc(removeScanningListener:)
+    func removeScanningListener(_ call: CAPPluginCall) {
+        barcodePickModule.removeScanningListener()
+        call.resolve()
     }
 
-    @objc(addPickViewListener:)
-    func addPickViewListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.addViewListener(viewId: viewId, result: CapacitorResult(call))
+    @objc(addViewListener:)
+    func addViewListener(_ call: CAPPluginCall) {
+        barcodePickModule.addViewListener()
+        call.resolve()
     }
 
-    @objc(removePickViewListener:)
-    func removePickViewListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.removeViewListener(viewId: viewId, result: CapacitorResult(call))
-    }
-
-    @objc(addBarcodePickListener:)
-    func addBarcodePickListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.addBarcodePickListener(viewId: viewId, result: CapacitorResult(call))
-    }
-
-    @objc(removeBarcodePickListener:)
-    func removeBarcodePickListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.removeBarcodePickListener(viewId: viewId, result: CapacitorResult(call))
+    @objc(removeViewListener:)
+    func removeViewListener(_ call: CAPPluginCall) {
+        barcodePickModule.removeViewListener()
+        call.resolve()
     }
 
     @objc(registerBarcodePickViewUiListener:)
     func registerBarcodePickViewUiListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.addViewUiListener(viewId: viewId, result: CapacitorResult(call))
+        barcodePickModule.addViewUiListener()
+        call.resolve()
     }
 
     @objc(unregisterBarcodePickViewUiListener:)
     func unregisterBarcodePickViewUiListener(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.removeViewUiListener(viewId: viewId, result: CapacitorResult(call))
+        barcodePickModule.removeViewUiListener()
+        call.resolve()
     }
 
     @objc(finishOnProductIdentifierForItems:)
     func finishOnProductIdentifierForItems(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         let itemsJson = call.options["itemsJson"] as! String
-        barcodePickModule.finishProductIdentifierForItems(viewId: viewId,
-                                                          barcodePickProductProviderCallbackItemsJson: itemsJson,
-                                                          result: CapacitorResult(call))
-    }
-
-    @objc(registerOnProductIdentifierForItemsListener:)
-    func registerOnProductIdentifierForItemsListener(_ call: CAPPluginCall) {
+        barcodePickModule.finishProductIdentifierForItems(barcodePickProductProviderCallbackItemsJson: itemsJson)
         call.resolve()
     }
 
-    @objc(unregisterOnProductIdentifierForItemsListener:)
-    func unregisterOnProductIdentifierForItemsListener(_ call: CAPPluginCall) {
+    @objc(viewStop:)
+    func viewStop(_ call: CAPPluginCall) {
+        barcodePickModule.viewPause()
         call.resolve()
     }
 
-    @objc(pickViewStop:)
-    func pickViewStop(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.viewStop(viewId: viewId, result: CapacitorResult(call))
+    @objc(viewStart:)
+    func viewStart(_ call: CAPPluginCall) {
+        barcodePickModule.viewStart()
+        call.resolve()
     }
 
-    @objc(pickViewStart:)
-    func pickViewStart(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.viewStart(viewId: viewId, result: CapacitorResult(call))
-    }
-
-    @objc(pickViewFreeze:)
-    func pickViewFreeze(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.viewFreeze(viewId: viewId, result: CapacitorResult(call))
-    }
-
-    @objc(pickViewPause:)
-    func pickViewPause(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.viewPause(viewId: viewId, result: CapacitorResult(call))
-    }
-
-    @objc(pickViewResume:)
-    func pickViewResume(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        barcodePickModule.viewResume(viewId: viewId, result: CapacitorResult(call))
+    @objc(viewFreeze:)
+    func viewFreeze(_ call: CAPPluginCall) {
+        barcodePickModule.viewFreeze()
+        call.resolve()
     }
 
     @objc(finishPickAction:)
     func finishPickAction(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         guard let result = call.options["result"] as? Bool,
               let code = call.options["code"] as? String else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodePickModule.finishPickAction(viewId: viewId, data: code, actionResult: result, result: CapacitorResult(call))
+        barcodePickModule.finishPickAction(data: code, result: result)
+        call.resolve()
+    }
+
+    @objc(updateBarcodeCaptureOverlay:)
+    func updateBarcodeCaptureOverlay(_ call: CAPPluginCall) {
+        guard let overlayJson = call.getString("overlayJson") else {
+            call.reject(CommandError.invalidJSON.toJSONString())
+            return
+        }
+        barcodeCaptureModule.updateOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
+    }
+
+    @objc(updateBarcodeCaptureMode:)
+    func updateBarcodeCaptureMode(_ call: CAPPluginCall) {
+        guard let modeJson = call.getString("modeJson") else {
+            call.reject(CommandError.invalidJSON.toJSONString())
+            return
+        }
+        barcodeCaptureModule.updateModeFromJson(modeJson: modeJson, result: CapacitorResult(call))
+    }
+
+    @objc(applyBarcodeCaptureModeSettings:)
+    func applyBarcodeCaptureModeSettings(_ call: CAPPluginCall) {
+        guard let modeSettingsJson = call.getString("modeSettingsJson") else {
+            call.reject(CommandError.invalidJSON.toJSONString())
+            return
+        }
+        barcodeCaptureModule.applyModeSettings(modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
     }
 
     @objc(updateBarcodeSelectionBasicOverlay:)
@@ -1495,28 +1135,20 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(updateBarcodeBatchBasicOverlay:)
     func updateBarcodeBatchBasicOverlay(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
         guard let overlayJson = call.getString("overlayJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.updateBasicOverlay(dataCaptureViewId, overlayJson: overlayJson, result: CapacitorResult(call))
+        barcodeBatchModule.updateBasicOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
     }
 
     @objc(updateBarcodeBatchAdvancedOverlay:)
     func updateBarcodeBatchAdvancedOverlay(_ call: CAPPluginCall) {
-        guard let dataCaptureViewId = call.getInt("dataCaptureViewId") else {
-            call.reject(CommandError.noDataCaptureViewIdParameter.toJSONString())
-            return
-        }
         guard let overlayJson = call.getString("overlayJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.updateAdvancedOverlay(dataCaptureViewId, overlayJson: overlayJson, result: CapacitorResult(call))
+        barcodeBatchModule.updateAdvancedOverlay(overlayJson: overlayJson, result: CapacitorResult(call))
     }
 
     @objc(updateBarcodeBatchMode:)
@@ -1530,15 +1162,11 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(applyBarcodeBatchModeSettings:)
     func applyBarcodeBatchModeSettings(_ call: CAPPluginCall) {
-        guard let modeId = call.getInt("modeId") else {
-            call.reject(CommandError.noModeIdParameter.toJSONString())
-            return
-        }
         guard let modeSettingsJson = call.getString("modeSettingsJson") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        barcodeBatchModule.applyModeSettings(modeId, modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
+        barcodeBatchModule.applyModeSettings(modeSettingsJson: modeSettingsJson, result: CapacitorResult(call))
     }
 
     // MARK: SparkScan
@@ -1555,7 +1183,7 @@ class ScanditCapacitorBarcode: CAPPlugin {
             return
         }
         dispatchMain {
-            _ = self.sparkScanModule.addViewToContainer(
+            self.sparkScanModule.addViewToContainer(
                 container,
                 jsonString: viewJson,
                 result: CapacitorResult(call)
@@ -1565,29 +1193,20 @@ class ScanditCapacitorBarcode: CAPPlugin {
 
     @objc(disposeSparkScanView:)
     func disposeSparkScanView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-
         dispatchMain {
-            self.sparkScanModule.disposeView(viewId: viewId)
+            self.sparkScanModule.disposeView()
         }
         call.resolve()
     }
 
     @objc(updateSparkScanView:)
     func updateSparkScanView(_ call: CAPPluginCall) {
-        guard let viewJson = call.getString("viewJson") else {
+        guard let viewJson = call.getObject("View")?.jsonString else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         dispatchMain {
-            self.sparkScanModule.updateView(viewId: viewId, viewJson: viewJson, result: CapacitorResult(call))
+            self.sparkScanModule.updateView(viewJson: viewJson, result: CapacitorResult(call))
         }
     }
 
@@ -1597,186 +1216,111 @@ class ScanditCapacitorBarcode: CAPPlugin {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.updateMode(viewId: viewId, modeJson: modeJson, result: CapacitorResult(call))
+        sparkScanModule.updateMode(modeJson: modeJson, result: CapacitorResult(call))
     }
 
     @objc(showSparkScanView:)
     func showSparkScanView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         dispatchMain {
-            self.sparkScanModule.showView(viewId)
+            self.sparkScanModule.sparkScanView?.isHidden = false
         }
     }
 
     @objc(hideSparkScanView:)
     func hideSparkScanView(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         dispatchMain {
-            self.sparkScanModule.hideView(viewId)
+            self.sparkScanModule.sparkScanView?.isHidden = true
         }
     }
 
     @objc(registerSparkScanListenerForEvents:)
     func registerSparkScanListenerForEvents(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.addSparkScanListener(viewId: viewId)
+        sparkScanModule.addSparkScanListener()
         call.resolve()
     }
 
     @objc(unregisterSparkScanListenerForEvents:)
     func unregisterSparkScanListenerForEvents(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.removeSparkScanListener(viewId: viewId)
+        sparkScanModule.removeSparkScanListener()
         call.resolve()
     }
 
     @objc(setSparkScanModeEnabledState:)
     func setSparkScanModeEnabledState(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.setModeEnabled(viewId: viewId, enabled: call.getBool("isEnabled", false))
+        sparkScanModule.setModeEnabled(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
-    @objc(finishSparkScanDidUpdateSession:)
-    func finishSparkScanDidUpdateSession(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.finishDidUpdateSession(viewId: viewId, enabled: call.getBool("isEnabled", false))
+    @objc(finishSparkScanDidUpdateSessionCallback:)
+    func finishSparkScanDidUpdateSessionCallback(_ call: CAPPluginCall) {
+        sparkScanModule.finishDidUpdateSession(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
-    @objc(finishSparkScanDidScan:)
-    func finishSparkScanDidScan(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.finishDidScan(viewId: viewId, enabled: call.getBool("isEnabled", false))
+    @objc(finishSparkScanDidScanCallback:)
+    func finishSparkScanDidScanCallback(_ call: CAPPluginCall) {
+        sparkScanModule.finishDidScan(enabled: call.getBool("enabled", false))
         call.resolve()
     }
 
     @objc(registerSparkScanViewListenerEvents:)
     func registerSparkScanViewListenerEvents(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.addSparkScanViewUiListener(viewId: viewId)
+        sparkScanModule.addSparkScanViewUiListener()
         call.resolve()
     }
 
     @objc(unregisterSparkScanViewListenerEvents:)
     func unregisterSparkScanViewListenerEvents(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.removeSparkScanViewUiListener(viewId: viewId)
+        sparkScanModule.removeSparkScanViewUiListener()
         call.resolve()
     }
 
     @objc(prepareSparkScanViewScanning:)
     func prepareSparkScanViewScanning(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.prepareScanning(viewId: viewId, result: CapacitorResult(call))
+        sparkScanModule.prepareScanning(result: CapacitorResult(call))
     }
 
     @objc(startSparkScanViewScanning:)
     func startSparkScanViewScanning(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.startScanning(viewId: viewId, result: CapacitorResult(call))
+        sparkScanModule.startScanning(result: CapacitorResult(call))
     }
 
     @objc(pauseSparkScanViewScanning:)
     func pauseSparkScanViewScanning(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.pauseScanning(viewId: viewId)
+        sparkScanModule.pauseScanning()
         call.resolve()
     }
 
     @objc(stopSparkScanViewScanning:)
     func stopSparkScanViewScanning(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.stopScanning(viewId: viewId)
+        sparkScanModule.stopScanning()
         call.resolve()
     }
 
-    @objc(registerSparkScanFeedbackDelegateForEvents:)
-    func registerSparkScanFeedbackDelegateForEvents(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.addFeedbackDelegate(viewId)
-        call.resolve()
+    @objc(addSparkScanFeedbackDelegate:)
+    func addSparkScanFeedbackDelegate(_ call: CAPPluginCall) {
+        sparkScanModule.addFeedbackDelegate(result: CapacitorResult(call))
     }
 
-    @objc(unregisterSparkScanFeedbackDelegateForEvents:)
-    func unregisterSparkScanFeedbackDelegateForEvents(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
-        sparkScanModule.removeFeedbackDelegate(viewId)
-        call.resolve()
+    @objc(removeSparkScanFeedbackDelegate:)
+    func removeSparkScanFeedbackDelegate(_ call: CAPPluginCall) {
+        sparkScanModule.removeFeedbackDelegate(result: CapacitorResult(call))
     }
 
     @objc(submitSparkScanFeedbackForBarcode:)
     func submitSparkScanFeedbackForBarcode(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
         sparkScanModule.submitFeedbackForBarcode(
-            viewId: viewId,
             feedbackJson: call.getString("feedbackJson"),
             result: CapacitorResult(call))
     }
 
-    @objc(showSparkScanViewToast:)
-    func showSparkScanViewToast(_ call: CAPPluginCall) {
-        guard let viewId = call.getInt("viewId") else {
-            call.reject(CommandError.noViewIdParameter.toJSONString())
-            return
-        }
+    @objc(showToast:)
+    func showToast(_ call: CAPPluginCall) {
         guard let text = call.getString("text") else {
             call.reject(CommandError.invalidJSON.toJSONString())
             return
         }
-        sparkScanModule.showToast(viewId: viewId, text: text, result: CapacitorResult(call))
+        sparkScanModule.showToast(text: text, result: CapacitorResult(call))
     }
 
     @objc(createBarcodeGenerator:)

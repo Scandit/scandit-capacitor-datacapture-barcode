@@ -19,8 +19,6 @@ export declare class SparkScanView {
     set barcodeFindButtonVisible(newValue: boolean);
     get targetModeButtonVisible(): boolean;
     set targetModeButtonVisible(newValue: boolean);
-    get labelCaptureButtonVisible(): boolean;
-    set labelCaptureButtonVisible(newValue: boolean);
     /**
      * @deprecated The trigger button no longer displays text.
      */
@@ -101,10 +99,10 @@ export declare class SparkScanView {
     set triggerButtonVisible(newValue: boolean);
     get triggerButtonImage(): string | null;
     set triggerButtonImage(newValue: string | null);
-    prepareScanning(): Promise<void>;
-    startScanning(): Promise<void>;
-    pauseScanning(): Promise<void>;
-    stopScanning(): Promise<void>;
+    prepareScanning(): void;
+    startScanning(): void;
+    pauseScanning(): void;
+    stopScanning(): void;
     dispose(): void;
     show(): Promise<void>;
     hide(): Promise<void>;
