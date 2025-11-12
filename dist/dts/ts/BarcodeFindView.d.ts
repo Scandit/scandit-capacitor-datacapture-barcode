@@ -1,4 +1,4 @@
-import { BarcodeFind, BarcodeFindViewSettings, BarcodeFindViewUiListener } from 'scandit-datacapture-frameworks-barcode';
+import { BarcodeFind, BarcodeFindViewProps, BarcodeFindViewSettings, BarcodeFindViewUiListener } from 'scandit-datacapture-frameworks-barcode';
 import { Anchor, CameraSettings, DataCaptureContext } from 'scandit-datacapture-frameworks-core';
 export declare class BarcodeFindView {
     private baseBarcodeFindView;
@@ -6,10 +6,19 @@ export declare class BarcodeFindView {
     private _htmlElementState;
     private scrollListener;
     private domObserver;
+    /**
+     * @deprecated Use the constructor instead.
+     */
     static forMode(dataCaptureContext: DataCaptureContext, barcodeFind: BarcodeFind): BarcodeFindView;
+    /**
+     * @deprecated Use the constructor instead.
+     */
     static forModeWithViewSettings(dataCaptureContext: DataCaptureContext, barcodeFind: BarcodeFind, viewSettings: BarcodeFindViewSettings): BarcodeFindView;
+    /**
+     * @deprecated Use the constructor instead.
+     */
     static forModeWithViewSettingsAndCameraSettings(dataCaptureContext: DataCaptureContext, barcodeFind: BarcodeFind, viewSettings: BarcodeFindViewSettings, cameraSettings: CameraSettings): BarcodeFindView;
-    private constructor();
+    constructor(props: BarcodeFindViewProps);
     private set htmlElementState(value);
     private get htmlElementState();
     private orientationChangeListener;

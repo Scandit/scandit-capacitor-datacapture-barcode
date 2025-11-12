@@ -11,9 +11,9 @@ import WebKit
 class BarcodePickViewHandler {
     let webView: WKWebView
 
-    var barcodePickView: BarcodePickView? {
+    var currentBarcodePickView: BarcodePickView? {
         didSet {
-            guard let barcodePickView = barcodePickView else { return }
+            guard let barcodePickView = currentBarcodePickView else { return }
             barcodePickView.translatesAutoresizingMaskIntoConstraints = false
             resetConstraints()
             update()
@@ -68,7 +68,7 @@ class BarcodePickViewHandler {
     }
 
     private func updateConstraints() {
-        guard let barcodePickView = barcodePickView else { return }
+        guard let barcodePickView = currentBarcodePickView else { return }
 
         let topConstant = position.y + webView.adjustedContentInset.top
         let leftConstant = position.x + webView.adjustedContentInset.left
@@ -106,7 +106,7 @@ class BarcodePickViewHandler {
     }
 
     private func updatePosition() {
-        guard let barcodePickView = barcodePickView else {
+        guard let barcodePickView = currentBarcodePickView else {
             return
         }
 
