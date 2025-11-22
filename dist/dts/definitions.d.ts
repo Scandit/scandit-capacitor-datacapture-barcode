@@ -18,7 +18,7 @@ export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker } from 'scandit-dat
 export { BarcodeBatchAdvancedOverlayListener } from './ts/BarcodeBatchAdvancedOverlayListener';
 export { BarcodeBatchAdvancedOverlay } from './ts/BarcodeBatchAdvancedOverlay';
 export { BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions } from 'scandit-datacapture-frameworks-barcode';
-export { BarcodeFindListener, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeFindViewUiListener, BarcodeFindTransformer, BarcodeFindViewProps } from 'scandit-datacapture-frameworks-barcode';
+export { BarcodeFindListener, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeFindViewUiListener, BarcodeFindTransformer } from 'scandit-datacapture-frameworks-barcode';
 export { BarcodeFindView } from './ts/BarcodeFindView';
 export { SparkScan, SparkScanListener, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningMode, SparkScanScanningModeDefault, SparkScanScanningModeTarget } from 'scandit-datacapture-frameworks-barcode';
 export { SparkScanSettings, SparkScanViewState, SparkScanViewSettings, SparkScanSession, SparkScanToastSettings, BatterySavingMode, SparkScanMiniPreviewSize } from 'scandit-datacapture-frameworks-barcode';
@@ -62,6 +62,41 @@ export interface ScanditBarcodePluginInterface {
 export interface ScanditBarcodeCountNativeInterface {
     barcodeCountViewEnableHardwareTrigger({ hardwareTriggerKeyCode }: {
         hardwareTriggerKeyCode: number | null;
+    }): Promise<void>;
+}
+export interface ScanditBarcodeFindNativeInterface {
+    updateFindMode(data: {
+        BarcodeFind: string;
+    }): Promise<void>;
+    barcodeFindModeStart(): Promise<void>;
+    barcodeFindModePause(): Promise<void>;
+    barcodeFindModeStop(): Promise<void>;
+    registerBarcodeFindListener(): Promise<void>;
+    unregisterBarcodeFindListener(): Promise<void>;
+    setBarcodeFindModeEnabledState(data: {
+        enabled: boolean;
+    }): void;
+    registerBarcodeFindViewListener(): Promise<void>;
+    unregisterBarcodeFindViewListener(): Promise<void>;
+    barcodeFindViewStartSearching(): Promise<void>;
+    barcodeFindViewStopSearching(): Promise<void>;
+    barcodeFindViewPauseSearching(): Promise<void>;
+    barcodeFindSetItemList(data: {
+        BarcodeFindItemList: string;
+    }): Promise<void>;
+    createFindView(viewJson: object): Promise<void>;
+    updateFindView(barcodeFindViewJson: {
+        BarcodeFindView: string;
+    }): Promise<void>;
+    removeFindView(): Promise<void>;
+    showFindView(): Promise<void>;
+    hideFindView(): Promise<void>;
+    setBarcodeTransformer(): Promise<void>;
+    submitBarcodeFindTransformerResult(data: {
+        transformedBarcode: string | null;
+    }): Promise<void>;
+    updateBarcodeFindFeedback(data: {
+        feedbackJson: string;
     }): Promise<void>;
 }
 export interface ScanditBarcodePickNativeInterface {

@@ -8,7 +8,6 @@ interface BarcodePickViewProps {
     style: any;
 }
 export declare class BarcodePickView extends DefaultSerializeable {
-    private viewId;
     private baseBarcodePickView;
     private htmlElement;
     private _htmlElementState;
@@ -29,8 +28,6 @@ export declare class BarcodePickView extends DefaultSerializeable {
     start(): void;
     stop(): void;
     freeze(): void;
-    pause(): void;
-    resume(): void;
     addListener(listener: BarcodePickViewListener): void;
     removeListener(listener: BarcodePickViewListener): void;
     addActionListener(listener: BarcodePickActionListener): void;
