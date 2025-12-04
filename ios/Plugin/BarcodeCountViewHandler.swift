@@ -12,9 +12,9 @@ import WebKit
 class BarcodeCountViewHandler {
     let webView: WKWebView
 
-    var barcodeCountView: BarcodeCountView? {
+    var currentBarcodeCountView: BarcodeCountView? {
         didSet {
-            guard let barcodeCountView = barcodeCountView else { return }
+            guard let barcodeCountView = currentBarcodeCountView else { return }
             barcodeCountView.translatesAutoresizingMaskIntoConstraints = false
             resetConstraints()
             update()
@@ -70,7 +70,7 @@ class BarcodeCountViewHandler {
     }
 
     private func updateConstraints() {
-        guard let barcodeCountView = barcodeCountView else {
+        guard let barcodeCountView = currentBarcodeCountView else {
             return
         }
 
@@ -109,7 +109,7 @@ class BarcodeCountViewHandler {
     }
 
     private func updatePosition() {
-        guard let barcodeCountView = barcodeCountView else {
+        guard let barcodeCountView = currentBarcodeCountView else {
             return
         }
 
