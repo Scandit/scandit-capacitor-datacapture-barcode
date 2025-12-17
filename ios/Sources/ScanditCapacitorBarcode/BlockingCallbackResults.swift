@@ -54,7 +54,8 @@ struct BarcodeCaptureCallbackResult: BlockingListenerCallbackResult {
     var anchor: Anchor? {
         var anchor: Anchor = .center
         guard let result = result,
-              let anchorString = result.anchorString, SDCAnchorFromJSONString(anchorString, &anchor) else {
+            let anchorString = result.anchorString, SDCAnchorFromJSONString(anchorString, &anchor)
+        else {
             return nil
         }
         return anchor
@@ -63,7 +64,8 @@ struct BarcodeCaptureCallbackResult: BlockingListenerCallbackResult {
     var offset: PointWithUnit? {
         var offset: PointWithUnit = .zero
         guard let result = result,
-              let offsetString = result.offsetString, SDCPointWithUnitFromJSONString(offsetString, &offset) else {
+            let offsetString = result.offsetString, SDCPointWithUnitFromJSONString(offsetString, &offset)
+        else {
             return nil
         }
         return offset

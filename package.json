@@ -1,6 +1,6 @@
 {
   "name": "scandit-capacitor-datacapture-barcode",
-  "version": "7.5.2",
+  "version": "8.1.0",
   "description": "Scandit Data Capture SDK for Capacitor",
   "license": "Apache-2.0",
   "private": false,
@@ -21,18 +21,18 @@
     "watch": "tsc --watch"
   },
   "dependencies": {
-    "scandit-capacitor-datacapture-core": "7.5.2",
-    "scandit-datacapture-frameworks-barcode": "7.5.2",
-    "scandit-datacapture-frameworks-core": "7.5.2"
+    "scandit-capacitor-datacapture-core": "8.1.0",
+    "scandit-datacapture-frameworks-barcode": "8.1.0",
+    "scandit-datacapture-frameworks-core": "8.1.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-decorators": "^7.24.0",
     "@babel/preset-env": "^7.24.0",
     "@babel/preset-typescript": "^7.23.3",
-    "@capacitor/android": "^6.0.0",
-    "@capacitor/core": "^6.0.0",
-    "@capacitor/ios": "^6.0.0",
+    "@capacitor/android": ">=5.0.0 <8.0.0",
+    "@capacitor/core": ">=5.0.0 <8.0.0",
+    "@capacitor/ios": ">=5.0.0 <8.0.0",
     "@jest/globals": "^29.7.0",
     "@rollup/plugin-commonjs": "24.1.0",
     "@rollup/plugin-node-resolve": "15.0.2",
@@ -54,7 +54,8 @@
     "dist/",
     "ios/",
     "android/",
-    "ScanditCapacitorDatacaptureBarcode.podspec"
+    "ScanditCapacitorDatacaptureBarcode.podspec",
+    "Package.swift"
   ],
   "capacitor": {
     "ios": {
