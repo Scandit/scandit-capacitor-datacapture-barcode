@@ -1,7 +1,7 @@
-import { SymbologyDescription, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeCountView, BaseBarcodeFindView, BaseSparkScanView, BaseBarcodePickView, getBarcodeCountDefaults, ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountToolbarSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodePick, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, Checksum, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, UpcaBarcodeGeneratorBuilder, loadBarcodeDefaults, loadBarcodeCaptureDefaults, loadBarcodeBatchDefaults, loadBarcodeSelectionDefaults, loadBarcodeCountDefaults, loadBarcodePickDefaults, loadBarcodeFindDefaults, loadSparkScanDefaults, getBarcodeDefaults, registerBarcodeProxies } from './barcode.js';
-export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountToolbarSettings, BarcodeCountViewStyle, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodePick, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, Checksum, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologyDescription, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, UpcaBarcodeGeneratorBuilder } from './barcode.js';
-import { ignoreFromSerialization, DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize } from 'scandit-capacitor-datacapture-core/dist/core';
-import { capacitorExec, CapacitorCore, CapacitorNativeCaller } from 'scandit-capacitor-datacapture-core';
+import { SymbologyDescription, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeCountView, BaseBarcodeFindView, BaseSparkScanView, BaseBarcodePickView, getBarcodeCountDefaults, ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountToolbarSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodePick, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, Checksum, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologySettings, TargetBarcode, TrackedBarcode, UpcaBarcodeGeneratorBuilder, loadBarcodeDefaults, loadBarcodeCaptureDefaults, loadBarcodeBatchDefaults, loadBarcodeSelectionDefaults, loadBarcodeCountDefaults, loadBarcodePickDefaults, loadBarcodeFindDefaults, loadSparkScanDefaults, getBarcodeDefaults, BarcodeCountViewEvents, SparkScanViewEvents } from './barcode.js';
+export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountToolbarSettings, BarcodeCountViewStyle, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodePick, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, Checksum, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologyDescription, SymbologySettings, TargetBarcode, TrackedBarcode, UpcaBarcodeGeneratorBuilder } from './barcode.js';
+import { ignoreFromSerialization, DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize, FactoryMaker, createNativeProxy, createAdvancedInstanceAwareNativeProxy } from 'scandit-capacitor-datacapture-core/dist/core';
+import { CapacitorNativeCaller, capacitorExec, CapacitorCore } from 'scandit-capacitor-datacapture-core';
 
 var BarcodeExports = /*#__PURE__*/Object.freeze({
     __proto__: null,
@@ -31,8 +31,6 @@ var BarcodeExports = /*#__PURE__*/Object.freeze({
     get BarcodeCountToolbarSettings () { return BarcodeCountToolbarSettings; },
     get BarcodeCountView () { return BarcodeCountView; },
     get BarcodeCountViewStyle () { return BarcodeCountViewStyle$1; },
-    get BarcodeDefinition () { return BarcodeDefinition; },
-    get BarcodeDefinitionBuilder () { return BarcodeDefinitionBuilder; },
     get BarcodeFilterHighlightSettingsBrush () { return BarcodeFilterHighlightSettingsBrush; },
     get BarcodeFilterHighlightType () { return BarcodeFilterHighlightType; },
     get BarcodeFilterSettings () { return BarcodeFilterSettings; },
@@ -47,7 +45,6 @@ var BarcodeExports = /*#__PURE__*/Object.freeze({
     get BarcodeFindViewSettings () { return BarcodeFindViewSettings; },
     get BarcodeGenerator () { return BarcodeGenerator; },
     get BarcodeGeneratorBuilder () { return BarcodeGeneratorBuilder; },
-    get BarcodeIdentifier () { return BarcodeIdentifier; },
     get BarcodePick () { return BarcodePick; },
     get BarcodePickActionCallback () { return BarcodePickActionCallback; },
     get BarcodePickAsyncMapperProductProvider () { return BarcodePickAsyncMapperProductProvider; },
@@ -93,15 +90,6 @@ var BarcodeExports = /*#__PURE__*/Object.freeze({
     get Range () { return Range; },
     get Rectangular () { return Rectangular; },
     get RectangularWithIcons () { return RectangularWithIcons; },
-    get ScanComponentBarcodePreset () { return ScanComponentBarcodePreset; },
-    get ScanComponentTextSemanticType () { return ScanComponentTextSemanticType; },
-    get ScanItemDefinition () { return ScanItemDefinition; },
-    get ScanItemIdentifier () { return ScanItemIdentifier; },
-    get ScannedBarcode () { return ScannedBarcode; },
-    get ScannedComponentIdentifier () { return ScannedComponentIdentifier; },
-    get ScannedItem () { return ScannedItem; },
-    get ScannedItemIdentifier () { return ScannedItemIdentifier; },
-    get ScannedText () { return ScannedText; },
     get SparkScan () { return SparkScan; },
     get SparkScanBarcodeErrorFeedback () { return SparkScanBarcodeErrorFeedback; },
     get SparkScanBarcodeFeedback () { return SparkScanBarcodeFeedback; },
@@ -122,9 +110,6 @@ var BarcodeExports = /*#__PURE__*/Object.freeze({
     get SymbologyDescription () { return SymbologyDescription; },
     get SymbologySettings () { return SymbologySettings; },
     get TargetBarcode () { return TargetBarcode; },
-    get TextDefinition () { return TextDefinition; },
-    get TextDefinitionBuilder () { return TextDefinitionBuilder; },
-    get TextIdentifier () { return TextIdentifier; },
     get TrackedBarcode () { return TrackedBarcode; },
     get TrackedBarcodeView () { return TrackedBarcodeView; },
     get UpcaBarcodeGeneratorBuilder () { return UpcaBarcodeGeneratorBuilder; }
@@ -1822,6 +1807,29 @@ registerPlugin('CapacitorHttp', {
     web: () => new CapacitorHttpPluginWeb(),
 });
 
+var CapacitorFunction;
+(function (CapacitorFunction) {
+    CapacitorFunction["GetDefaults"] = "getDefaults";
+    CapacitorFunction["SubscribeBarcodeCountListener"] = "registerBarcodeCountListener";
+    CapacitorFunction["UnsubscribeBarcodeCountListener"] = "unregisterBarcodeCountListener";
+    CapacitorFunction["ResetBarcodeCountSession"] = "resetBarcodeCountSession";
+    CapacitorFunction["StartBarcodeCountScanningPhase"] = "startScanningPhase";
+    CapacitorFunction["EndBarcodeCountScanningPhase"] = "endScanningPhase";
+    CapacitorFunction["SetBarcodeCountCaptureList"] = "setBarcodeCountCaptureList";
+    CapacitorFunction["SetBarcodeCaptureModeEnabledState"] = "setBarcodeCaptureModeEnabledState";
+    CapacitorFunction["SetBarcodeBatchModeEnabledState"] = "setBarcodeBatchModeEnabledState";
+    CapacitorFunction["UpdateBarcodeCaptureOverlay"] = "updateBarcodeCaptureOverlay";
+    CapacitorFunction["UpdateBarcodeCaptureMode"] = "updateBarcodeCaptureMode";
+    CapacitorFunction["ApplyBarcodeCaptureModeSettings"] = "applyBarcodeCaptureModeSettings";
+    CapacitorFunction["UpdateBarcodeBatchBasicOverlay"] = "updateBarcodeBatchBasicOverlay";
+    CapacitorFunction["UpdateBarcodeBatchAdvancedOverlay"] = "updateBarcodeBatchAdvancedOverlay";
+    CapacitorFunction["UpdateBarcodeBatchMode"] = "updateBarcodeBatchMode";
+    CapacitorFunction["ApplyBarcodeBatchModeSettings"] = "applyBarcodeBatchModeSettings";
+    CapacitorFunction["CreateBarcodeGenerator"] = "createBarcodeGenerator";
+    CapacitorFunction["DisposeBarcodeGenerator"] = "disposeBarcodeGenerator";
+    CapacitorFunction["GenerateFromBase64EncodedData"] = "generateFromBase64EncodedData";
+    CapacitorFunction["GenerateFromString"] = "generateFromString";
+})(CapacitorFunction || (CapacitorFunction = {}));
 const pluginName = 'ScanditBarcodeNative';
 // tslint:disable-next-line:variable-name
 const Capacitor = {
@@ -1831,7 +1839,7 @@ const Capacitor = {
 };
 const getDefaults = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const defaultsJSON = yield window.Capacitor.Plugins[pluginName]['getDefaults']();
+        const defaultsJSON = yield window.Capacitor.Plugins[pluginName][CapacitorFunction.GetDefaults]();
         loadBarcodeDefaults(defaultsJSON);
         loadBarcodeCaptureDefaults(defaultsJSON.BarcodeCapture);
         loadBarcodeBatchDefaults(defaultsJSON.BarcodeBatch);
@@ -1851,15 +1859,76 @@ const getDefaults = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 // To circumvent a circular dependency
 SymbologyDescription.defaults = () => Capacitor.defaults;
+const capacitorBarcodeNativeCaller = new CapacitorNativeCaller(Capacitor.pluginName);
 
-class CapacitorBarcodeNativeCallerProvider {
-    getNativeCaller(_proxyType) {
-        return new CapacitorNativeCaller(Capacitor.pluginName);
+class NativeBarcodeGeneratorProxy {
+    create(barcodeGeneratorJson) {
+        return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.CreateBarcodeGenerator]({
+            barcodeGeneratorJson: barcodeGeneratorJson
+        });
+    }
+    dispose(generatorId) {
+        return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.DisposeBarcodeGenerator]({
+            generatorId: generatorId
+        });
+    }
+    generateFromBase64EncodedData(generatorId, data, imageWidth) {
+        return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.GenerateFromBase64EncodedData]({
+            generatorId: generatorId,
+            data: data,
+            imageWidth: imageWidth
+        });
+    }
+    generate(generatorId, text, imageWidth) {
+        return window.Capacitor.Plugins[Capacitor.pluginName][CapacitorFunction.GenerateFromString]({
+            generatorId: generatorId,
+            text: text,
+            imageWidth: imageWidth
+        });
     }
 }
 
 function initBarcodeProxy() {
-    registerBarcodeProxies(new CapacitorBarcodeNativeCallerProvider());
+    FactoryMaker.bindLazyInstance('BarcodeCaptureListenerProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeCaptureOverlayProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeBatchListenerProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeBatchBasicOverlayProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeBatchAdvancedOverlayProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeSelectionListenerProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeSelectionOverlayProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeSelectionProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeCountSessionProxy', () => {
+        return createAdvancedInstanceAwareNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeCountViewProxy', () => {
+        return createAdvancedInstanceAwareNativeProxy(capacitorBarcodeNativeCaller, BarcodeCountViewEvents);
+    });
+    FactoryMaker.bindLazyInstance('BarcodePickViewProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('BarcodeFindViewProxy', () => {
+        return createNativeProxy(capacitorBarcodeNativeCaller);
+    });
+    FactoryMaker.bindLazyInstance('SparkScanViewProxy', () => {
+        return createAdvancedInstanceAwareNativeProxy(capacitorBarcodeNativeCaller, SparkScanViewEvents);
+    });
+    FactoryMaker.bindInstance('BarcodeGeneratorProxy', new NativeBarcodeGeneratorProxy());
 }
 
 class ScanditBarcodePluginImplementation {
@@ -1906,6 +1975,7 @@ class BarcodePickView extends DefaultSerializeable {
             settings: props.settings,
             cameraSettings: props.cameraSettings,
         });
+        this.baseBarcodePickView.initialize(this);
     }
     get uiListener() {
         return this.baseBarcodePickView.uiListener;
@@ -1988,34 +2058,19 @@ class BarcodePickView extends DefaultSerializeable {
         });
     }
     start() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.start();
-        });
+        this.baseBarcodePickView.start();
     }
     stop() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.stop();
-        });
+        this.baseBarcodePickView.stop();
     }
     freeze() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.freeze();
-        });
+        this.baseBarcodePickView.freeze();
     }
     pause() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.pause();
-        });
+        this.baseBarcodePickView.pause();
     }
     resume() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.resume();
-        });
-    }
-    reset() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.reset();
-        });
+        this.baseBarcodePickView.resume();
     }
     addListener(listener) {
         this.baseBarcodePickView.addListener(listener);

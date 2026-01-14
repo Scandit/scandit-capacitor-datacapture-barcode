@@ -27,7 +27,6 @@ import com.scandit.capacitor.datacapture.core.data.ResizeAndMoveInfo
 import com.scandit.capacitor.datacapture.core.data.SerializableCallbackAction
 import com.scandit.capacitor.datacapture.core.data.SerializableFinishModeCallbackData
 import com.scandit.capacitor.datacapture.core.errors.JsonParseError
-import com.scandit.capacitor.datacapture.core.utils.CapacitorMethodCall
 import com.scandit.capacitor.datacapture.core.utils.CapacitorResult
 import com.scandit.datacapture.core.ui.style.BrushDeserializer
 import com.scandit.datacapture.frameworks.barcode.BarcodeModule
@@ -823,17 +822,17 @@ class ScanditBarcodeNative :
             val left = call.getDouble("left") ?: return call.reject("Missing left position")
             val width = call.getDouble("width") ?: return call.reject("Missing width")
             val height = call.getDouble("height") ?: return call.reject("Missing height")
-            val shouldBeUnderWebView = call.getBoolean("shouldBeUnderWebView") ?: false
+            val shouldBeUnderWebView = call.getBoolean("shouldBeUnderWebView", false)
 
-            barcodeCountViewHandler.setResizeAndMoveInfo(
-                ResizeAndMoveInfo(
-                    top.toFloat(),
-                    left.toFloat(),
-                    width.toFloat(),
-                    height.toFloat(),
-                    shouldBeUnderWebView
-                )
-            )
+            val info = JSONObject().apply {
+                put("top", top)
+                put("left", left)
+                put("width", width)
+                put("height", height)
+                put("shouldBeUnderWebView", shouldBeUnderWebView)
+            }
+
+            barcodeCountViewHandler.setResizeAndMoveInfo(ResizeAndMoveInfo(info))
             call.resolve()
         } catch (e: JSONException) {
             call.reject(JsonParseError(e.message).toString())
@@ -1189,17 +1188,16 @@ class ScanditBarcodeNative :
             val left = call.getDouble("left") ?: return call.reject("Missing left position")
             val width = call.getDouble("width") ?: return call.reject("Missing width")
             val height = call.getDouble("height") ?: return call.reject("Missing height")
-            val shouldBeUnderWebView = call.getBoolean("shouldBeUnderWebView") ?: false
+            val shouldBeUnderWebView = call.getBoolean("shouldBeUnderWebView", false)
 
-            barcodePickViewHandler.setResizeAndMoveInfo(
-                ResizeAndMoveInfo(
-                    top.toFloat(),
-                    left.toFloat(),
-                    width.toFloat(),
-                    height.toFloat(),
-                    shouldBeUnderWebView
-                )
-            )
+            val info = JSONObject().apply {
+                put("top", top)
+                put("left", left)
+                put("width", width)
+                put("height", height)
+                put("shouldBeUnderWebView", shouldBeUnderWebView)
+            }
+            barcodePickViewHandler.setResizeAndMoveInfo(ResizeAndMoveInfo(info))
             call.resolve()
         } catch (e: JSONException) {
             call.reject(JsonParseError(e.message).toString())
@@ -1563,7 +1561,51 @@ class ScanditBarcodeNative :
     private fun getDataCaptureViewId(call: PluginCall): Int = call.data.getInt("dataCaptureViewId")
 
     @PluginMethod
-    fun executeNativeBarcodeGenerator(call: PluginCall) {
-        barcodeGeneratorModule.execute(CapacitorMethodCall(call), CapacitorResult(call))
+    fun createBarcodeGenerator(call: PluginCall) {
+        val barcodeGeneratorJson = call.data.getString("barcodeGeneratorJson")
+            ?: return call.reject(WRONG_INPUT)
+        barcodeGeneratorModule.createGenerator(barcodeGeneratorJson, CapacitorResult(call))
+    }
+
+    @PluginMethod
+    fun generateFromBase64EncodedData(call: PluginCall) {
+        val generatorId = call.data.getString("generatorId")
+            ?: return call.reject(WRONG_INPUT)
+        val data = call.data.getString("data")
+            ?: return call.reject(WRONG_INPUT)
+        val imageWidth = call.data.getInteger("imageWidth")
+            ?: return call.reject(WRONG_INPUT)
+
+        barcodeGeneratorModule.generateFromBase64EncodedData(
+            generatorId,
+            data,
+            imageWidth,
+            CapacitorResult(call)
+        )
+    }
+
+    @PluginMethod
+    fun generateFromString(call: PluginCall) {
+        val generatorId = call.data.getString("generatorId")
+            ?: return call.reject(WRONG_INPUT)
+        val text = call.data.getString("text")
+            ?: return call.reject(WRONG_INPUT)
+        val imageWidth = call.data.getInteger("imageWidth")
+            ?: return call.reject(WRONG_INPUT)
+
+        barcodeGeneratorModule.generate(
+            generatorId,
+            text,
+            imageWidth,
+            CapacitorResult(call)
+        )
+    }
+
+    @PluginMethod
+    fun disposeBarcodeGenerator(call: PluginCall) {
+        val generatorId = call.data.getString("generatorId")
+            ?: return call.reject(WRONG_INPUT)
+
+        barcodeGeneratorModule.disposeGenerator(generatorId, CapacitorResult(call))
     }
 }
