@@ -18,7 +18,7 @@ import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
 
-internal class BarcodeCountViewHandler(
+internal class BarcodeCountViewHandler (
     private val mainThread: MainThread = DefaultMainThread.getInstance()
 ) {
     private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
