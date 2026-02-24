@@ -11,9 +11,9 @@ import WebKit
 class BarcodePickViewHandler {
     let webView: WKWebView
 
-    var currentBarcodePickView: BarcodePickView? {
+    var barcodePickView: BarcodePickView? {
         didSet {
-            guard let barcodePickView = currentBarcodePickView else { return }
+            guard let barcodePickView = barcodePickView else { return }
             barcodePickView.translatesAutoresizingMaskIntoConstraints = false
             resetConstraints()
             update()
@@ -30,7 +30,7 @@ class BarcodePickViewHandler {
     private var shouldBeUnderWebView = false
 
     private var constraints: [NSLayoutConstraint] {
-        [top, left, width, height].compactMap({ $0 })
+        return [top, left, width, height].compactMap({ $0 })
     }
 
     init(relativeTo webView: WKWebView) {
@@ -68,7 +68,7 @@ class BarcodePickViewHandler {
     }
 
     private func updateConstraints() {
-        guard let barcodePickView = currentBarcodePickView else { return }
+        guard let barcodePickView = barcodePickView else { return }
 
         let topConstant = position.y + webView.adjustedContentInset.top
         let leftConstant = position.x + webView.adjustedContentInset.left
@@ -106,25 +106,23 @@ class BarcodePickViewHandler {
     }
 
     private func updatePosition() {
-        guard let barcodePickView = currentBarcodePickView else {
+        guard let barcodePickView = barcodePickView else {
             return
         }
 
         if shouldBeUnderWebView {
+            #if swift(>=5.0)
             barcodePickView.superview?.sendSubviewToBack(barcodePickView)
+            #else
+            barcodePickView.superview?.sendSubview(toBack: barcodePickView)
+            #endif
         } else {
+            #if swift(>=5.0)
             barcodePickView.superview?.bringSubviewToFront(barcodePickView)
+            #else
+            barcodePickView.superview?.bringSubview(toFront: barcodePickView)
+            #endif
         }
     }
-
-    /// Clean up and remove the current BarcodePick view.
-    func disposeCurrentView() {
-        // Deactivate constraints before removing the view
-        NSLayoutConstraint.deactivate(constraints)
-        resetConstraints()
-
-        // Remove the view from the hierarchy synchronously
-        currentBarcodePickView?.removeFromSuperview()
-        currentBarcodePickView = nil
-    }
 }
+
