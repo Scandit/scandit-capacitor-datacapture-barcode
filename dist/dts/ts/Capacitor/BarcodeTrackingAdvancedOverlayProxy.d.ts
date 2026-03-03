@@ -1,8 +1,8 @@
 import { BaseNativeProxy } from 'scandit-datacapture-frameworks-core';
 import { Anchor } from 'scandit-datacapture-frameworks-core';
-import { BarcodeBatchAdvancedOverlayProxy } from 'scandit-datacapture-frameworks-barcode';
-import { BarcodeBatchAdvancedOverlayView } from 'scandit-datacapture-frameworks-barcode';
-export declare class NativeBarcodeBatchAdvancedOverlayProxy extends BaseNativeProxy implements BarcodeBatchAdvancedOverlayProxy {
+import { BarcodeTrackingAdvancedOverlayProxy } from 'scandit-datacapture-frameworks-barcode';
+import { BarcodeTrackingAdvancedOverlayView } from 'scandit-datacapture-frameworks-barcode';
+export declare class NativeBarcodeTrackingAdvancedOverlayProxy extends BaseNativeProxy implements BarcodeTrackingAdvancedOverlayProxy {
     private static capacitorExec;
     isModeEnabled: () => boolean;
     constructor();
@@ -11,13 +11,13 @@ export declare class NativeBarcodeBatchAdvancedOverlayProxy extends BaseNativePr
     setAnchorForTrackedBarcode(anchor: Anchor, trackedBarcodeIdentifer: number, sessionFrameSequenceID: number | null): Promise<void>;
     setOffsetForTrackedBarcode(offsetJson: string, trackedBarcodeIdentifer: number, sessionFrameSequenceID: number | null): Promise<void>;
     clearTrackedBarcodeViews(): Promise<void>;
-    updateBarcodeBatchAdvancedOverlay(overlayJson: string): Promise<void>;
+    updateBarcodeTrackingAdvancedOverlay(overlayJson: string): Promise<void>;
     registerListenerForAdvancedOverlayEvents(): void;
     unregisterListenerForAdvancedOverlayEvents(): void;
     subscribeViewForTrackedBarcode(): void;
     subscribeAnchorForTrackedBarcode(): void;
     subscribeOffsetForTrackedBarcode(): void;
     subscribeDidTapViewForTrackedBarcode(): void;
-    getJSONStringForView(view: BarcodeBatchAdvancedOverlayView | null): object | string | null;
+    getJSONStringForView(view: BarcodeTrackingAdvancedOverlayView | null): object | string | null;
     private notifyListeners;
 }

@@ -1,15 +1,15 @@
 import { Anchor, DataCaptureOverlay, DataCaptureView, PointWithUnit } from 'scandit-datacapture-frameworks-core';
-import { BarcodeBatch, TrackedBarcode } from 'scandit-datacapture-frameworks-barcode';
-import { BarcodeBatchAdvancedOverlayListener } from './BarcodeBatchAdvancedOverlayListener';
+import { BarcodeTracking, TrackedBarcode } from 'scandit-datacapture-frameworks-barcode';
+import { BarcodeTrackingAdvancedOverlayListener } from './BarcodeTrackingAdvancedOverlayListener';
 import { TrackedBarcodeView } from './TrackedBarcodeView';
-export declare class BarcodeBatchAdvancedOverlay implements DataCaptureOverlay {
-    private baseBarcodeBatchOverlay;
+export declare class BarcodeTrackingAdvancedOverlay implements DataCaptureOverlay {
+    private baseBarcodeTrackingOverlay;
     private get type();
     get shouldShowScanAreaGuides(): boolean;
     set shouldShowScanAreaGuides(shouldShow: boolean);
-    get listener(): BarcodeBatchAdvancedOverlayListener | null;
-    set listener(listener: BarcodeBatchAdvancedOverlayListener | null);
-    static withBarcodeBatchForView(barcodeBatch: BarcodeBatch, view: DataCaptureView | null): BarcodeBatchAdvancedOverlay;
+    get listener(): BarcodeTrackingAdvancedOverlayListener | null;
+    set listener(listener: BarcodeTrackingAdvancedOverlayListener | null);
+    static withBarcodeTrackingForView(barcodeTracking: BarcodeTracking, view: DataCaptureView | null): BarcodeTrackingAdvancedOverlay;
     private constructor();
     setViewForTrackedBarcode(view: Promise<TrackedBarcodeView | null>, trackedBarcode: TrackedBarcode): Promise<void>;
     setAnchorForTrackedBarcode(anchor: Anchor, trackedBarcode: TrackedBarcode): Promise<void>;

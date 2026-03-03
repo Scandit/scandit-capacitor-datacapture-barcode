@@ -5,13 +5,15 @@ export declare class NativeBarcodeFindViewProxy extends BaseNativeProxy implemen
     private subscriptionBarcodeFindViewListener;
     showView(): Promise<void>;
     hideView(): Promise<void>;
+    onPause(): Promise<void>;
+    onResume(): Promise<void>;
     startSearching(): Promise<void>;
     stopSearching(): Promise<void>;
     pauseSearching(): Promise<void>;
     findNodeHandle(_view?: BarcodeFindView | undefined): number | null;
     createView(_id: number | null, barcodeFindViewJson: string): Promise<void>;
     updateView(barcodeFindViewJson: string): Promise<void>;
-    removeView(): Promise<void>;
+    setPositionAndSize(top: number, left: number, width: number, height: number, shouldBeUnderWebView: boolean): Promise<void>;
     subscribeBarcodeFindViewListener(): Promise<void>;
     unsubscribeBarcodeFindViewListener(): Promise<void>;
     private notifyListeners;

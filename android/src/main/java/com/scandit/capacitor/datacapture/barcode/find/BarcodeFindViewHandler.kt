@@ -75,7 +75,7 @@ class BarcodeFindViewHandler(
         disposeCurrentWebView()
     }
 
-    fun disposeCurrentView() {
+    private fun disposeCurrentView() {
         val view = barcodeFindViewContainer ?: return
         removeView(view)
     }
@@ -128,8 +128,8 @@ class BarcodeFindViewHandler(
             barcodeFindViewContainer.x = latestInfo.left.pxFromDp()
             barcodeFindViewContainer.y = latestInfo.top.pxFromDp()
             barcodeFindViewContainer.layoutParams.apply {
-                width = ViewGroup.LayoutParams.MATCH_PARENT
-                height = ViewGroup.LayoutParams.MATCH_PARENT
+                width = latestInfo.width.pxFromDp().toInt()
+                height = latestInfo.height.pxFromDp().toInt()
             }
             if (latestInfo.shouldBeUnderWebView) {
                 webView?.bringToFront()
