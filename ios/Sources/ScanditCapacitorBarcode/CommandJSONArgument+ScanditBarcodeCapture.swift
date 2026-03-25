@@ -4,8 +4,8 @@
  * Copyright (C) 2023- Scandit AG. All rights reserved.
  */
 
-import ScanditCaptureCore
 import ScanditCapacitorDatacaptureCore
+import ScanditCaptureCore
 
 struct BrushAndTrackedBarcodeJSON: CommandJSONArgument {
     enum CodingKeys: String, CodingKey {

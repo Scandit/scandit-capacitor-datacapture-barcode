@@ -6,19 +6,17 @@
 
 import ScanditBarcodeCapture
 import ScanditCapacitorDatacaptureCore
-import ScanditFrameworksCore
 import WebKit
 
-class BarcodeCountViewHandler {
+class BarcodePickViewHandler {
     let webView: WKWebView
 
-    var currentBarcodeCountView: BarcodeCountView? {
+    var currentBarcodePickView: BarcodePickView? {
         didSet {
-            guard let barcodeCountView = currentBarcodeCountView else { return }
-            barcodeCountView.translatesAutoresizingMaskIntoConstraints = false
+            guard let barcodePickView = currentBarcodePickView else { return }
+            barcodePickView.translatesAutoresizingMaskIntoConstraints = false
             resetConstraints()
             update()
-
         }
     }
 
@@ -32,14 +30,14 @@ class BarcodeCountViewHandler {
     private var shouldBeUnderWebView = false
 
     private var constraints: [NSLayoutConstraint] {
-        return [top, left, width, height].compactMap({ $0 })
+        [top, left, width, height].compactMap({ $0 })
     }
 
     init(relativeTo webView: WKWebView) {
         self.webView = webView
     }
 
-    /// Update the constraints that set the position and size of the barcode count view,
+    /// Update the constraints that set the position and size of the barcode pick view,
     /// based on a JSON passed in as the argument to a Capacitor command.
     ///
     /// If the view does not exist yet, the position and size are stored and will be applied to the view
@@ -58,10 +56,6 @@ class BarcodeCountViewHandler {
         updatePosition()
     }
 
-    private func activate() {
-        NSLayoutConstraint.activate(constraints)
-    }
-
     private func resetConstraints() {
         top = nil
         left = nil
@@ -69,10 +63,12 @@ class BarcodeCountViewHandler {
         height = nil
     }
 
+    private func activate() {
+        NSLayoutConstraint.activate(constraints)
+    }
+
     private func updateConstraints() {
-        guard let barcodeCountView = currentBarcodeCountView else {
-            return
-        }
+        guard let barcodePickView = currentBarcodePickView else { return }
 
         let topConstant = position.y + webView.adjustedContentInset.top
         let leftConstant = position.x + webView.adjustedContentInset.left
@@ -80,43 +76,52 @@ class BarcodeCountViewHandler {
         if let top = top {
             top.constant = topConstant
         } else {
-            top = barcodeCountView.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
+            top = barcodePickView.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
             top?.isActive = true
         }
 
         if let left = left {
             left.constant = leftConstant
         } else {
-            left = barcodeCountView.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
+            left = barcodePickView.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
             left?.isActive = true
         }
 
         if let width = width {
             width.constant = size.width
         } else {
-            width = barcodeCountView.widthAnchor.constraint(equalToConstant: size.width)
+            width = barcodePickView.widthAnchor.constraint(equalToConstant: size.width)
             width?.isActive = true
         }
 
         if let height = height {
             height.constant = size.height
         } else {
-            height = barcodeCountView.heightAnchor.constraint(equalToConstant: size.height)
+            height = barcodePickView.heightAnchor.constraint(equalToConstant: size.height)
             height?.isActive = true
         }
 
-        barcodeCountView.superview?.layoutIfNeeded()
+        barcodePickView.superview?.layoutIfNeeded()
+
     }
 
     private func updatePosition() {
-        guard let barcodeCountView = currentBarcodeCountView else {
+        guard let barcodePickView = currentBarcodePickView else {
             return
         }
 
         if shouldBeUnderWebView {
-            barcodeCountView.superview?.sendSubviewToBack(barcodeCountView)
+            #if swift(>=5.0)
+            barcodePickView.superview?.sendSubviewToBack(barcodePickView)
+            #else
+            barcodePickView.superview?.sendSubview(toBack: barcodePickView)
+            #endif
         } else {
-            barcodeCountView.superview?.bringSubviewToFront(barcodeCountView)
+            #if swift(>=5.0)
+            barcodePickView.superview?.bringSubviewToFront(barcodePickView)
+            #else
+            barcodePickView.superview?.bringSubview(toFront: barcodePickView)
+            #endif
         }
     }
 }

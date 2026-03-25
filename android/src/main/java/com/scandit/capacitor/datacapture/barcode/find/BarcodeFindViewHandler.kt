@@ -35,7 +35,11 @@ class BarcodeFindViewHandler(
         )
     }
 
-    fun addBarcodeFindViewContainer(viewId: Int, container: FrameLayout, activity: AppCompatActivity) {
+    fun addBarcodeFindViewContainer(
+        viewId: Int,
+        container: FrameLayout,
+        activity: AppCompatActivity
+    ) {
         if (containers.containsKey(viewId)) {
             val existingContainer = containers.remove(viewId)?.get()
             if (existingContainer != null) {
@@ -149,7 +153,6 @@ class BarcodeFindViewHandler(
             setWebViewVisible()
         }
         container.requestLayout()
-
     }
 
     private fun setWebViewVisible() {

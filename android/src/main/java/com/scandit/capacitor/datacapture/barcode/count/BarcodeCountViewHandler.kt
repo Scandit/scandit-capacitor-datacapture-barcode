@@ -18,10 +18,10 @@ import com.scandit.datacapture.frameworks.core.utils.DefaultMainThread
 import com.scandit.datacapture.frameworks.core.utils.MainThread
 import java.lang.ref.WeakReference
 
-internal class BarcodeCountViewHandler (
+internal class BarcodeCountViewHandler(
     private val mainThread: MainThread = DefaultMainThread.getInstance()
 ) {
-    private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0, 0, 600, 600, false)
+    private var latestInfo: ResizeAndMoveInfo = ResizeAndMoveInfo(0f, 0f, 600f, 600f, false)
     private var isVisible: Boolean = true
     private var barcodeCountViewReference: WeakReference<BarcodeCountView>? = null
     private var webViewReference: WeakReference<View>? = null
