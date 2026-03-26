@@ -119,4 +119,15 @@ class BarcodeCountViewHandler {
             barcodeCountView.superview?.bringSubviewToFront(barcodeCountView)
         }
     }
+
+    /// Clean up and remove the current BarcodeCount view.
+    func disposeCurrentView() {
+        // Deactivate constraints before removing the view
+        NSLayoutConstraint.deactivate(constraints)
+        resetConstraints()
+
+        // Remove the view from the hierarchy synchronously
+        currentBarcodeCountView?.removeFromSuperview()
+        currentBarcodeCountView = nil
+    }
 }
