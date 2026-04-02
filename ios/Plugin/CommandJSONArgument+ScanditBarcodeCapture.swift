@@ -28,40 +28,37 @@ struct BrushAndTrackedBarcodeJSON: CommandJSONArgument {
 }
 
 struct ViewAndTrackedBarcodeJSON: CommandJSONArgument {
-    let viewJson: TrackedBarcodeView.JSON?
-    let trackedBarcodeIdentifier: Int
+    let view: TrackedBarcodeView.JSON?
+    let trackedBarcodeID: Int
     let sessionFrameSequenceID: Int?
-    let dataCaptureViewId: Int
 
     enum CodingKeys: CodingKey {
-        case viewJson
-        case trackedBarcodeIdentifier
+        case view
+        case trackedBarcodeID
         case sessionFrameSequenceID
-        case dataCaptureViewId
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.viewJson = try container.decodeIfPresent(TrackedBarcodeView.JSON.self, forKey: .viewJson)
-        self.trackedBarcodeIdentifier = try container.decode(Int.self, forKey: .trackedBarcodeIdentifier)
+        self.view = try container.decodeIfPresent(TrackedBarcodeView.JSON.self, forKey: .view)
+        self.trackedBarcodeID = try container.decode(Int.self, forKey: .trackedBarcodeID)
         if let frameSequenceId = try? container.decodeIfPresent(Int.self, forKey: .sessionFrameSequenceID) {
             self.sessionFrameSequenceID = frameSequenceId
         } else {
             self.sessionFrameSequenceID = nil
         }
-        self.dataCaptureViewId = try container.decode(Int.self, forKey: .dataCaptureViewId)
     }
 }
 
 struct AnchorAndTrackedBarcodeJSON: CommandJSONArgument {
     let anchor: String?
-    let trackedBarcodeIdentifier: String
+    let trackedBarcodeID: String
     let sessionFrameSequenceID: String?
 }
 
 struct OffsetAndTrackedBarcodeJSON: CommandJSONArgument {
-    let offsetJson: String?
-    let trackedBarcodeIdentifier: String
+    let offset: String?
+    let trackedBarcodeID: String
     let sessionFrameSequenceID: String?
 }
 
