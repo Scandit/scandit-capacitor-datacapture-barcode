@@ -7,8 +7,8 @@
 import ScanditFrameworksCore
 import UIKit
 
-public class TappableBase64ImageView: UIImageView, TappableView {
-    public struct JSON: Decodable {
+class TappableBase64ImageView: UIImageView, TappableView {
+    struct JSON: Decodable {
         struct OptionsJSON: Decodable {
             // swiftlint:disable:next nesting
             struct SizeJSON: Decodable {
@@ -24,13 +24,13 @@ public class TappableBase64ImageView: UIImageView, TappableView {
         let options: OptionsJSON
     }
 
-    public var didTap: (() -> Void)?
+    var didTap: (() -> Void)?
 
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    public init?(base64DataString: String) {
+    init?(base64DataString: String) {
         let dataString = String(base64DataString.split(separator: ",")[1])
 
         guard let imageData = Data(base64Encoded: dataString) else {
@@ -40,7 +40,7 @@ public class TappableBase64ImageView: UIImageView, TappableView {
         super.init(image: UIImage(data: imageData))
     }
 
-    public convenience init?(json: JSON) {
+    convenience init?(json: JSON) {
         self.init(base64DataString: json.data)
 
         if let size = json.options.size {
@@ -55,7 +55,7 @@ public class TappableBase64ImageView: UIImageView, TappableView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
 
-    @objc public func handleTap() {
+    @objc func handleTap() {
         didTap?()
     }
 }

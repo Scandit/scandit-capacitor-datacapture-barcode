@@ -6,19 +6,17 @@
 
 import ScanditBarcodeCapture
 import ScanditCapacitorDatacaptureCore
-import ScanditFrameworksCore
 import WebKit
 
-class BarcodeCountViewHandler {
+class BarcodeFindViewHandler {
     let webView: WKWebView
 
-    var currentBarcodeCountView: BarcodeCountView? {
+    var barcodeFindView: BarcodeFindView? {
         didSet {
-            guard let barcodeCountView = currentBarcodeCountView else { return }
-            barcodeCountView.translatesAutoresizingMaskIntoConstraints = false
+            guard let barcodeFindView = barcodeFindView else { return }
+            barcodeFindView.translatesAutoresizingMaskIntoConstraints = false
             resetConstraints()
             update()
-
         }
     }
 
@@ -32,14 +30,14 @@ class BarcodeCountViewHandler {
     private var shouldBeUnderWebView = false
 
     private var constraints: [NSLayoutConstraint] {
-        [top, left, width, height].compactMap({ $0 })
+        return [top, left, width, height].compactMap({ $0 })
     }
 
     init(relativeTo webView: WKWebView) {
         self.webView = webView
     }
 
-    /// Update the constraints that set the position and size of the barcode count view,
+    /// Update the constraints that set the position and size of the barcode find view,
     /// based on a JSON passed in as the argument to a Capacitor command.
     ///
     /// If the view does not exist yet, the position and size are stored and will be applied to the view
@@ -70,7 +68,7 @@ class BarcodeCountViewHandler {
     }
 
     private func updateConstraints() {
-        guard let barcodeCountView = currentBarcodeCountView else {
+        guard let barcodeFindView = barcodeFindView else {
             return
         }
 
@@ -80,43 +78,52 @@ class BarcodeCountViewHandler {
         if let top = top {
             top.constant = topConstant
         } else {
-            top = barcodeCountView.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
+            top = barcodeFindView.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
             top?.isActive = true
         }
 
         if let left = left {
             left.constant = leftConstant
         } else {
-            left = barcodeCountView.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
+            left = barcodeFindView.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
             left?.isActive = true
         }
 
         if let width = width {
             width.constant = size.width
         } else {
-            width = barcodeCountView.widthAnchor.constraint(equalToConstant: size.width)
+            width = barcodeFindView.widthAnchor.constraint(equalToConstant: size.width)
             width?.isActive = true
         }
 
         if let height = height {
             height.constant = size.height
         } else {
-            height = barcodeCountView.heightAnchor.constraint(equalToConstant: size.height)
+            height = barcodeFindView.heightAnchor.constraint(equalToConstant: size.height)
             height?.isActive = true
         }
 
-        barcodeCountView.superview?.layoutIfNeeded()
+        barcodeFindView.superview?.layoutIfNeeded()
     }
 
     private func updatePosition() {
-        guard let barcodeCountView = currentBarcodeCountView else {
+        guard let barcodeFindView = barcodeFindView else {
             return
         }
 
         if shouldBeUnderWebView {
-            barcodeCountView.superview?.sendSubviewToBack(barcodeCountView)
+            #if swift(>=5.0)
+            barcodeFindView.superview?.sendSubviewToBack(barcodeFindView)
+            #else
+            barcodeFindView.superview?.sendSubview(toBack: barcodeFindView)
+            #endif
         } else {
-            barcodeCountView.superview?.bringSubviewToFront(barcodeCountView)
+            #if swift(>=5.0)
+            barcodeFindView.superview?.bringSubviewToFront(barcodeFindView)
+            #else
+            barcodeFindView.superview?.bringSubview(toFront: barcodeFindView)
+            #endif
         }
     }
 }
+
