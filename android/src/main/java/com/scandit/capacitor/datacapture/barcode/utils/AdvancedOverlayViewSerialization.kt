@@ -16,7 +16,9 @@ data class SerializableAdvancedOverlayViewData(
             json[FIELD_FRAME_SEQUENCE_ID] is Long
         ) {
             json.getLong(FIELD_FRAME_SEQUENCE_ID)
-        } else null,
+        } else {
+            null
+        },
         dataCaptureViewId = json.getInt(FIELD_DATA_CAPTURE_VIEW_ID),
     )
 }
