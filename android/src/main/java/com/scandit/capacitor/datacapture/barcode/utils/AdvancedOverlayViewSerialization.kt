@@ -6,8 +6,7 @@ import org.json.JSONObject
 data class SerializableAdvancedOverlayViewData(
     val view: SerializableAdvancedOverlayView?,
     val trackedBarcodeId: Int,
-    val sessionFrameSequenceId: Long?,
-    val dataCaptureViewId: Int
+    val sessionFrameSequenceId: Long?
 ) {
     constructor(json: JSONObject) : this(
         view = SerializableAdvancedOverlayView.fromJson(json.optJSONObject(FIELD_VIEW)),
@@ -16,8 +15,7 @@ data class SerializableAdvancedOverlayViewData(
             json[FIELD_FRAME_SEQUENCE_ID] is Long
         ) {
             json.getLong(FIELD_FRAME_SEQUENCE_ID)
-        } else null,
-        dataCaptureViewId = json.getInt(FIELD_DATA_CAPTURE_VIEW_ID),
+        } else null
     )
 }
 
@@ -81,7 +79,6 @@ data class SerializableAdvancedOverlayViewOptions(
     }
 }
 
-private const val FIELD_VIEW = "viewJson"
-private const val FIELD_TRACKED_BARCODE_ID = "trackedBarcodeIdentifier"
-private const val FIELD_DATA_CAPTURE_VIEW_ID = "dataCaptureViewId"
+private const val FIELD_VIEW = "view"
+private const val FIELD_TRACKED_BARCODE_ID = "trackedBarcodeID"
 private const val FIELD_FRAME_SEQUENCE_ID = "sessionFrameSequenceID"
