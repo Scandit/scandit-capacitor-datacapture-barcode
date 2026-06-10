@@ -29,8 +29,6 @@ export declare class SparkScanView {
     set cameraSwitchButtonVisible(newValue: boolean);
     get torchControlVisible(): boolean;
     set torchControlVisible(newValue: boolean);
-    get zoomSwitchControlVisible(): boolean;
-    set zoomSwitchControlVisible(newValue: boolean);
     get previewCloseControlVisible(): boolean;
     set previewCloseControlVisible(newValue: boolean);
     get triggerButtonAnimationColor(): Color | null;
@@ -49,7 +47,7 @@ export declare class SparkScanView {
     startScanning(): Promise<void>;
     pauseScanning(): Promise<void>;
     stopScanning(): Promise<void>;
-    dispose(): Promise<void>;
+    dispose(): void;
     show(): Promise<void>;
     hide(): Promise<void>;
     get feedbackDelegate(): SparkScanFeedbackDelegate | null;
