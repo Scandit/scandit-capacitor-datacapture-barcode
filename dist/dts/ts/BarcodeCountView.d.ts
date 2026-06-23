@@ -1,4 +1,4 @@
-import { BarcodeCount, BarcodeCountNotInListActionSettings, TrackedBarcode } from 'scandit-datacapture-frameworks-barcode';
+import { BarcodeCount, BarcodeCountNotInListActionSettings, TrackedBarcode, BarcodeCountMappingFlowSettings, BarcodeCountStatusProvider } from 'scandit-datacapture-frameworks-barcode';
 import { Anchor } from 'scandit-datacapture-frameworks-core';
 import { BarcodeCountViewListener, BarcodeCountViewUiListener, BarcodeCountToolbarSettings } from 'scandit-datacapture-frameworks-barcode';
 import { Brush } from 'scandit-datacapture-frameworks-core';
@@ -40,6 +40,10 @@ export declare class BarcodeCountView {
     set shouldShowFloatingShutterButton(newValue: boolean);
     get shouldShowToolbar(): boolean;
     set shouldShowToolbar(newValue: boolean);
+    get shouldShowStatusModeButton(): boolean;
+    set shouldShowStatusModeButton(newValue: boolean);
+    get shouldShowStatusIconsOnScan(): boolean;
+    set shouldShowStatusIconsOnScan(newValue: boolean);
     get shouldShowScanAreaGuides(): boolean;
     set shouldShowScanAreaGuides(newValue: boolean);
     get recognizedBrush(): Brush | null;
@@ -89,6 +93,12 @@ export declare class BarcodeCountView {
     set singleScanButtonAccessibilityLabel(newValue: string);
     get singleScanButtonContentDescription(): string;
     set singleScanButtonContentDescription(newValue: string);
+    get statusModeButtonAccessibilityHint(): string;
+    set statusModeButtonAccessibilityHint(newValue: string);
+    get statusModeButtonAccessibilityLabel(): string;
+    set statusModeButtonAccessibilityLabel(newValue: string);
+    get statusModeButtonContentDescription(): string;
+    set statusModeButtonContentDescription(newValue: string);
     get clearHighlightsButtonText(): string;
     set clearHighlightsButtonText(newValue: string);
     get exitButtonText(): string;
@@ -101,6 +111,12 @@ export declare class BarcodeCountView {
     set textForMoveCloserAndRescanHint(newValue: string);
     get textForMoveFurtherAndRescanHint(): string;
     set textForMoveFurtherAndRescanHint(newValue: string);
+    get textForBarcodesNotInListDetectedHint(): string;
+    set textForBarcodesNotInListDetectedHint(newValue: string);
+    get textForScreenCleanedUpHint(): string;
+    set textForScreenCleanedUpHint(newValue: string);
+    get textForClusteringGestureHint(): string;
+    set textForClusteringGestureHint(newValue: string);
     get shouldShowListProgressBar(): boolean;
     set shouldShowListProgressBar(newValue: boolean);
     get shouldShowTorchControl(): boolean;
@@ -124,14 +140,17 @@ export declare class BarcodeCountView {
     private domObserver;
     static forContextWithMode(context: DataCaptureContext, barcodeCount: BarcodeCount): BarcodeCountView;
     static forContextWithModeAndStyle(context: DataCaptureContext, barcodeCount: BarcodeCount, style: BarcodeCountViewStyle): BarcodeCountView;
-    constructor({ context, barcodeCount, style }: {
+    static forMapping(context: DataCaptureContext, barcodeCount: BarcodeCount, style: BarcodeCountViewStyle, mappingFlowSettings: BarcodeCountMappingFlowSettings): BarcodeCountView;
+    constructor({ context, barcodeCount, style, mappingFlowSettings }: {
         context: DataCaptureContext;
         barcodeCount: BarcodeCount;
         style: BarcodeCountViewStyle;
+        mappingFlowSettings?: BarcodeCountMappingFlowSettings;
     });
     private orientationChangeListener;
     clearHighlights(): Promise<void>;
     setToolbarSettings(settings: BarcodeCountToolbarSettings): void;
+    setStatusProvider(provider: BarcodeCountStatusProvider): void;
     connectToElement(element: HTMLElement): void;
     detachFromElement(): void;
     setFrame(frame: Rect, isUnderContent?: boolean): Promise<void>;
