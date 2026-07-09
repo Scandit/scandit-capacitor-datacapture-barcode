@@ -152,7 +152,7 @@ const BarcodeCountDefaults = {
     get BarcodeCountView() {
         const defaults = getBarcodeCountDefaults();
         return defaults.BarcodeCountView;
-    }
+    },
 };
 var BarcodeCountViewStyle;
 (function (BarcodeCountViewStyle) {
@@ -552,19 +552,19 @@ class BarcodeCountView {
         const view = new BarcodeCountView({ context, barcodeCount, style, mappingFlowSettings });
         return view;
     }
-    constructor({ context, barcodeCount, style, mappingFlowSettings }) {
+    constructor({ context, barcodeCount, style, mappingFlowSettings, }) {
         this.viewId = Math.floor(Math.random() * 1000000);
         this.htmlElement = null;
         this._htmlElementState = new HTMLElementState();
         this.scrollListener = this.elementDidChange.bind(this);
         this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
-        this.orientationChangeListener = (() => {
+        this.orientationChangeListener = () => {
             this.elementDidChange();
             // SDC-1784 -> workaround because at the moment of this callback the element doesn't have the updated size.
             setTimeout(this.elementDidChange.bind(this), 100);
             setTimeout(this.elementDidChange.bind(this), 300);
             setTimeout(this.elementDidChange.bind(this), 1000);
-        });
+        };
         this.baseBarcodeCountView = new BaseBarcodeCountView({
             context,
             barcodeCount,
@@ -655,10 +655,10 @@ class BarcodeCountView {
         const boundingRect = this.htmlElement.getBoundingClientRect();
         newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
         newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
-        newState.shouldBeUnderContent = parseInt(this.htmlElement.style.zIndex || '1', 10) < 0
-            || parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
-        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none'
-            && this.htmlElement.style.display !== 'none';
+        newState.shouldBeUnderContent =
+            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
+                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
         const isInDOM = document.body.contains(this.htmlElement);
         newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
         this.htmlElementState = newState;
@@ -701,12 +701,12 @@ class BarcodeFindView {
         this._htmlElementState = new HTMLElementState();
         this.scrollListener = this.elementDidChange.bind(this);
         this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
-        this.orientationChangeListener = (() => {
+        this.orientationChangeListener = () => {
             this.elementDidChange();
             setTimeout(this.elementDidChange.bind(this), 100);
             setTimeout(this.elementDidChange.bind(this), 300);
             setTimeout(this.elementDidChange.bind(this), 1000);
-        });
+        };
         this.baseBarcodeFindView = new BaseBarcodeFindView(props);
     }
     set htmlElementState(newState) {
@@ -910,10 +910,10 @@ class BarcodeFindView {
         const boundingRect = this.htmlElement.getBoundingClientRect();
         newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
         newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
-        newState.shouldBeUnderContent = parseInt(this.htmlElement.style.zIndex || '1', 10) < 0
-            || parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
-        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none'
-            && this.htmlElement.style.display !== 'none';
+        newState.shouldBeUnderContent =
+            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
+                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
         const isInDOM = document.body.contains(this.htmlElement);
         newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
         this.htmlElementState = newState;
@@ -957,7 +957,7 @@ class SparkScanView {
     static get defaultBrush() {
         return BaseSparkScanView.defaultBrush;
     }
-    constructor({ context, sparkScan, settings }) {
+    constructor({ context, sparkScan, settings, }) {
         this.baseSparkScanView = new BaseSparkScanView({ context: context, sparkScan: sparkScan, settings: settings });
         const viewId = (Date.now() / 1000) | 0;
         this.baseSparkScanView.createNativeView(viewId);
@@ -991,6 +991,12 @@ class SparkScanView {
     }
     set targetModeButtonVisible(newValue) {
         this.baseSparkScanView.targetModeButtonVisible = newValue;
+    }
+    get selectionModeButtonVisible() {
+        return this.baseSparkScanView.selectionModeButtonVisible;
+    }
+    set selectionModeButtonVisible(newValue) {
+        this.baseSparkScanView.selectionModeButtonVisible = newValue;
     }
     get labelCaptureButtonVisible() {
         return this.baseSparkScanView.labelCaptureButtonVisible;
@@ -1395,8 +1401,9 @@ class BarcodeArView extends DefaultSerializeable {
         const boundingRect = this.htmlElement.getBoundingClientRect();
         newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
         newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
-        newState.shouldBeUnderContent = parseInt(this.htmlElement.style.zIndex || '1', 10) < 0
-            || parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        newState.shouldBeUnderContent =
+            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
+                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
         const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
         const isInDOM = document.body.contains(this.htmlElement);
         newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;

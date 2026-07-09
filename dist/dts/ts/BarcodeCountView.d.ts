@@ -141,7 +141,7 @@ export declare class BarcodeCountView {
     static forContextWithMode(context: DataCaptureContext, barcodeCount: BarcodeCount): BarcodeCountView;
     static forContextWithModeAndStyle(context: DataCaptureContext, barcodeCount: BarcodeCount, style: BarcodeCountViewStyle): BarcodeCountView;
     static forMapping(context: DataCaptureContext, barcodeCount: BarcodeCount, style: BarcodeCountViewStyle, mappingFlowSettings: BarcodeCountMappingFlowSettings): BarcodeCountView;
-    constructor({ context, barcodeCount, style, mappingFlowSettings }: {
+    constructor({ context, barcodeCount, style, mappingFlowSettings, }: {
         context: DataCaptureContext;
         barcodeCount: BarcodeCount;
         style: BarcodeCountViewStyle;
