@@ -1,134 +1,7 @@
-import { SymbologyDescription, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeCountView, BaseBarcodeFindView, BaseSparkScanView, BaseBarcodePickView, getBarcodeCountDefaults, ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountToolbarSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodePick, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, Checksum, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, UpcaBarcodeGeneratorBuilder, loadBarcodeDefaults, loadBarcodeCaptureDefaults, loadBarcodeBatchDefaults, loadBarcodeSelectionDefaults, loadBarcodeCountDefaults, loadBarcodePickDefaults, loadBarcodeFindDefaults, loadSparkScanDefaults, getBarcodeDefaults, registerBarcodeProxies } from './barcode.js';
-export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountToolbarSettings, BarcodeCountViewStyle, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodePick, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, Checksum, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologyDescription, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, UpcaBarcodeGeneratorBuilder } from './barcode.js';
-import { ignoreFromSerialization, DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize } from 'scandit-capacitor-datacapture-core/dist/core';
+import { SymbologyDescription, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeCountView, BaseBarcodeFindView, BaseSparkScanView, BaseBarcodePickView, BaseBarcodeArView, getBarcodeCountDefaults, ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeAr, BarcodeArAnnotationTrigger, BarcodeArCircleHighlight, BarcodeArCircleHighlightPreset, BarcodeArFeedback, BarcodeArInfoAnnotation, BarcodeArInfoAnnotationAnchor, BarcodeArInfoAnnotationBodyComponent, BarcodeArInfoAnnotationFooter, BarcodeArInfoAnnotationHeader, BarcodeArInfoAnnotationWidthPreset, BarcodeArPopoverAnnotation, BarcodeArPopoverAnnotationButton, BarcodeArRectangleHighlight, BarcodeArResponsiveAnnotation, BarcodeArSession, BarcodeArSettings, BarcodeArStatusIconAnnotation, BarcodeArViewSettings, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountMappingFlowSettings, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountStatus, BarcodeCountStatusItem, BarcodeCountStatusProviderCallback, BarcodeCountStatusResultAbort, BarcodeCountStatusResultError, BarcodeCountStatusResultSuccess, BarcodeCountToolbarSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodeInfo, BarcodePick, BarcodePickAction, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickStatusIconStyle, BarcodePickViewHighlightStyleCustomView, BarcodePickViewHighlightStyleCustomViewResponse, BarcodePickViewHighlightStyleRequest, BarcodePickViewHighlightStyleResponse, BarcodePickViewHighlightStyleResponseBuilder, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, CapturePreset, Checksum, Cluster, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, Pdf417BarcodeGeneratorBuilder, Pdf417CompactionMode, Pdf417Dimensions, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, TrackedObject, UpcaBarcodeGeneratorBuilder, loadAllBarcodeDefaults, getBarcodeDefaults, registerBarcodeProxies } from './barcode.js';
+export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeAr, BarcodeArAnnotationTrigger, BarcodeArCircleHighlight, BarcodeArCircleHighlightPreset, BarcodeArFeedback, BarcodeArInfoAnnotation, BarcodeArInfoAnnotationAnchor, BarcodeArInfoAnnotationBodyComponent, BarcodeArInfoAnnotationFooter, BarcodeArInfoAnnotationHeader, BarcodeArInfoAnnotationWidthPreset, BarcodeArPopoverAnnotation, BarcodeArPopoverAnnotationButton, BarcodeArRectangleHighlight, BarcodeArResponsiveAnnotation, BarcodeArSession, BarcodeArSettings, BarcodeArStatusIconAnnotation, BarcodeArViewSettings, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountMappingFlowSettings, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountStatus, BarcodeCountStatusItem, BarcodeCountStatusProviderCallback, BarcodeCountStatusResultAbort, BarcodeCountStatusResultError, BarcodeCountStatusResultSuccess, BarcodeCountToolbarSettings, BarcodeCountViewStyle, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodeInfo, BarcodePick, BarcodePickAction, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickStatusIconStyle, BarcodePickViewHighlightStyleCustomView, BarcodePickViewHighlightStyleCustomViewResponse, BarcodePickViewHighlightStyleRequest, BarcodePickViewHighlightStyleResponse, BarcodePickViewHighlightStyleResponseBuilder, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, CapturePreset, Checksum, Cluster, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, Pdf417BarcodeGeneratorBuilder, Pdf417CompactionMode, Pdf417Dimensions, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologyDescription, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, TrackedObject, UpcaBarcodeGeneratorBuilder } from './barcode.js';
+import { DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize, ignoreFromSerialization } from 'scandit-capacitor-datacapture-core/dist/core';
 import { capacitorExec, CapacitorCore, CapacitorNativeCaller } from 'scandit-capacitor-datacapture-core';
-
-var BarcodeExports = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    get ArucoDictionary () { return ArucoDictionary; },
-    get ArucoDictionaryPreset () { return ArucoDictionaryPreset; },
-    get ArucoMarker () { return ArucoMarker; },
-    get AztecBarcodeGeneratorBuilder () { return AztecBarcodeGeneratorBuilder; },
-    get Barcode () { return Barcode; },
-    get BarcodeBatch () { return BarcodeBatch; },
-    get BarcodeBatchAdvancedOverlay () { return BarcodeBatchAdvancedOverlay; },
-    get BarcodeBatchBasicOverlay () { return BarcodeBatchBasicOverlay; },
-    get BarcodeBatchBasicOverlayStyle () { return BarcodeBatchBasicOverlayStyle; },
-    get BarcodeBatchSession () { return BarcodeBatchSession; },
-    get BarcodeBatchSettings () { return BarcodeBatchSettings; },
-    get BarcodeCapture () { return BarcodeCapture; },
-    get BarcodeCaptureFeedback () { return BarcodeCaptureFeedback; },
-    get BarcodeCaptureOverlay () { return BarcodeCaptureOverlay; },
-    get BarcodeCaptureSession () { return BarcodeCaptureSession; },
-    get BarcodeCaptureSettings () { return BarcodeCaptureSettings; },
-    get BarcodeCount () { return BarcodeCount; },
-    get BarcodeCountCaptureList () { return BarcodeCountCaptureList; },
-    get BarcodeCountCaptureListSession () { return BarcodeCountCaptureListSession; },
-    get BarcodeCountFeedback () { return BarcodeCountFeedback; },
-    get BarcodeCountNotInListActionSettings () { return BarcodeCountNotInListActionSettings; },
-    get BarcodeCountSession () { return BarcodeCountSession; },
-    get BarcodeCountSettings () { return BarcodeCountSettings; },
-    get BarcodeCountToolbarSettings () { return BarcodeCountToolbarSettings; },
-    get BarcodeCountView () { return BarcodeCountView; },
-    get BarcodeCountViewStyle () { return BarcodeCountViewStyle$1; },
-    get BarcodeDefinition () { return BarcodeDefinition; },
-    get BarcodeDefinitionBuilder () { return BarcodeDefinitionBuilder; },
-    get BarcodeFilterHighlightSettingsBrush () { return BarcodeFilterHighlightSettingsBrush; },
-    get BarcodeFilterHighlightType () { return BarcodeFilterHighlightType; },
-    get BarcodeFilterSettings () { return BarcodeFilterSettings; },
-    get BarcodeFind () { return BarcodeFind; },
-    get BarcodeFindFeedback () { return BarcodeFindFeedback; },
-    get BarcodeFindItem () { return BarcodeFindItem; },
-    get BarcodeFindItemContent () { return BarcodeFindItemContent; },
-    get BarcodeFindItemSearchOptions () { return BarcodeFindItemSearchOptions; },
-    get BarcodeFindSession () { return BarcodeFindSession; },
-    get BarcodeFindSettings () { return BarcodeFindSettings; },
-    get BarcodeFindView () { return BarcodeFindView; },
-    get BarcodeFindViewSettings () { return BarcodeFindViewSettings; },
-    get BarcodeGenerator () { return BarcodeGenerator; },
-    get BarcodeGeneratorBuilder () { return BarcodeGeneratorBuilder; },
-    get BarcodeIdentifier () { return BarcodeIdentifier; },
-    get BarcodePick () { return BarcodePick; },
-    get BarcodePickActionCallback () { return BarcodePickActionCallback; },
-    get BarcodePickAsyncMapperProductProvider () { return BarcodePickAsyncMapperProductProvider; },
-    get BarcodePickProduct () { return BarcodePickProduct; },
-    get BarcodePickProductProviderCallback () { return BarcodePickProductProviderCallback; },
-    get BarcodePickProductProviderCallbackItem () { return BarcodePickProductProviderCallbackItem; },
-    get BarcodePickScanningSession () { return BarcodePickScanningSession; },
-    get BarcodePickSession () { return BarcodePickSession; },
-    get BarcodePickSettings () { return BarcodePickSettings; },
-    get BarcodePickState () { return BarcodePickState; },
-    get BarcodePickStatusIconSettings () { return BarcodePickStatusIconSettings; },
-    get BarcodePickView () { return BarcodePickView; },
-    get BarcodePickViewSettings () { return BarcodePickViewSettings; },
-    get BarcodeSelection () { return BarcodeSelection; },
-    get BarcodeSelectionAimerSelection () { return BarcodeSelectionAimerSelection; },
-    get BarcodeSelectionAutoSelectionStrategy () { return BarcodeSelectionAutoSelectionStrategy; },
-    get BarcodeSelectionBasicOverlay () { return BarcodeSelectionBasicOverlay; },
-    get BarcodeSelectionBasicOverlayStyle () { return BarcodeSelectionBasicOverlayStyle; },
-    get BarcodeSelectionFeedback () { return BarcodeSelectionFeedback; },
-    get BarcodeSelectionFreezeBehavior () { return BarcodeSelectionFreezeBehavior; },
-    get BarcodeSelectionManualSelectionStrategy () { return BarcodeSelectionManualSelectionStrategy; },
-    get BarcodeSelectionSession () { return BarcodeSelectionSession; },
-    get BarcodeSelectionSettings () { return BarcodeSelectionSettings; },
-    get BarcodeSelectionTapBehavior () { return BarcodeSelectionTapBehavior; },
-    get BarcodeSelectionTapSelection () { return BarcodeSelectionTapSelection; },
-    get BarcodeSpatialGrid () { return BarcodeSpatialGrid; },
-    get BatterySavingMode () { return BatterySavingMode; },
-    get Checksum () { return Checksum; },
-    get Code128BarcodeGeneratorBuilder () { return Code128BarcodeGeneratorBuilder; },
-    get Code39BarcodeGeneratorBuilder () { return Code39BarcodeGeneratorBuilder; },
-    get CompositeFlag () { return CompositeFlag; },
-    get CompositeType () { return CompositeType; },
-    get DataMatrixBarcodeGeneratorBuilder () { return DataMatrixBarcodeGeneratorBuilder; },
-    get Dot () { return Dot; },
-    get DotWithIcons () { return DotWithIcons; },
-    get Ean13BarcodeGeneratorBuilder () { return Ean13BarcodeGeneratorBuilder; },
-    get Ean13UpcaClassification () { return Ean13UpcaClassification; },
-    get EncodingRange () { return EncodingRange; },
-    get InterleavedTwoOfFiveBarcodeGeneratorBuilder () { return InterleavedTwoOfFiveBarcodeGeneratorBuilder; },
-    get LocalizedOnlyBarcode () { return LocalizedOnlyBarcode; },
-    get QrCodeBarcodeGeneratorBuilder () { return QrCodeBarcodeGeneratorBuilder; },
-    get QrCodeErrorCorrectionLevel () { return QrCodeErrorCorrectionLevel; },
-    get Range () { return Range; },
-    get Rectangular () { return Rectangular; },
-    get RectangularWithIcons () { return RectangularWithIcons; },
-    get ScanComponentBarcodePreset () { return ScanComponentBarcodePreset; },
-    get ScanComponentTextSemanticType () { return ScanComponentTextSemanticType; },
-    get ScanItemDefinition () { return ScanItemDefinition; },
-    get ScanItemIdentifier () { return ScanItemIdentifier; },
-    get ScannedBarcode () { return ScannedBarcode; },
-    get ScannedComponentIdentifier () { return ScannedComponentIdentifier; },
-    get ScannedItem () { return ScannedItem; },
-    get ScannedItemIdentifier () { return ScannedItemIdentifier; },
-    get ScannedText () { return ScannedText; },
-    get SparkScan () { return SparkScan; },
-    get SparkScanBarcodeErrorFeedback () { return SparkScanBarcodeErrorFeedback; },
-    get SparkScanBarcodeFeedback () { return SparkScanBarcodeFeedback; },
-    get SparkScanBarcodeSuccessFeedback () { return SparkScanBarcodeSuccessFeedback; },
-    get SparkScanMiniPreviewSize () { return SparkScanMiniPreviewSize; },
-    get SparkScanPreviewBehavior () { return SparkScanPreviewBehavior; },
-    get SparkScanScanningBehavior () { return SparkScanScanningBehavior; },
-    get SparkScanScanningModeDefault () { return SparkScanScanningModeDefault; },
-    get SparkScanScanningModeTarget () { return SparkScanScanningModeTarget; },
-    get SparkScanSession () { return SparkScanSession; },
-    get SparkScanSettings () { return SparkScanSettings; },
-    get SparkScanToastSettings () { return SparkScanToastSettings; },
-    get SparkScanView () { return SparkScanView; },
-    get SparkScanViewSettings () { return SparkScanViewSettings; },
-    get SparkScanViewState () { return SparkScanViewState; },
-    get StructuredAppendData () { return StructuredAppendData; },
-    get Symbology () { return Symbology; },
-    get SymbologyDescription () { return SymbologyDescription; },
-    get SymbologySettings () { return SymbologySettings; },
-    get TargetBarcode () { return TargetBarcode; },
-    get TextDefinition () { return TextDefinition; },
-    get TextDefinitionBuilder () { return TextDefinitionBuilder; },
-    get TextIdentifier () { return TextIdentifier; },
-    get TrackedBarcode () { return TrackedBarcode; },
-    get TrackedBarcodeView () { return TrackedBarcodeView; },
-    get UpcaBarcodeGeneratorBuilder () { return UpcaBarcodeGeneratorBuilder; }
-});
 
 class TrackedBarcodeView extends DefaultSerializeable {
     static withHTMLElement(element, options) {
@@ -227,6 +100,10 @@ class BarcodeBatchAdvancedOverlay {
     get view() {
         return this.baseBarcodeBatchOverlay.view;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onViewIdChanged() {
+        this.baseBarcodeBatchOverlay.onViewIdChanged();
+    }
     toJSON() {
         return this.baseBarcodeBatchOverlay.toJSON();
     }
@@ -246,7 +123,7 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
-/* global Reflect, Promise, SuppressedError, Symbol */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */
 
 
 function __decorate(decorators, target, key, desc) {
@@ -275,7 +152,7 @@ const BarcodeCountDefaults = {
     get BarcodeCountView() {
         const defaults = getBarcodeCountDefaults();
         return defaults.BarcodeCountView;
-    }
+    },
 };
 var BarcodeCountViewStyle;
 (function (BarcodeCountViewStyle) {
@@ -369,6 +246,18 @@ class BarcodeCountView {
     }
     set shouldShowToolbar(newValue) {
         this.baseBarcodeCountView.shouldShowToolbar = newValue;
+    }
+    get shouldShowStatusModeButton() {
+        return this.baseBarcodeCountView.shouldShowStatusModeButton;
+    }
+    set shouldShowStatusModeButton(newValue) {
+        this.baseBarcodeCountView.shouldShowStatusModeButton = newValue;
+    }
+    get shouldShowStatusIconsOnScan() {
+        return this.baseBarcodeCountView.shouldShowStatusIconsOnScan;
+    }
+    set shouldShowStatusIconsOnScan(newValue) {
+        this.baseBarcodeCountView.shouldShowStatusIconsOnScan = newValue;
     }
     get shouldShowScanAreaGuides() {
         return this.baseBarcodeCountView.shouldShowScanAreaGuides;
@@ -517,6 +406,24 @@ class BarcodeCountView {
     set singleScanButtonContentDescription(newValue) {
         this.baseBarcodeCountView.singleScanButtonContentDescription = newValue;
     }
+    get statusModeButtonAccessibilityHint() {
+        return this.baseBarcodeCountView.statusModeButtonAccessibilityHint;
+    }
+    set statusModeButtonAccessibilityHint(newValue) {
+        this.baseBarcodeCountView.statusModeButtonAccessibilityHint = newValue;
+    }
+    get statusModeButtonAccessibilityLabel() {
+        return this.baseBarcodeCountView.statusModeButtonAccessibilityLabel;
+    }
+    set statusModeButtonAccessibilityLabel(newValue) {
+        this.baseBarcodeCountView.statusModeButtonAccessibilityLabel = newValue;
+    }
+    get statusModeButtonContentDescription() {
+        return this.baseBarcodeCountView.statusModeButtonContentDescription;
+    }
+    set statusModeButtonContentDescription(newValue) {
+        this.baseBarcodeCountView.statusModeButtonContentDescription = newValue;
+    }
     get clearHighlightsButtonText() {
         return this.baseBarcodeCountView.clearHighlightsButtonText;
     }
@@ -552,6 +459,24 @@ class BarcodeCountView {
     }
     set textForMoveFurtherAndRescanHint(newValue) {
         this.baseBarcodeCountView.textForMoveFurtherAndRescanHint = newValue;
+    }
+    get textForBarcodesNotInListDetectedHint() {
+        return this.baseBarcodeCountView.textForBarcodesNotInListDetectedHint;
+    }
+    set textForBarcodesNotInListDetectedHint(newValue) {
+        this.baseBarcodeCountView.textForBarcodesNotInListDetectedHint = newValue;
+    }
+    get textForScreenCleanedUpHint() {
+        return this.baseBarcodeCountView.textForScreenCleanedUpHint;
+    }
+    set textForScreenCleanedUpHint(newValue) {
+        this.baseBarcodeCountView.textForScreenCleanedUpHint = newValue;
+    }
+    get textForClusteringGestureHint() {
+        return this.baseBarcodeCountView.textForClusteringGestureHint;
+    }
+    set textForClusteringGestureHint(newValue) {
+        this.baseBarcodeCountView.textForClusteringGestureHint = newValue;
     }
     get shouldShowListProgressBar() {
         return this.baseBarcodeCountView.shouldShowListProgressBar;
@@ -623,24 +548,29 @@ class BarcodeCountView {
         const view = new BarcodeCountView({ context, barcodeCount, style });
         return view;
     }
-    constructor({ context, barcodeCount, style }) {
+    static forMapping(context, barcodeCount, style, mappingFlowSettings) {
+        const view = new BarcodeCountView({ context, barcodeCount, style, mappingFlowSettings });
+        return view;
+    }
+    constructor({ context, barcodeCount, style, mappingFlowSettings, }) {
         this.viewId = Math.floor(Math.random() * 1000000);
         this.htmlElement = null;
         this._htmlElementState = new HTMLElementState();
         this.scrollListener = this.elementDidChange.bind(this);
         this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
-        this.orientationChangeListener = (() => {
+        this.orientationChangeListener = () => {
             this.elementDidChange();
             // SDC-1784 -> workaround because at the moment of this callback the element doesn't have the updated size.
             setTimeout(this.elementDidChange.bind(this), 100);
             setTimeout(this.elementDidChange.bind(this), 300);
             setTimeout(this.elementDidChange.bind(this), 1000);
-        });
+        };
         this.baseBarcodeCountView = new BaseBarcodeCountView({
             context,
             barcodeCount,
             viewStyle: style,
             platformView: this,
+            mappingFlowSettings: mappingFlowSettings,
         });
     }
     clearHighlights() {
@@ -649,14 +579,25 @@ class BarcodeCountView {
     setToolbarSettings(settings) {
         this.baseBarcodeCountView.setToolbarSettings(settings);
     }
+    setStatusProvider(provider) {
+        this.baseBarcodeCountView.setStatusProvider(provider);
+    }
     connectToElement(element) {
-        this.baseBarcodeCountView.createNativeView(this.viewId).then(() => {
-            this.htmlElement = element;
+        // Pre-compute position/size before creating native view
+        this.htmlElement = element;
+        const boundingRect = element.getBoundingClientRect();
+        const initialTop = boundingRect.top;
+        const initialLeft = boundingRect.left;
+        const initialWidth = boundingRect.width;
+        const initialHeight = boundingRect.height;
+        this.baseBarcodeCountView.createNativeView(this.viewId).then(() => __awaiter(this, void 0, void 0, function* () {
+            // Immediately send position/size to native before any other processing
+            yield this.baseBarcodeCountView.setPositionAndSize(initialTop, initialLeft, initialWidth, initialHeight, false);
             this.htmlElementState = new HTMLElementState();
-            // Initial update
+            // Initial update to sync state
             this.elementDidChange();
             this.subscribeToChangesOnHTMLElement();
-        });
+        }));
     }
     detachFromElement() {
         this.baseBarcodeCountView.removeNativeView().then(() => {
@@ -714,10 +655,10 @@ class BarcodeCountView {
         const boundingRect = this.htmlElement.getBoundingClientRect();
         newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
         newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
-        newState.shouldBeUnderContent = parseInt(this.htmlElement.style.zIndex || '1', 10) < 0
-            || parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
-        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none'
-            && this.htmlElement.style.display !== 'none';
+        newState.shouldBeUnderContent =
+            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
+                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
         const isInDOM = document.body.contains(this.htmlElement);
         newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
         this.htmlElementState = newState;
@@ -760,17 +701,21 @@ class BarcodeFindView {
         this._htmlElementState = new HTMLElementState();
         this.scrollListener = this.elementDidChange.bind(this);
         this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
-        this.orientationChangeListener = (() => {
+        this.orientationChangeListener = () => {
             this.elementDidChange();
             setTimeout(this.elementDidChange.bind(this), 100);
             setTimeout(this.elementDidChange.bind(this), 300);
             setTimeout(this.elementDidChange.bind(this), 1000);
-        });
+        };
         this.baseBarcodeFindView = new BaseBarcodeFindView(props);
     }
     set htmlElementState(newState) {
         const didChangeShown = this._htmlElementState.isShown !== newState.isShown;
+        const didChangePositionOrSize = this._htmlElementState.didChangeComparedTo(newState);
         this._htmlElementState = newState;
+        if (didChangePositionOrSize) {
+            this.updatePositionAndSize();
+        }
         if (didChangeShown) {
             if (this._htmlElementState.isShown) {
                 this._show();
@@ -782,6 +727,12 @@ class BarcodeFindView {
     }
     get htmlElementState() {
         return this._htmlElementState;
+    }
+    updatePositionAndSize() {
+        if (!this.htmlElementState || !this.htmlElementState.isValid) {
+            return;
+        }
+        this.baseBarcodeFindView.setPositionAndSize(this.htmlElementState.position.top, this.htmlElementState.position.left, this.htmlElementState.size.width, this.htmlElementState.size.height, this.htmlElementState.shouldBeUnderContent);
     }
     get barcodeFindViewUiListener() {
         return this.baseBarcodeFindView.barcodeFindViewUiListener;
@@ -904,14 +855,22 @@ class BarcodeFindView {
         return this.baseBarcodeFindView.pauseSearching();
     }
     connectToElement(element) {
+        // Pre-compute position/size before creating native view
+        this.htmlElement = element;
+        const boundingRect = element.getBoundingClientRect();
+        const initialTop = boundingRect.top;
+        const initialLeft = boundingRect.left;
+        const initialWidth = boundingRect.width;
+        const initialHeight = boundingRect.height;
         const viewId = (Date.now() / 1000) | 0;
-        this.baseBarcodeFindView.createNativeView(viewId).then(() => {
-            this.htmlElement = element;
+        this.baseBarcodeFindView.createNativeView(viewId).then(() => __awaiter(this, void 0, void 0, function* () {
+            // Immediately send position/size to native before any other processing
+            yield this.baseBarcodeFindView.setPositionAndSize(initialTop, initialLeft, initialWidth, initialHeight, false);
             this.htmlElementState = new HTMLElementState();
-            // Initial update
+            // Initial update to sync state
             this.elementDidChange();
             this.subscribeToChangesOnHTMLElement();
-        });
+        }));
     }
     detachFromElement() {
         this.baseBarcodeFindView.removeNativeView().then(() => {
@@ -951,10 +910,10 @@ class BarcodeFindView {
         const boundingRect = this.htmlElement.getBoundingClientRect();
         newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
         newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
-        newState.shouldBeUnderContent = parseInt(this.htmlElement.style.zIndex || '1', 10) < 0
-            || parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
-        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none'
-            && this.htmlElement.style.display !== 'none';
+        newState.shouldBeUnderContent =
+            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
+                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
         const isInDOM = document.body.contains(this.htmlElement);
         newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
         this.htmlElementState = newState;
@@ -998,7 +957,7 @@ class SparkScanView {
     static get defaultBrush() {
         return BaseSparkScanView.defaultBrush;
     }
-    constructor({ context, sparkScan, settings }) {
+    constructor({ context, sparkScan, settings, }) {
         this.baseSparkScanView = new BaseSparkScanView({ context: context, sparkScan: sparkScan, settings: settings });
         const viewId = (Date.now() / 1000) | 0;
         this.baseSparkScanView.createNativeView(viewId);
@@ -1032,6 +991,12 @@ class SparkScanView {
     }
     set targetModeButtonVisible(newValue) {
         this.baseSparkScanView.targetModeButtonVisible = newValue;
+    }
+    get selectionModeButtonVisible() {
+        return this.baseSparkScanView.selectionModeButtonVisible;
+    }
+    set selectionModeButtonVisible(newValue) {
+        this.baseSparkScanView.selectionModeButtonVisible = newValue;
     }
     get labelCaptureButtonVisible() {
         return this.baseSparkScanView.labelCaptureButtonVisible;
@@ -1068,6 +1033,12 @@ class SparkScanView {
     }
     set torchControlVisible(newValue) {
         this.baseSparkScanView.torchControlVisible = newValue;
+    }
+    get zoomSwitchControlVisible() {
+        return this.baseSparkScanView.zoomSwitchControlVisible;
+    }
+    set zoomSwitchControlVisible(newValue) {
+        this.baseSparkScanView.zoomSwitchControlVisible = newValue;
     }
     get previewCloseControlVisible() {
         return this.baseSparkScanView.previewCloseControlVisible;
@@ -1132,7 +1103,9 @@ class SparkScanView {
         });
     }
     dispose() {
-        this.baseSparkScanView.dispose();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseSparkScanView.dispose();
+        });
     }
     show() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -1160,48 +1133,542 @@ class SparkScanView {
     }
 }
 
-/*! Capacitor: https://capacitorjs.com/ - MIT License */
-const createCapacitorPlatforms = (win) => {
-    const defaultPlatformMap = new Map();
-    defaultPlatformMap.set('web', { name: 'web' });
-    const capPlatforms = win.CapacitorPlatforms || {
-        currentPlatform: { name: 'web' },
-        platforms: defaultPlatformMap,
-    };
-    const addPlatform = (name, platform) => {
-        capPlatforms.platforms.set(name, platform);
-    };
-    const setPlatform = (name) => {
-        if (capPlatforms.platforms.has(name)) {
-            capPlatforms.currentPlatform = capPlatforms.platforms.get(name);
+class BarcodePickView extends DefaultSerializeable {
+    constructor(props) {
+        super();
+        this.viewId = Math.floor(Math.random() * 1000000);
+        this.htmlElement = null;
+        this._htmlElementState = new HTMLElementState();
+        this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
+        this.scrollListener = this.elementDidChange.bind(this);
+        this.orientationChangeListener = () => {
+            this.elementDidChange();
+            // SDC-1784 -> workaround because at the moment of this callback the element doesn't have the updated size.
+            setTimeout(this.elementDidChange.bind(this), 100);
+            setTimeout(this.elementDidChange.bind(this), 300);
+            setTimeout(this.elementDidChange.bind(this), 1000);
+        };
+        this.baseBarcodePickView = new BaseBarcodePickView({
+            context: props.context,
+            barcodePick: props.barcodePick,
+            settings: props.settings,
+            cameraSettings: props.cameraSettings,
+        });
+    }
+    get uiListener() {
+        return this.baseBarcodePickView.uiListener;
+    }
+    set uiListener(value) {
+        this.baseBarcodePickView.uiListener = value;
+    }
+    set htmlElementState(newState) {
+        const didChangeShown = this._htmlElementState.isShown !== newState.isShown;
+        const didChangePositionOrSize = this._htmlElementState.didChangeComparedTo(newState);
+        this._htmlElementState = newState;
+        if (didChangePositionOrSize) {
+            this.updatePositionAndSize();
         }
-    };
-    capPlatforms.addPlatform = addPlatform;
-    capPlatforms.setPlatform = setPlatform;
-    return capPlatforms;
-};
-const initPlatforms = (win) => (win.CapacitorPlatforms = createCapacitorPlatforms(win));
-/**
- * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
- */
-const CapacitorPlatforms = /*#__PURE__*/ initPlatforms((typeof globalThis !== 'undefined'
-    ? globalThis
-    : typeof self !== 'undefined'
-        ? self
-        : typeof window !== 'undefined'
-            ? window
-            : typeof global !== 'undefined'
-                ? global
-                : {}));
-/**
- * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
- */
-CapacitorPlatforms.addPlatform;
-/**
- * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
- */
-CapacitorPlatforms.setPlatform;
+        if (didChangeShown) {
+            if (this._htmlElementState.isShown) {
+                this.start();
+            }
+            else {
+                this.stop();
+            }
+        }
+    }
+    get htmlElementState() {
+        return this._htmlElementState;
+    }
+    connectToElement(element) {
+        // Pre-compute position/size before creating native view
+        this.htmlElement = element;
+        const boundingRect = element.getBoundingClientRect();
+        const initialTop = boundingRect.top;
+        const initialLeft = boundingRect.left;
+        const initialWidth = boundingRect.width;
+        const initialHeight = boundingRect.height;
+        this.baseBarcodePickView.createNativeView(this.viewId).then(() => __awaiter(this, void 0, void 0, function* () {
+            // Immediately send position/size to native before any other processing
+            yield this.baseBarcodePickView.setPickViewPositionAndSize(initialTop, initialLeft, initialWidth, initialHeight, false);
+            this.htmlElementState = new HTMLElementState();
+            // Initial update to sync state
+            this.elementDidChange();
+            this.subscribeToChangesOnHTMLElement();
+        }));
+    }
+    detachFromElement() {
+        this.baseBarcodePickView.removeNativeView().then(() => {
+            this.unsubscribeFromChangesOnHTMLElement();
+            this.htmlElement = null;
+            this.elementDidChange();
+        });
+    }
+    subscribeToChangesOnHTMLElement() {
+        this.domObserver.observe(document, { attributes: true, childList: true, subtree: true });
+        window.addEventListener('scroll', this.scrollListener);
+        window.addEventListener('orientationchange', this.orientationChangeListener);
+    }
+    unsubscribeFromChangesOnHTMLElement() {
+        this.domObserver.disconnect();
+        window.removeEventListener('scroll', this.scrollListener);
+        window.removeEventListener('orientationchange', this.orientationChangeListener);
+    }
+    elementDidChange() {
+        if (!this.htmlElement) {
+            this.htmlElementState = new HTMLElementState();
+            return;
+        }
+        const newState = new HTMLElementState();
+        const boundingRect = this.htmlElement.getBoundingClientRect();
+        newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
+        newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
+        newState.shouldBeUnderContent =
+            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
+                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
+        const isInDOM = document.body.contains(this.htmlElement);
+        newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
+        this.htmlElementState = newState;
+    }
+    updatePositionAndSize() {
+        if (!this.htmlElementState || !this.htmlElementState.isValid) {
+            return;
+        }
+        this.baseBarcodePickView.setPickViewPositionAndSize(this.htmlElementState.position.top, this.htmlElementState.position.left, this.htmlElementState.size.width, this.htmlElementState.size.height, this.htmlElementState.shouldBeUnderContent);
+    }
+    start() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodePickView.start();
+        });
+    }
+    stop() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodePickView.stop();
+        });
+    }
+    freeze() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodePickView.freeze();
+        });
+    }
+    pause() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodePickView.pause();
+        });
+    }
+    resume() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodePickView.resume();
+        });
+    }
+    reset() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodePickView.reset();
+        });
+    }
+    addListener(listener) {
+        this.baseBarcodePickView.addListener(listener);
+    }
+    removeListener(listener) {
+        this.baseBarcodePickView.removeListener(listener);
+    }
+    addActionListener(listener) {
+        this.baseBarcodePickView.addActionListener(listener);
+    }
+    removeActionListener(listener) {
+        this.baseBarcodePickView.removeActionListener(listener);
+    }
+    release() {
+        this.baseBarcodePickView.dispose();
+    }
+}
+__decorate([
+    ignoreFromSerialization
+], BarcodePickView.prototype, "baseBarcodePickView", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodePickView.prototype, "htmlElement", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodePickView.prototype, "_htmlElementState", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodePickView.prototype, "domObserver", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodePickView.prototype, "scrollListener", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodePickView.prototype, "orientationChangeListener", void 0);
 
+class BarcodeArView extends DefaultSerializeable {
+    constructor(props) {
+        super();
+        this.viewId = Math.floor(Math.random() * 1000000);
+        this.htmlElement = null;
+        this._htmlElementState = new HTMLElementState();
+        this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
+        this.scrollListener = this.elementDidChange.bind(this);
+        this.orientationChangeListener = () => {
+            this.elementDidChange();
+            // SDC-1784 -> workaround because at the moment of this callback the element doesn't have the updated size.
+            setTimeout(this.elementDidChange.bind(this), 100);
+            setTimeout(this.elementDidChange.bind(this), 300);
+            setTimeout(this.elementDidChange.bind(this), 1000);
+        };
+        this.baseBarcodeArView = new BaseBarcodeArView(props.context, props.barcodeAr, this, props.settings, props.cameraSettings, props.annotationProvider, props.highlightProvider, props.uiListener);
+    }
+    get uiListener() {
+        return this.baseBarcodeArView.barcodeArViewUiListener;
+    }
+    set uiListener(value) {
+        this.baseBarcodeArView.barcodeArViewUiListener = value;
+    }
+    get annotationProvider() {
+        return this.baseBarcodeArView.annotationProvider;
+    }
+    set annotationProvider(value) {
+        this.baseBarcodeArView.annotationProvider = value;
+    }
+    get highlightProvider() {
+        return this.baseBarcodeArView.highlightProvider;
+    }
+    set highlightProvider(value) {
+        this.baseBarcodeArView.highlightProvider = value;
+    }
+    set htmlElementState(newState) {
+        const didChangeShown = this._htmlElementState.isShown !== newState.isShown;
+        const didChangePositionOrSize = this._htmlElementState.didChangeComparedTo(newState);
+        this._htmlElementState = newState;
+        if (didChangePositionOrSize && newState.isValid) {
+            this.setPositionAndSize(this.htmlElementState.position.top, this.htmlElementState.position.left, this.htmlElementState.size.width, this.htmlElementState.size.height, this.htmlElementState.shouldBeUnderContent);
+        }
+        if (didChangeShown) {
+            if (this._htmlElementState.isShown) {
+                this.start();
+            }
+        }
+    }
+    get htmlElementState() {
+        return this._htmlElementState;
+    }
+    setPositionAndSize(top, left, width, height, shouldBeUnderWebView) {
+        return this.baseBarcodeArView.setPositionAndSize(top, left, width, height, shouldBeUnderWebView);
+    }
+    connectToElement(element) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Pre-compute position/size before creating native view
+            this.htmlElement = element;
+            const boundingRect = element.getBoundingClientRect();
+            const initialTop = boundingRect.top;
+            const initialLeft = boundingRect.left;
+            const initialWidth = boundingRect.width;
+            const initialHeight = boundingRect.height;
+            yield this.baseBarcodeArView.createNativeView(this.viewId);
+            // Immediately send position/size to native before any other processing
+            yield this.baseBarcodeArView.setPositionAndSize(initialTop, initialLeft, initialWidth, initialHeight, false);
+            this.htmlElementState = new HTMLElementState();
+            // Initial update to sync state
+            this.elementDidChange();
+            this.subscribeToChangesOnHTMLElement();
+        });
+    }
+    detachFromElement() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodeArView.removeNativeView();
+            this.unsubscribeFromChangesOnHTMLElement();
+            this.htmlElement = null;
+            this.elementDidChange();
+        });
+    }
+    subscribeToChangesOnHTMLElement() {
+        this.domObserver.observe(document, { attributes: true, childList: true, subtree: true });
+        window.addEventListener('scroll', this.scrollListener);
+        window.addEventListener('orientationchange', this.orientationChangeListener);
+    }
+    unsubscribeFromChangesOnHTMLElement() {
+        this.domObserver.disconnect();
+        window.removeEventListener('scroll', this.scrollListener);
+        window.removeEventListener('orientationchange', this.orientationChangeListener);
+    }
+    elementDidChange() {
+        if (!this.htmlElement) {
+            this.htmlElementState = new HTMLElementState();
+            return;
+        }
+        const newState = new HTMLElementState();
+        const boundingRect = this.htmlElement.getBoundingClientRect();
+        newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
+        newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
+        newState.shouldBeUnderContent =
+            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
+                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
+        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
+        const isInDOM = document.body.contains(this.htmlElement);
+        newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
+        this.htmlElementState = newState;
+    }
+    start() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodeArView.start();
+        });
+    }
+    stop() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodeArView.stop();
+        });
+    }
+    pause() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodeArView.pause();
+        });
+    }
+    reset() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.baseBarcodeArView.reset();
+        });
+    }
+    get shouldShowTorchControl() {
+        return this.baseBarcodeArView.shouldShowTorchControl;
+    }
+    set shouldShowTorchControl(value) {
+        this.baseBarcodeArView.shouldShowTorchControl = value;
+    }
+    get torchControlPosition() {
+        return this.baseBarcodeArView.torchControlPosition;
+    }
+    set torchControlPosition(value) {
+        this.baseBarcodeArView.torchControlPosition = value;
+    }
+    get shouldShowZoomControl() {
+        return this.baseBarcodeArView.shouldShowZoomControl;
+    }
+    set shouldShowZoomControl(value) {
+        this.baseBarcodeArView.shouldShowZoomControl = value;
+    }
+    get zoomControlPosition() {
+        return this.baseBarcodeArView.zoomControlPosition;
+    }
+    set zoomControlPosition(value) {
+        this.baseBarcodeArView.zoomControlPosition = value;
+    }
+    get shouldShowCameraSwitchControl() {
+        return this.baseBarcodeArView.shouldShowCameraSwitchControl;
+    }
+    set shouldShowCameraSwitchControl(value) {
+        this.baseBarcodeArView.shouldShowCameraSwitchControl = value;
+    }
+    get cameraSwitchControlPosition() {
+        return this.baseBarcodeArView.cameraSwitchControlPosition;
+    }
+    set cameraSwitchControlPosition(value) {
+        this.baseBarcodeArView.cameraSwitchControlPosition = value;
+    }
+    get shouldShowMacroModeControl() {
+        return this.baseBarcodeArView.shouldShowMacroModeControl;
+    }
+    set shouldShowMacroModeControl(value) {
+        this.baseBarcodeArView.shouldShowMacroModeControl = value;
+    }
+    get macroModeControlPosition() {
+        return this.baseBarcodeArView.macroModeControlPosition;
+    }
+    set macroModeControlPosition(value) {
+        this.baseBarcodeArView.macroModeControlPosition = value;
+    }
+}
+__decorate([
+    ignoreFromSerialization
+], BarcodeArView.prototype, "baseBarcodeArView", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodeArView.prototype, "htmlElement", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodeArView.prototype, "_htmlElementState", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodeArView.prototype, "domObserver", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodeArView.prototype, "scrollListener", void 0);
+__decorate([
+    ignoreFromSerialization
+], BarcodeArView.prototype, "orientationChangeListener", void 0);
+
+// import { NativeCallResult } from 'scandit-capacitor-datacapture-core/dist/core';
+// Core Barcode Types
+
+var BarcodeExports = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    ArucoDictionary: ArucoDictionary,
+    get ArucoDictionaryPreset () { return ArucoDictionaryPreset; },
+    ArucoMarker: ArucoMarker,
+    AztecBarcodeGeneratorBuilder: AztecBarcodeGeneratorBuilder,
+    Barcode: Barcode,
+    BarcodeAr: BarcodeAr,
+    get BarcodeArAnnotationTrigger () { return BarcodeArAnnotationTrigger; },
+    BarcodeArCircleHighlight: BarcodeArCircleHighlight,
+    get BarcodeArCircleHighlightPreset () { return BarcodeArCircleHighlightPreset; },
+    BarcodeArFeedback: BarcodeArFeedback,
+    BarcodeArInfoAnnotation: BarcodeArInfoAnnotation,
+    get BarcodeArInfoAnnotationAnchor () { return BarcodeArInfoAnnotationAnchor; },
+    BarcodeArInfoAnnotationBodyComponent: BarcodeArInfoAnnotationBodyComponent,
+    BarcodeArInfoAnnotationFooter: BarcodeArInfoAnnotationFooter,
+    BarcodeArInfoAnnotationHeader: BarcodeArInfoAnnotationHeader,
+    get BarcodeArInfoAnnotationWidthPreset () { return BarcodeArInfoAnnotationWidthPreset; },
+    BarcodeArPopoverAnnotation: BarcodeArPopoverAnnotation,
+    BarcodeArPopoverAnnotationButton: BarcodeArPopoverAnnotationButton,
+    BarcodeArRectangleHighlight: BarcodeArRectangleHighlight,
+    BarcodeArResponsiveAnnotation: BarcodeArResponsiveAnnotation,
+    BarcodeArSession: BarcodeArSession,
+    BarcodeArSettings: BarcodeArSettings,
+    BarcodeArStatusIconAnnotation: BarcodeArStatusIconAnnotation,
+    BarcodeArView: BarcodeArView,
+    BarcodeArViewSettings: BarcodeArViewSettings,
+    BarcodeBatch: BarcodeBatch,
+    BarcodeBatchAdvancedOverlay: BarcodeBatchAdvancedOverlay,
+    BarcodeBatchBasicOverlay: BarcodeBatchBasicOverlay,
+    get BarcodeBatchBasicOverlayStyle () { return BarcodeBatchBasicOverlayStyle; },
+    BarcodeBatchSession: BarcodeBatchSession,
+    BarcodeBatchSettings: BarcodeBatchSettings,
+    BarcodeCapture: BarcodeCapture,
+    BarcodeCaptureFeedback: BarcodeCaptureFeedback,
+    BarcodeCaptureOverlay: BarcodeCaptureOverlay,
+    BarcodeCaptureSession: BarcodeCaptureSession,
+    BarcodeCaptureSettings: BarcodeCaptureSettings,
+    BarcodeCount: BarcodeCount,
+    BarcodeCountCaptureList: BarcodeCountCaptureList,
+    BarcodeCountCaptureListSession: BarcodeCountCaptureListSession,
+    BarcodeCountFeedback: BarcodeCountFeedback,
+    BarcodeCountMappingFlowSettings: BarcodeCountMappingFlowSettings,
+    BarcodeCountNotInListActionSettings: BarcodeCountNotInListActionSettings,
+    BarcodeCountSession: BarcodeCountSession,
+    BarcodeCountSettings: BarcodeCountSettings,
+    get BarcodeCountStatus () { return BarcodeCountStatus; },
+    BarcodeCountStatusItem: BarcodeCountStatusItem,
+    BarcodeCountStatusProviderCallback: BarcodeCountStatusProviderCallback,
+    BarcodeCountStatusResultAbort: BarcodeCountStatusResultAbort,
+    BarcodeCountStatusResultError: BarcodeCountStatusResultError,
+    BarcodeCountStatusResultSuccess: BarcodeCountStatusResultSuccess,
+    BarcodeCountToolbarSettings: BarcodeCountToolbarSettings,
+    BarcodeCountView: BarcodeCountView,
+    get BarcodeCountViewStyle () { return BarcodeCountViewStyle$1; },
+    BarcodeDefinition: BarcodeDefinition,
+    BarcodeDefinitionBuilder: BarcodeDefinitionBuilder,
+    BarcodeFilterHighlightSettingsBrush: BarcodeFilterHighlightSettingsBrush,
+    get BarcodeFilterHighlightType () { return BarcodeFilterHighlightType; },
+    BarcodeFilterSettings: BarcodeFilterSettings,
+    BarcodeFind: BarcodeFind,
+    BarcodeFindFeedback: BarcodeFindFeedback,
+    BarcodeFindItem: BarcodeFindItem,
+    BarcodeFindItemContent: BarcodeFindItemContent,
+    BarcodeFindItemSearchOptions: BarcodeFindItemSearchOptions,
+    BarcodeFindSession: BarcodeFindSession,
+    BarcodeFindSettings: BarcodeFindSettings,
+    BarcodeFindView: BarcodeFindView,
+    BarcodeFindViewSettings: BarcodeFindViewSettings,
+    BarcodeGenerator: BarcodeGenerator,
+    BarcodeGeneratorBuilder: BarcodeGeneratorBuilder,
+    BarcodeIdentifier: BarcodeIdentifier,
+    BarcodeInfo: BarcodeInfo,
+    BarcodePick: BarcodePick,
+    get BarcodePickAction () { return BarcodePickAction; },
+    BarcodePickActionCallback: BarcodePickActionCallback,
+    BarcodePickAsyncMapperProductProvider: BarcodePickAsyncMapperProductProvider,
+    BarcodePickProduct: BarcodePickProduct,
+    BarcodePickProductProviderCallback: BarcodePickProductProviderCallback,
+    BarcodePickProductProviderCallbackItem: BarcodePickProductProviderCallbackItem,
+    BarcodePickScanningSession: BarcodePickScanningSession,
+    BarcodePickSession: BarcodePickSession,
+    BarcodePickSettings: BarcodePickSettings,
+    get BarcodePickState () { return BarcodePickState; },
+    BarcodePickStatusIconSettings: BarcodePickStatusIconSettings,
+    BarcodePickStatusIconStyle: BarcodePickStatusIconStyle,
+    BarcodePickView: BarcodePickView,
+    BarcodePickViewHighlightStyleCustomView: BarcodePickViewHighlightStyleCustomView,
+    BarcodePickViewHighlightStyleCustomViewResponse: BarcodePickViewHighlightStyleCustomViewResponse,
+    BarcodePickViewHighlightStyleRequest: BarcodePickViewHighlightStyleRequest,
+    BarcodePickViewHighlightStyleResponse: BarcodePickViewHighlightStyleResponse,
+    BarcodePickViewHighlightStyleResponseBuilder: BarcodePickViewHighlightStyleResponseBuilder,
+    BarcodePickViewSettings: BarcodePickViewSettings,
+    BarcodeSelection: BarcodeSelection,
+    BarcodeSelectionAimerSelection: BarcodeSelectionAimerSelection,
+    BarcodeSelectionAutoSelectionStrategy: BarcodeSelectionAutoSelectionStrategy,
+    BarcodeSelectionBasicOverlay: BarcodeSelectionBasicOverlay,
+    get BarcodeSelectionBasicOverlayStyle () { return BarcodeSelectionBasicOverlayStyle; },
+    BarcodeSelectionFeedback: BarcodeSelectionFeedback,
+    get BarcodeSelectionFreezeBehavior () { return BarcodeSelectionFreezeBehavior; },
+    BarcodeSelectionManualSelectionStrategy: BarcodeSelectionManualSelectionStrategy,
+    BarcodeSelectionSession: BarcodeSelectionSession,
+    BarcodeSelectionSettings: BarcodeSelectionSettings,
+    get BarcodeSelectionTapBehavior () { return BarcodeSelectionTapBehavior; },
+    BarcodeSelectionTapSelection: BarcodeSelectionTapSelection,
+    BarcodeSpatialGrid: BarcodeSpatialGrid,
+    get BatterySavingMode () { return BatterySavingMode; },
+    get CapturePreset () { return CapturePreset; },
+    get Checksum () { return Checksum; },
+    Cluster: Cluster,
+    Code128BarcodeGeneratorBuilder: Code128BarcodeGeneratorBuilder,
+    Code39BarcodeGeneratorBuilder: Code39BarcodeGeneratorBuilder,
+    get CompositeFlag () { return CompositeFlag; },
+    get CompositeType () { return CompositeType; },
+    DataMatrixBarcodeGeneratorBuilder: DataMatrixBarcodeGeneratorBuilder,
+    Dot: Dot,
+    DotWithIcons: DotWithIcons,
+    Ean13BarcodeGeneratorBuilder: Ean13BarcodeGeneratorBuilder,
+    Ean13UpcaClassification: Ean13UpcaClassification,
+    EncodingRange: EncodingRange,
+    InterleavedTwoOfFiveBarcodeGeneratorBuilder: InterleavedTwoOfFiveBarcodeGeneratorBuilder,
+    LocalizedOnlyBarcode: LocalizedOnlyBarcode,
+    Pdf417BarcodeGeneratorBuilder: Pdf417BarcodeGeneratorBuilder,
+    get Pdf417CompactionMode () { return Pdf417CompactionMode; },
+    Pdf417Dimensions: Pdf417Dimensions,
+    QrCodeBarcodeGeneratorBuilder: QrCodeBarcodeGeneratorBuilder,
+    get QrCodeErrorCorrectionLevel () { return QrCodeErrorCorrectionLevel; },
+    Range: Range,
+    Rectangular: Rectangular,
+    RectangularWithIcons: RectangularWithIcons,
+    get ScanComponentBarcodePreset () { return ScanComponentBarcodePreset; },
+    get ScanComponentTextSemanticType () { return ScanComponentTextSemanticType; },
+    ScanItemDefinition: ScanItemDefinition,
+    ScanItemIdentifier: ScanItemIdentifier,
+    ScannedBarcode: ScannedBarcode,
+    ScannedComponentIdentifier: ScannedComponentIdentifier,
+    ScannedItem: ScannedItem,
+    ScannedItemIdentifier: ScannedItemIdentifier,
+    ScannedText: ScannedText,
+    SparkScan: SparkScan,
+    SparkScanBarcodeErrorFeedback: SparkScanBarcodeErrorFeedback,
+    SparkScanBarcodeFeedback: SparkScanBarcodeFeedback,
+    SparkScanBarcodeSuccessFeedback: SparkScanBarcodeSuccessFeedback,
+    get SparkScanMiniPreviewSize () { return SparkScanMiniPreviewSize; },
+    get SparkScanPreviewBehavior () { return SparkScanPreviewBehavior; },
+    get SparkScanScanningBehavior () { return SparkScanScanningBehavior; },
+    SparkScanScanningModeDefault: SparkScanScanningModeDefault,
+    SparkScanScanningModeTarget: SparkScanScanningModeTarget,
+    SparkScanSession: SparkScanSession,
+    SparkScanSettings: SparkScanSettings,
+    SparkScanToastSettings: SparkScanToastSettings,
+    SparkScanView: SparkScanView,
+    SparkScanViewSettings: SparkScanViewSettings,
+    get SparkScanViewState () { return SparkScanViewState; },
+    StructuredAppendData: StructuredAppendData,
+    get Symbology () { return Symbology; },
+    SymbologyDescription: SymbologyDescription,
+    SymbologySettings: SymbologySettings,
+    TargetBarcode: TargetBarcode,
+    TextDefinition: TextDefinition,
+    TextDefinitionBuilder: TextDefinitionBuilder,
+    TextIdentifier: TextIdentifier,
+    TrackedBarcode: TrackedBarcode,
+    TrackedBarcodeView: TrackedBarcodeView,
+    TrackedObject: TrackedObject,
+    UpcaBarcodeGeneratorBuilder: UpcaBarcodeGeneratorBuilder
+});
+
+/*! Capacitor: https://capacitorjs.com/ - MIT License */
 var ExceptionCode;
 (function (ExceptionCode) {
     /**
@@ -1242,23 +1709,14 @@ const getPlatformId = (win) => {
 };
 
 const createCapacitor = (win) => {
-    var _a, _b, _c, _d, _e;
     const capCustomPlatform = win.CapacitorCustomPlatform || null;
     const cap = win.Capacitor || {};
     const Plugins = (cap.Plugins = cap.Plugins || {});
-    /**
-     * @deprecated Use `capCustomPlatform` instead, default functions like registerPlugin will function with the new object.
-     */
-    const capPlatforms = win.CapacitorPlatforms;
-    const defaultGetPlatform = () => {
-        return capCustomPlatform !== null
-            ? capCustomPlatform.name
-            : getPlatformId(win);
+    const getPlatform = () => {
+        return capCustomPlatform !== null ? capCustomPlatform.name : getPlatformId(win);
     };
-    const getPlatform = ((_a = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _a === void 0 ? void 0 : _a.getPlatform) || defaultGetPlatform;
-    const defaultIsNativePlatform = () => getPlatform() !== 'web';
-    const isNativePlatform = ((_b = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _b === void 0 ? void 0 : _b.isNativePlatform) || defaultIsNativePlatform;
-    const defaultIsPluginAvailable = (pluginName) => {
+    const isNativePlatform = () => getPlatform() !== 'web';
+    const isPluginAvailable = (pluginName) => {
         const plugin = registeredPlugins.get(pluginName);
         if (plugin === null || plugin === void 0 ? void 0 : plugin.platforms.has(getPlatform())) {
             // JS implementation available for the current platform.
@@ -1270,16 +1728,10 @@ const createCapacitor = (win) => {
         }
         return false;
     };
-    const isPluginAvailable = ((_c = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _c === void 0 ? void 0 : _c.isPluginAvailable) ||
-        defaultIsPluginAvailable;
-    const defaultGetPluginHeader = (pluginName) => { var _a; return (_a = cap.PluginHeaders) === null || _a === void 0 ? void 0 : _a.find(h => h.name === pluginName); };
-    const getPluginHeader = ((_d = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _d === void 0 ? void 0 : _d.getPluginHeader) || defaultGetPluginHeader;
+    const getPluginHeader = (pluginName) => { var _a; return (_a = cap.PluginHeaders) === null || _a === void 0 ? void 0 : _a.find((h) => h.name === pluginName); };
     const handleError = (err) => win.console.error(err);
-    const pluginMethodNoop = (_target, prop, pluginName) => {
-        return Promise.reject(`${pluginName} does not have an implementation of "${prop}".`);
-    };
     const registeredPlugins = new Map();
-    const defaultRegisterPlugin = (pluginName, jsImplementations = {}) => {
+    const registerPlugin = (pluginName, jsImplementations = {}) => {
         const registeredPlugin = registeredPlugins.get(pluginName);
         if (registeredPlugin) {
             console.warn(`Capacitor plugin "${pluginName}" already registered. Cannot register plugins twice.`);
@@ -1295,9 +1747,7 @@ const createCapacitor = (win) => {
                         ? (jsImplementation = await jsImplementations[platform]())
                         : (jsImplementation = jsImplementations[platform]);
             }
-            else if (capCustomPlatform !== null &&
-                !jsImplementation &&
-                'web' in jsImplementations) {
+            else if (capCustomPlatform !== null && !jsImplementation && 'web' in jsImplementations) {
                 jsImplementation =
                     typeof jsImplementations['web'] === 'function'
                         ? (jsImplementation = await jsImplementations['web']())
@@ -1308,7 +1758,7 @@ const createCapacitor = (win) => {
         const createPluginMethod = (impl, prop) => {
             var _a, _b;
             if (pluginHeader) {
-                const methodHeader = pluginHeader === null || pluginHeader === void 0 ? void 0 : pluginHeader.methods.find(m => prop === m.name);
+                const methodHeader = pluginHeader === null || pluginHeader === void 0 ? void 0 : pluginHeader.methods.find((m) => prop === m.name);
                 if (methodHeader) {
                     if (methodHeader.rtype === 'promise') {
                         return (options) => cap.nativePromise(pluginName, prop.toString(), options);
@@ -1331,7 +1781,7 @@ const createCapacitor = (win) => {
         const createPluginMethodWrapper = (prop) => {
             let remove;
             const wrapper = (...args) => {
-                const p = loadPluginImplementation().then(impl => {
+                const p = loadPluginImplementation().then((impl) => {
                     const fn = createPluginMethod(impl, prop);
                     if (fn) {
                         const p = fn(...args);
@@ -1367,7 +1817,7 @@ const createCapacitor = (win) => {
                     callbackId,
                 }, callback);
             };
-            const p = new Promise(resolve => call.then(() => resolve({ remove })));
+            const p = new Promise((resolve) => call.then(() => resolve({ remove })));
             p.remove = async () => {
                 console.warn(`Using addListener() without 'await' is deprecated.`);
                 await remove();
@@ -1395,30 +1845,22 @@ const createCapacitor = (win) => {
         registeredPlugins.set(pluginName, {
             name: pluginName,
             proxy,
-            platforms: new Set([
-                ...Object.keys(jsImplementations),
-                ...(pluginHeader ? [platform] : []),
-            ]),
+            platforms: new Set([...Object.keys(jsImplementations), ...(pluginHeader ? [platform] : [])]),
         });
         return proxy;
     };
-    const registerPlugin = ((_e = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _e === void 0 ? void 0 : _e.registerPlugin) || defaultRegisterPlugin;
     // Add in convertFileSrc for web, it will already be available in native context
     if (!cap.convertFileSrc) {
-        cap.convertFileSrc = filePath => filePath;
+        cap.convertFileSrc = (filePath) => filePath;
     }
     cap.getPlatform = getPlatform;
     cap.handleError = handleError;
     cap.isNativePlatform = isNativePlatform;
     cap.isPluginAvailable = isPluginAvailable;
-    cap.pluginMethodNoop = pluginMethodNoop;
     cap.registerPlugin = registerPlugin;
     cap.Exception = CapacitorException;
     cap.DEBUG = !!cap.DEBUG;
     cap.isLoggingEnabled = !!cap.isLoggingEnabled;
-    // Deprecated props
-    cap.platform = cap.getPlatform();
-    cap.isNative = cap.isNativePlatform();
     return cap;
 };
 const initCapacitorGlobal = (win) => (win.Capacitor = createCapacitor(win));
@@ -1433,26 +1875,15 @@ const Capacitor$1 = /*#__PURE__*/ initCapacitorGlobal(typeof globalThis !== 'und
                 ? global
                 : {});
 const registerPlugin = Capacitor$1.registerPlugin;
-/**
- * @deprecated Provided for backwards compatibility for Capacitor v2 plugins.
- * Capacitor v3 plugins should import the plugin directly. This "Plugins"
- * export is deprecated in v3, and will be removed in v4.
- */
-Capacitor$1.Plugins;
 
 /**
  * Base class web plugins should extend.
  */
 class WebPlugin {
-    constructor(config) {
+    constructor() {
         this.listeners = {};
         this.retainedEventArguments = {};
         this.windowListeners = {};
-        if (config) {
-            // TODO: add link to upgrade guide
-            console.warn(`Capacitor WebPlugin "${config.name}" config object was deprecated in v3 and will be removed in v4.`);
-            this.config = config;
-        }
     }
     addListener(eventName, listenerFunc) {
         let firstListener = false;
@@ -1495,17 +1926,18 @@ class WebPlugin {
             }
             return;
         }
-        listeners.forEach(listener => listener(data));
+        listeners.forEach((listener) => listener(data));
     }
     hasListeners(eventName) {
-        return !!this.listeners[eventName].length;
+        var _a;
+        return !!((_a = this.listeners[eventName]) === null || _a === void 0 ? void 0 : _a.length);
     }
     registerWindowListener(windowEventName, pluginEventName) {
         this.windowListeners[pluginEventName] = {
             registered: false,
             windowEventName,
             pluginEventName,
-            handler: event => {
+            handler: (event) => {
                 this.notifyListeners(pluginEventName, event);
             },
         };
@@ -1546,7 +1978,7 @@ class WebPlugin {
             return;
         }
         delete this.retainedEventArguments[eventName];
-        args.forEach(arg => {
+        args.forEach((arg) => {
             this.notifyListeners(eventName, arg);
         });
     }
@@ -1569,7 +2001,7 @@ class CapacitorCookiesPluginWeb extends WebPlugin {
     async getCookies() {
         const cookies = document.cookie;
         const cookieMap = {};
-        cookies.split(';').forEach(cookie => {
+        cookies.split(';').forEach((cookie) => {
             if (cookie.length <= 0)
                 return;
             // Replace first "=" with CAP_COOKIE to prevent splitting on additional "="
@@ -1586,11 +2018,9 @@ class CapacitorCookiesPluginWeb extends WebPlugin {
             const encodedKey = encode(options.key);
             const encodedValue = encode(options.value);
             // Clean & sanitize options
-            const expires = `; expires=${(options.expires || '').replace('expires=', '')}`; // Default is "; expires="
+            const expires = options.expires ? `; expires=${options.expires.replace('expires=', '')}` : '';
             const path = (options.path || '/').replace('path=', ''); // Default is "path=/"
-            const domain = options.url != null && options.url.length > 0
-                ? `domain=${options.url}`
-                : '';
+            const domain = options.url != null && options.url.length > 0 ? `domain=${options.url}` : '';
             document.cookie = `${encodedKey}=${encodedValue || ''}${expires}; path=${path}; ${domain};`;
         }
         catch (error) {
@@ -1609,9 +2039,7 @@ class CapacitorCookiesPluginWeb extends WebPlugin {
         try {
             const cookies = document.cookie.split(';') || [];
             for (const cookie of cookies) {
-                document.cookie = cookie
-                    .replace(/^ +/, '')
-                    .replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
+                document.cookie = cookie.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
             }
         }
         catch (error) {
@@ -1640,9 +2068,7 @@ const readBlobAsBase64 = async (blob) => new Promise((resolve, reject) => {
     reader.onload = () => {
         const base64String = reader.result;
         // remove prefix "data:application/pdf;base64,"
-        resolve(base64String.indexOf(',') >= 0
-            ? base64String.split(',')[1]
-            : base64String);
+        resolve(base64String.indexOf(',') >= 0 ? base64String.split(',')[1] : base64String);
     };
     reader.onerror = (error) => reject(error);
     reader.readAsDataURL(blob);
@@ -1653,7 +2079,7 @@ const readBlobAsBase64 = async (blob) => new Promise((resolve, reject) => {
  */
 const normalizeHttpHeaders = (headers = {}) => {
     const originalKeys = Object.keys(headers);
-    const loweredKeys = Object.keys(headers).map(k => k.toLocaleLowerCase());
+    const loweredKeys = Object.keys(headers).map((k) => k.toLocaleLowerCase());
     const normalized = loweredKeys.reduce((acc, key, index) => {
         acc[key] = headers[originalKeys[index]];
         return acc;
@@ -1674,7 +2100,7 @@ const buildUrlParams = (params, shouldEncode = true) => {
         let item;
         if (Array.isArray(value)) {
             item = '';
-            value.forEach(str => {
+            value.forEach((str) => {
                 encodedValue = shouldEncode ? encodeURIComponent(str) : str;
                 item += `${key}=${encodedValue}&`;
             });
@@ -1712,8 +2138,7 @@ const buildRequestInit = (options, extra = {}) => {
         }
         output.body = params.toString();
     }
-    else if (type.includes('multipart/form-data') ||
-        options.data instanceof FormData) {
+    else if (type.includes('multipart/form-data') || options.data instanceof FormData) {
         const form = new FormData();
         if (options.data instanceof FormData) {
             options.data.forEach((value, key) => {
@@ -1730,8 +2155,7 @@ const buildRequestInit = (options, extra = {}) => {
         headers.delete('content-type'); // content-type will be set by `window.fetch` to includy boundary
         output.headers = headers;
     }
-    else if (type.includes('application/json') ||
-        typeof options.data === 'object') {
+    else if (type.includes('application/json') || typeof options.data === 'object') {
         output.body = JSON.stringify(options.data);
     }
     return output;
@@ -1821,6 +2245,69 @@ class CapacitorHttpPluginWeb extends WebPlugin {
 registerPlugin('CapacitorHttp', {
     web: () => new CapacitorHttpPluginWeb(),
 });
+/******** END HTTP PLUGIN ********/
+/******** SYSTEM BARS PLUGIN ********/
+/**
+ * Available status bar styles.
+ */
+var SystemBarsStyle;
+(function (SystemBarsStyle) {
+    /**
+     * Light system bar content on a dark background.
+     *
+     * @since 8.0.0
+     */
+    SystemBarsStyle["Dark"] = "DARK";
+    /**
+     * For dark system bar content on a light background.
+     *
+     * @since 8.0.0
+     */
+    SystemBarsStyle["Light"] = "LIGHT";
+    /**
+     * The style is based on the device appearance or the underlying content.
+     * If the device is using Dark mode, the system bars content will be light.
+     * If the device is using Light mode, the system bars content will be dark.
+     *
+     * @since 8.0.0
+     */
+    SystemBarsStyle["Default"] = "DEFAULT";
+})(SystemBarsStyle || (SystemBarsStyle = {}));
+/**
+ * Available system bar types.
+ */
+var SystemBarType;
+(function (SystemBarType) {
+    /**
+     * The top status bar on both Android and iOS.
+     *
+     * @since 8.0.0
+     */
+    SystemBarType["StatusBar"] = "StatusBar";
+    /**
+     * The navigation bar (or gesture bar on iOS) on both Android and iOS.
+     *
+     * @since 8.0.0
+     */
+    SystemBarType["NavigationBar"] = "NavigationBar";
+})(SystemBarType || (SystemBarType = {}));
+class SystemBarsPluginWeb extends WebPlugin {
+    async setStyle() {
+        this.unavailable('not available for web');
+    }
+    async setAnimation() {
+        this.unavailable('not available for web');
+    }
+    async show() {
+        this.unavailable('not available for web');
+    }
+    async hide() {
+        this.unavailable('not available for web');
+    }
+}
+registerPlugin('SystemBars', {
+    web: () => new SystemBarsPluginWeb(),
+});
 
 const pluginName = 'ScanditBarcodeNative';
 // tslint:disable-next-line:variable-name
@@ -1832,14 +2319,7 @@ const Capacitor = {
 const getDefaults = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const defaultsJSON = yield window.Capacitor.Plugins[pluginName]['getDefaults']();
-        loadBarcodeDefaults(defaultsJSON);
-        loadBarcodeCaptureDefaults(defaultsJSON.BarcodeCapture);
-        loadBarcodeBatchDefaults(defaultsJSON.BarcodeBatch);
-        loadBarcodeSelectionDefaults(defaultsJSON.BarcodeSelection);
-        loadBarcodeCountDefaults(defaultsJSON.BarcodeCount);
-        loadBarcodePickDefaults(defaultsJSON.BarcodePick);
-        loadBarcodeFindDefaults(defaultsJSON.BarcodeFind);
-        loadSparkScanDefaults(defaultsJSON.SparkScan);
+        loadAllBarcodeDefaults(defaultsJSON);
         // TODO: Review this
         Capacitor.defaults = getBarcodeDefaults();
     }
@@ -1882,174 +2362,5 @@ registerPlugin('ScanditBarcodePlugin', {
 });
 // tslint:disable-next-line:variable-name
 const ScanditBarcodePlugin = new ScanditBarcodePluginImplementation();
-const ScanditBarcodeCountPluginNative = registerPlugin('ScanditBarcodeNative');
-const ScanditBarcodePickPluginNative = registerPlugin('ScanditBarcodeNative');
 
-class BarcodePickView extends DefaultSerializeable {
-    constructor(props) {
-        super();
-        this.viewId = Math.floor(Math.random() * 1000000);
-        this.htmlElement = null;
-        this._htmlElementState = new HTMLElementState();
-        this.domObserver = new MutationObserver(this.elementDidChange.bind(this));
-        this.scrollListener = this.elementDidChange.bind(this);
-        this.orientationChangeListener = () => {
-            this.elementDidChange();
-            // SDC-1784 -> workaround because at the moment of this callback the element doesn't have the updated size.
-            setTimeout(this.elementDidChange.bind(this), 100);
-            setTimeout(this.elementDidChange.bind(this), 300);
-            setTimeout(this.elementDidChange.bind(this), 1000);
-        };
-        this.baseBarcodePickView = new BaseBarcodePickView({
-            context: props.context,
-            barcodePick: props.barcodePick,
-            settings: props.settings,
-            cameraSettings: props.cameraSettings,
-        });
-    }
-    get uiListener() {
-        return this.baseBarcodePickView.uiListener;
-    }
-    set uiListener(value) {
-        this.baseBarcodePickView.uiListener = value;
-    }
-    set htmlElementState(newState) {
-        const didChangeShown = this._htmlElementState.isShown !== newState.isShown;
-        const didChangePositionOrSize = this._htmlElementState.didChangeComparedTo(newState);
-        this._htmlElementState = newState;
-        if (didChangePositionOrSize) {
-            this.updatePositionAndSize();
-        }
-        if (didChangeShown) {
-            if (this._htmlElementState.isShown) {
-                this.start();
-            }
-            else {
-                this.stop();
-            }
-        }
-    }
-    get htmlElementState() {
-        return this._htmlElementState;
-    }
-    connectToElement(element) {
-        this.baseBarcodePickView.createNativeView(this.viewId).then(() => {
-            this.htmlElement = element;
-            this.htmlElementState = new HTMLElementState();
-            // Initial update
-            this.elementDidChange();
-            this.subscribeToChangesOnHTMLElement();
-        });
-    }
-    detachFromElement() {
-        this.baseBarcodePickView.removeNativeView().then(() => {
-            this.unsubscribeFromChangesOnHTMLElement();
-            this.htmlElement = null;
-            this.elementDidChange();
-        });
-    }
-    subscribeToChangesOnHTMLElement() {
-        this.domObserver.observe(document, { attributes: true, childList: true, subtree: true });
-        window.addEventListener('scroll', this.scrollListener);
-        window.addEventListener('orientationchange', this.orientationChangeListener);
-    }
-    unsubscribeFromChangesOnHTMLElement() {
-        this.domObserver.disconnect();
-        window.removeEventListener('scroll', this.scrollListener);
-        window.removeEventListener('orientationchange', this.orientationChangeListener);
-    }
-    elementDidChange() {
-        if (!this.htmlElement) {
-            this.htmlElementState = new HTMLElementState();
-            return;
-        }
-        const newState = new HTMLElementState();
-        const boundingRect = this.htmlElement.getBoundingClientRect();
-        newState.position = new HtmlElementPosition(boundingRect.top, boundingRect.left);
-        newState.size = new HtmlElementSize(boundingRect.width, boundingRect.height);
-        newState.shouldBeUnderContent =
-            parseInt(this.htmlElement.style.zIndex || '1', 10) < 0 ||
-                parseInt(getComputedStyle(this.htmlElement).zIndex || '1', 10) < 0;
-        const isDisplayed = getComputedStyle(this.htmlElement).display !== 'none' && this.htmlElement.style.display !== 'none';
-        const isInDOM = document.body.contains(this.htmlElement);
-        newState.isShown = isDisplayed && isInDOM && !this.htmlElement.hidden;
-        this.htmlElementState = newState;
-    }
-    updatePositionAndSize() {
-        if (!this.htmlElementState || !this.htmlElementState.isValid) {
-            return;
-        }
-        ScanditBarcodePickPluginNative.setPickViewPositionAndSize({
-            top: this.htmlElementState.position.top,
-            left: this.htmlElementState.position.left,
-            width: this.htmlElementState.size.width,
-            height: this.htmlElementState.size.height,
-            shouldBeUnderContent: this.htmlElementState.shouldBeUnderContent,
-        });
-    }
-    start() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.start();
-        });
-    }
-    stop() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.stop();
-        });
-    }
-    freeze() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.freeze();
-        });
-    }
-    pause() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.pause();
-        });
-    }
-    resume() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.resume();
-        });
-    }
-    reset() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.baseBarcodePickView.reset();
-        });
-    }
-    addListener(listener) {
-        this.baseBarcodePickView.addListener(listener);
-    }
-    removeListener(listener) {
-        this.baseBarcodePickView.removeListener(listener);
-    }
-    addActionListener(listener) {
-        this.baseBarcodePickView.addActionListener(listener);
-    }
-    removeActionListener(listener) {
-        this.baseBarcodePickView.removeActionListener(listener);
-    }
-    release() {
-        this.baseBarcodePickView.dispose();
-    }
-}
-__decorate([
-    ignoreFromSerialization
-], BarcodePickView.prototype, "baseBarcodePickView", void 0);
-__decorate([
-    ignoreFromSerialization
-], BarcodePickView.prototype, "htmlElement", void 0);
-__decorate([
-    ignoreFromSerialization
-], BarcodePickView.prototype, "_htmlElementState", void 0);
-__decorate([
-    ignoreFromSerialization
-], BarcodePickView.prototype, "domObserver", void 0);
-__decorate([
-    ignoreFromSerialization
-], BarcodePickView.prototype, "scrollListener", void 0);
-__decorate([
-    ignoreFromSerialization
-], BarcodePickView.prototype, "orientationChangeListener", void 0);
-
-export { BarcodeBatchAdvancedOverlay, BarcodeCountView, BarcodeFindView, BarcodePickView, ScanditBarcodeCountPluginNative, ScanditBarcodePickPluginNative, ScanditBarcodePlugin, ScanditBarcodePluginImplementation, SparkScanView, TrackedBarcodeView };
+export { BarcodeArView, BarcodeBatchAdvancedOverlay, BarcodeCountView, BarcodeFindView, BarcodePickView, ScanditBarcodePlugin, ScanditBarcodePluginImplementation, SparkScanView, TrackedBarcodeView };

@@ -111,17 +111,20 @@ class BarcodePickViewHandler {
         }
 
         if shouldBeUnderWebView {
-            #if swift(>=5.0)
             barcodePickView.superview?.sendSubviewToBack(barcodePickView)
-            #else
-            barcodePickView.superview?.sendSubview(toBack: barcodePickView)
-            #endif
         } else {
-            #if swift(>=5.0)
             barcodePickView.superview?.bringSubviewToFront(barcodePickView)
-            #else
-            barcodePickView.superview?.bringSubview(toFront: barcodePickView)
-            #endif
         }
+    }
+
+    /// Clean up and remove the current BarcodePick view.
+    func disposeCurrentView() {
+        // Deactivate constraints before removing the view
+        NSLayoutConstraint.deactivate(constraints)
+        resetConstraints()
+
+        // Remove the view from the hierarchy synchronously
+        currentBarcodePickView?.removeFromSuperview()
+        currentBarcodePickView = nil
     }
 }
