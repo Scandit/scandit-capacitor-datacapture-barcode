@@ -9,8 +9,6 @@ export declare class SparkScanView {
     private constructor();
     get previewSizeControlVisible(): boolean;
     set previewSizeControlVisible(newValue: boolean);
-    get torchButtonVisible(): boolean;
-    set torchButtonVisible(newValue: boolean);
     get scanningBehaviorButtonVisible(): boolean;
     set scanningBehaviorButtonVisible(newValue: boolean);
     get barcodeCountButtonVisible(): boolean;
@@ -21,62 +19,6 @@ export declare class SparkScanView {
     set targetModeButtonVisible(newValue: boolean);
     get labelCaptureButtonVisible(): boolean;
     set labelCaptureButtonVisible(newValue: boolean);
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    get stopCapturingText(): string | null;
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    set stopCapturingText(newValue: string | null);
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    get startCapturingText(): string | null;
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    set startCapturingText(newValue: string | null);
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    get resumeCapturingText(): string | null;
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    set resumeCapturingText(newValue: string | null);
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    get scanningCapturingText(): string | null;
-    /**
-     * @deprecated The trigger button no longer displays text.
-     */
-    set scanningCapturingText(newValue: string | null);
-    /**
-     * @deprecated This property is not relevant anymore.
-     */
-    get captureButtonActiveBackgroundColor(): Color | null;
-    /**
-     * @deprecated This property is not relevant anymore.
-     */
-    set captureButtonActiveBackgroundColor(newValue: Color | null);
-    /**
-     * @deprecated use triggerButtonCollapsedColor and triggerButtonExpandedColor instead.
-     */
-    get captureButtonBackgroundColor(): Color | null;
-    /**
-     * @deprecated use triggerButtonCollapsedColor and triggerButtonExpandedColor instead.
-     */
-    set captureButtonBackgroundColor(newValue: Color | null);
-    /**
-     * @deprecated use triggerButtonTintColor instead.
-     */
-    get captureButtonTintColor(): Color | null;
-    /**
-     * @deprecated use triggerButtonTintColor instead.
-     */
-    set captureButtonTintColor(newValue: Color | null);
     get toolbarBackgroundColor(): Color | null;
     set toolbarBackgroundColor(newValue: Color | null);
     get toolbarIconActiveTintColor(): Color | null;
@@ -87,6 +29,8 @@ export declare class SparkScanView {
     set cameraSwitchButtonVisible(newValue: boolean);
     get torchControlVisible(): boolean;
     set torchControlVisible(newValue: boolean);
+    get zoomSwitchControlVisible(): boolean;
+    set zoomSwitchControlVisible(newValue: boolean);
     get previewCloseControlVisible(): boolean;
     set previewCloseControlVisible(newValue: boolean);
     get triggerButtonAnimationColor(): Color | null;
@@ -105,7 +49,7 @@ export declare class SparkScanView {
     startScanning(): Promise<void>;
     pauseScanning(): Promise<void>;
     stopScanning(): Promise<void>;
-    dispose(): void;
+    dispose(): Promise<void>;
     show(): Promise<void>;
     hide(): Promise<void>;
     get feedbackDelegate(): SparkScanFeedbackDelegate | null;

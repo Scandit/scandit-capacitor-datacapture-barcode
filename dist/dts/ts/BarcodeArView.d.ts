@@ -1,0 +1,57 @@
+import { BarcodeArViewUiListener, BarcodeArHighlightProvider, BarcodeAr, BarcodeArViewSettings, BarcodeArAnnotationProvider } from 'scandit-datacapture-frameworks-barcode';
+import { CameraSettings, DataCaptureContext, DefaultSerializeable } from 'scandit-datacapture-frameworks-core';
+import { Anchor } from 'scandit-datacapture-frameworks-core';
+interface BarcodeArViewProps {
+    context: DataCaptureContext;
+    barcodeAr: BarcodeAr;
+    settings: BarcodeArViewSettings;
+    cameraSettings: CameraSettings;
+    uiListener?: BarcodeArViewUiListener;
+    annotationProvider?: BarcodeArAnnotationProvider;
+    highlightProvider?: BarcodeArHighlightProvider;
+}
+export declare class BarcodeArView extends DefaultSerializeable {
+    private viewId;
+    private baseBarcodeArView;
+    private htmlElement;
+    private _htmlElementState;
+    private domObserver;
+    private scrollListener;
+    constructor(props: BarcodeArViewProps);
+    get uiListener(): BarcodeArViewUiListener | null;
+    set uiListener(value: BarcodeArViewUiListener | null);
+    get annotationProvider(): BarcodeArAnnotationProvider | null;
+    set annotationProvider(value: BarcodeArAnnotationProvider | null);
+    get highlightProvider(): BarcodeArHighlightProvider | null;
+    set highlightProvider(value: BarcodeArHighlightProvider | null);
+    private orientationChangeListener;
+    private set htmlElementState(value);
+    private get htmlElementState();
+    private setPositionAndSize;
+    connectToElement(element: HTMLElement): Promise<void>;
+    detachFromElement(): Promise<void>;
+    private subscribeToChangesOnHTMLElement;
+    private unsubscribeFromChangesOnHTMLElement;
+    private elementDidChange;
+    start(): Promise<void>;
+    stop(): Promise<void>;
+    pause(): Promise<void>;
+    reset(): Promise<void>;
+    get shouldShowTorchControl(): boolean;
+    set shouldShowTorchControl(value: boolean);
+    get torchControlPosition(): Anchor;
+    set torchControlPosition(value: Anchor);
+    get shouldShowZoomControl(): boolean;
+    set shouldShowZoomControl(value: boolean);
+    get zoomControlPosition(): Anchor;
+    set zoomControlPosition(value: Anchor);
+    get shouldShowCameraSwitchControl(): boolean;
+    set shouldShowCameraSwitchControl(value: boolean);
+    get cameraSwitchControlPosition(): Anchor;
+    set cameraSwitchControlPosition(value: Anchor);
+    get shouldShowMacroModeControl(): boolean;
+    set shouldShowMacroModeControl(value: boolean);
+    get macroModeControlPosition(): Anchor;
+    set macroModeControlPosition(value: Anchor);
+}
+export {};
