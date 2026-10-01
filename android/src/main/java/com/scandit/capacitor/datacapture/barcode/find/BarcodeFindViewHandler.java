@@ -137,12 +137,13 @@ public class BarcodeFindViewHandler {
   private void renderNoAnimate(FrameLayout container, boolean isVisible) {
     container.post(
         () -> {
+          Context context = container.getContext();
           container.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-          container.setX(pxFromDp(latestInfo.getLeft()));
-          container.setY(pxFromDp(latestInfo.getTop()));
+          container.setX(pxFromDp(latestInfo.getLeft(), context));
+          container.setY(pxFromDp(latestInfo.getTop(), context));
           ViewGroup.LayoutParams params = container.getLayoutParams();
-          params.width = (int) pxFromDp(latestInfo.getWidth());
-          params.height = (int) pxFromDp(latestInfo.getHeight());
+          params.width = (int) pxFromDp(latestInfo.getWidth(), context);
+          params.height = (int) pxFromDp(latestInfo.getHeight(), context);
 
           View webView = getWebView();
           if (latestInfo.getShouldBeUnderWebView()) {
