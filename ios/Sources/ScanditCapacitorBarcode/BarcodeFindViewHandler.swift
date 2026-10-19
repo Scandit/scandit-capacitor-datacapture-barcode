@@ -6,15 +6,32 @@
 
 import ScanditBarcodeCapture
 import ScanditCapacitorDatacaptureCore
+import UIKit
 import WebKit
 
 class BarcodeFindViewHandler {
     let webView: WKWebView
 
+    /// Container view that holds the BarcodeFindView.
+    /// The handler positions this container, and the BarcodeFindView fills it.
+    /// This allows the native view's internal layout to remain intact.
+    private var containerView: UIView?
+
+    var container: UIView {
+        if let existing = containerView, existing.superview != nil {
+            return existing
+        }
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        webView.addSubview(view)
+        containerView = view
+        return view
+    }
+
     var barcodeFindView: BarcodeFindView? {
         didSet {
-            guard let barcodeFindView = barcodeFindView else { return }
-            barcodeFindView.translatesAutoresizingMaskIntoConstraints = false
+            guard barcodeFindView != nil else { return }
             resetConstraints()
             update()
         }
@@ -68,61 +85,62 @@ class BarcodeFindViewHandler {
     }
 
     private func updateConstraints() {
-        guard let barcodeFindView = barcodeFindView else {
-            return
-        }
-
+        // Position the container, not the BarcodeFindView directly.
+        // The BarcodeFindView fills the container via constraints set by the deserializer.
         let topConstant = position.y + webView.adjustedContentInset.top
         let leftConstant = position.x + webView.adjustedContentInset.left
 
         if let top = top {
             top.constant = topConstant
         } else {
-            top = barcodeFindView.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
+            top = container.topAnchor.constraint(equalTo: webView.topAnchor, constant: topConstant)
             top?.isActive = true
         }
 
         if let left = left {
             left.constant = leftConstant
         } else {
-            left = barcodeFindView.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
+            left = container.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: leftConstant)
             left?.isActive = true
         }
 
         if let width = width {
             width.constant = size.width
         } else {
-            width = barcodeFindView.widthAnchor.constraint(equalToConstant: size.width)
+            width = container.widthAnchor.constraint(equalToConstant: size.width)
             width?.isActive = true
         }
 
         if let height = height {
             height.constant = size.height
         } else {
-            height = barcodeFindView.heightAnchor.constraint(equalToConstant: size.height)
+            height = container.heightAnchor.constraint(equalToConstant: size.height)
             height?.isActive = true
         }
 
-        barcodeFindView.superview?.layoutIfNeeded()
+        container.layoutIfNeeded()
     }
 
     private func updatePosition() {
-        guard let barcodeFindView = barcodeFindView else {
-            return
-        }
-
         if shouldBeUnderWebView {
-            #if swift(>=5.0)
-            barcodeFindView.superview?.sendSubviewToBack(barcodeFindView)
-            #else
-            barcodeFindView.superview?.sendSubview(toBack: barcodeFindView)
-            #endif
+            webView.sendSubviewToBack(container)
         } else {
-            #if swift(>=5.0)
-            barcodeFindView.superview?.bringSubviewToFront(barcodeFindView)
-            #else
-            barcodeFindView.superview?.bringSubview(toFront: barcodeFindView)
-            #endif
+            webView.bringSubviewToFront(container)
         }
+    }
+
+    /// Clean up and remove the current BarcodeFind view.
+    func disposeCurrentView() {
+        // Deactivate constraints before removing the container
+        NSLayoutConstraint.deactivate(constraints)
+        resetConstraints()
+
+        // Remove the BarcodeFindView from the container (it was added by the deserializer)
+        barcodeFindView?.removeFromSuperview()
+        barcodeFindView = nil
+
+        // Remove the container from the webView and clear the reference
+        containerView?.removeFromSuperview()
+        containerView = nil
     }
 }

@@ -17,6 +17,8 @@ export declare class SparkScanView {
     set barcodeFindButtonVisible(newValue: boolean);
     get targetModeButtonVisible(): boolean;
     set targetModeButtonVisible(newValue: boolean);
+    get selectionModeButtonVisible(): boolean;
+    set selectionModeButtonVisible(newValue: boolean);
     get labelCaptureButtonVisible(): boolean;
     set labelCaptureButtonVisible(newValue: boolean);
     get toolbarBackgroundColor(): Color | null;
@@ -29,6 +31,8 @@ export declare class SparkScanView {
     set cameraSwitchButtonVisible(newValue: boolean);
     get torchControlVisible(): boolean;
     set torchControlVisible(newValue: boolean);
+    get zoomSwitchControlVisible(): boolean;
+    set zoomSwitchControlVisible(newValue: boolean);
     get previewCloseControlVisible(): boolean;
     set previewCloseControlVisible(newValue: boolean);
     get triggerButtonAnimationColor(): Color | null;
@@ -47,7 +51,7 @@ export declare class SparkScanView {
     startScanning(): Promise<void>;
     pauseScanning(): Promise<void>;
     stopScanning(): Promise<void>;
-    dispose(): void;
+    dispose(): Promise<void>;
     show(): Promise<void>;
     hide(): Promise<void>;
     get feedbackDelegate(): SparkScanFeedbackDelegate | null;

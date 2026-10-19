@@ -9,6 +9,7 @@ export declare class BarcodeFindView {
     constructor(props: BarcodeFindViewProps);
     private set htmlElementState(value);
     private get htmlElementState();
+    private updatePositionAndSize;
     private orientationChangeListener;
     get barcodeFindViewUiListener(): BarcodeFindViewUiListener | null;
     set barcodeFindViewUiListener(value: BarcodeFindViewUiListener | null);
