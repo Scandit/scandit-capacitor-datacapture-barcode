@@ -8,7 +8,6 @@ package com.scandit.capacitor.datacapture.barcode.ar;
 
 import static com.scandit.capacitor.datacapture.core.utils.CapacitorExtensions.*;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -111,9 +110,6 @@ public class BarcodeArViewHandler {
     View webView = webViewReference.get();
     if (webView != null) {
       webView.bringToFront();
-      // Raise the Z too, or the elevation set while the AR view was on top
-      // outlives it and leaves the next screen's WebView below a stale layer.
-      webView.setTranslationZ(2F);
     }
   }
 
@@ -125,36 +121,23 @@ public class BarcodeArViewHandler {
             return;
           }
 
-          Context context = container.getContext();
           container.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-          container.setX(pxFromDp(latestInfo.getLeft(), context));
-          container.setY(pxFromDp(latestInfo.getTop(), context));
+          container.setX(pxFromDp(latestInfo.getLeft()));
+          container.setY(pxFromDp(latestInfo.getTop()));
           ViewGroup.LayoutParams params = container.getLayoutParams();
-          params.width = (int) pxFromDp(latestInfo.getWidth(), context);
-          params.height = (int) pxFromDp(latestInfo.getHeight(), context);
+          params.width = (int) pxFromDp(latestInfo.getWidth());
+          params.height = (int) pxFromDp(latestInfo.getHeight());
 
           View webView = webViewReference.get();
-          // Order the container against the WebView by elevation, the way
-          // DataCaptureViewHandler does. bringToFront() alone is not enough:
-          // Android resolves both drawing and touch dispatch by Z before child
-          // order, and a DataCaptureView visited earlier in the session leaves
-          // the WebView at a raised translationZ that is never reset. The
-          // WebView then keeps swallowing taps while its transparent background
-          // still shows the camera preview, so the AR view renders but no
-          // highlight tap ever reaches it (SDC-33081). Setting the Z on
-          // webView.getParent() cannot fix that either — the container shares
-          // that parent, so it moves both together.
           if (latestInfo.getShouldBeUnderWebView()) {
             if (webView != null) {
               webView.bringToFront();
-              webView.setTranslationZ(2F);
+              ((View) webView.getParent()).setTranslationZ(1F);
             }
-            container.setTranslationZ(1F);
           } else {
             container.bringToFront();
-            container.setTranslationZ(2F);
             if (webView != null) {
-              webView.setTranslationZ(1F);
+              ((View) webView.getParent()).setTranslationZ(-1F);
             }
           }
           container.requestLayout();

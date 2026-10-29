@@ -8,7 +8,6 @@ package com.scandit.capacitor.datacapture.barcode.count;
 
 import static com.scandit.capacitor.datacapture.core.utils.CapacitorExtensions.*;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,13 +118,12 @@ public class BarcodeCountViewHandler {
   private void renderNoAnimate(BarcodeCountView barcodeCountView) {
     barcodeCountView.post(
         () -> {
-          Context context = barcodeCountView.getContext();
           barcodeCountView.setVisibility(View.VISIBLE);
-          barcodeCountView.setX(pxFromDp(latestInfo.getLeft(), context));
-          barcodeCountView.setY(pxFromDp(latestInfo.getTop(), context));
+          barcodeCountView.setX(pxFromDp(latestInfo.getLeft()));
+          barcodeCountView.setY(pxFromDp(latestInfo.getTop()));
           ViewGroup.LayoutParams params = barcodeCountView.getLayoutParams();
-          params.width = (int) pxFromDp(latestInfo.getWidth(), context);
-          params.height = (int) pxFromDp(latestInfo.getHeight(), context);
+          params.width = (int) pxFromDp(latestInfo.getWidth());
+          params.height = (int) pxFromDp(latestInfo.getHeight());
 
           View webView = getWebView();
           if (latestInfo.getShouldBeUnderWebView()) {

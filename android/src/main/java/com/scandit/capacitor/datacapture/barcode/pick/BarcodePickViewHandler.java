@@ -127,13 +127,12 @@ public class BarcodePickViewHandler {
   private void renderNoAnimate(FrameLayout barcodePickViewContainer) {
     barcodePickViewContainer.post(
         () -> {
-          Context context = barcodePickViewContainer.getContext();
           barcodePickViewContainer.setVisibility(View.VISIBLE);
-          barcodePickViewContainer.setX(pxFromDp(latestInfo.getLeft(), context));
-          barcodePickViewContainer.setY(pxFromDp(latestInfo.getTop(), context));
+          barcodePickViewContainer.setX(pxFromDp(latestInfo.getLeft()));
+          barcodePickViewContainer.setY(pxFromDp(latestInfo.getTop()));
           ViewGroup.LayoutParams params = barcodePickViewContainer.getLayoutParams();
-          params.width = (int) pxFromDp(latestInfo.getWidth(), context);
-          params.height = (int) pxFromDp(latestInfo.getHeight(), context);
+          params.width = (int) pxFromDp(latestInfo.getWidth());
+          params.height = (int) pxFromDp(latestInfo.getHeight());
 
           View webView = getWebView();
           if (latestInfo.getShouldBeUnderWebView()) {
