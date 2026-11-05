@@ -41,6 +41,8 @@ import com.scandit.datacapture.frameworks.core.CoreModule;
 import com.scandit.datacapture.frameworks.core.FrameworkModule;
 import com.scandit.datacapture.frameworks.core.errors.ParameterNullError;
 import com.scandit.datacapture.frameworks.core.events.Emitter;
+import com.scandit.datacapture.frameworks.core.listeners.registry.ListenerRegistry;
+import com.scandit.datacapture.frameworks.core.listeners.registry.RegistryEmitter;
 import com.scandit.datacapture.frameworks.core.locator.DefaultServiceLocator;
 import com.scandit.datacapture.frameworks.core.result.NoopFrameworksResult;
 import com.scandit.datacapture.frameworks.core.utils.DefaultFrameworksLog;
@@ -86,10 +88,11 @@ public class ScanditBarcodeNative extends Plugin implements Emitter {
 
   public ScanditBarcodeNative() {
     this.barcodeModule = new BarcodeModule();
-    this.barcodeCaptureModule = BarcodeCaptureModule.create(this);
-    this.barcodeBatchModule = BarcodeBatchModule.create(this, null);
-    this.barcodeSelectionModule = BarcodeSelectionModule.create(this);
-    this.barcodeCountModule = BarcodeCountModule.create(this);
+    Emitter registryEmitter = new RegistryEmitter(this, ListenerRegistry.getInstance());
+    this.barcodeCaptureModule = BarcodeCaptureModule.create(registryEmitter);
+    this.barcodeBatchModule = BarcodeBatchModule.create(registryEmitter, null);
+    this.barcodeSelectionModule = BarcodeSelectionModule.create(registryEmitter);
+    this.barcodeCountModule = BarcodeCountModule.create(registryEmitter);
     this.barcodeFindModule = BarcodeFindModule.create(this);
     this.barcodePickModule = BarcodePickModule.create(this);
     this.sparkScanModule = SparkScanModule.create(this);
@@ -212,12 +215,13 @@ public class ScanditBarcodeNative extends Plugin implements Emitter {
   }
 
   @PluginMethod
-  public void getDefaults(PluginCall call) {
+  public void getDynamicDefaults(PluginCall call) {
     try {
-      JSObject defaults = JSObject.fromJSONObject(new JSONObject(barcodeModule.getDefaults()));
+      JSObject defaults =
+          JSObject.fromJSONObject(new JSONObject(barcodeModule.getDynamicDefaults()));
       call.resolve(defaults);
     } catch (JSONException e) {
-      call.reject("Failed to get defaults: " + e.getMessage());
+      call.reject("Failed to get dynamic defaults: " + e.getMessage());
     }
   }
 
