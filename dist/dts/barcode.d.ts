@@ -10088,7 +10088,8 @@ declare class BarcodeCountViewController extends BaseController<BarcodeCountView
     private eventHandlers;
     private static readonly iconViewListenerEvents;
     private static readonly nonIconViewListenerEvents;
-    private areIconEventsSubscribed;
+    private iconListener;
+    private iconListenerViewId;
     private isViewListenerRegistered;
     private isModeListenerRegistered;
     private isStatusProviderRegistered;
@@ -10144,8 +10145,9 @@ declare class BarcodeCountViewController extends BaseController<BarcodeCountView
     private initialize;
     private createView;
     private applyCaptureListToNative;
-    private listenerWantsIconEvents;
-    private syncIconEventSubscription;
+    private static listenerImplements;
+    private iconEventHandler;
+    private syncIconEventRegistration;
     private unregisterViewScopedListeners;
     private unregisterViewListener;
     private unregisterUiListener;
@@ -10155,10 +10157,6 @@ declare class BarcodeCountViewController extends BaseController<BarcodeCountView
     private handleBrushForRecognizedBarcodeNotInListWrapper;
     private handleBrushForAcceptedBarcodeWrapper;
     private handleBrushForRejectedBarcodeWrapper;
-    private handleIconForRecognizedBarcodeWrapper;
-    private handleIconForRecognizedBarcodeNotInListWrapper;
-    private handleIconForAcceptedBarcodeWrapper;
-    private handleIconForRejectedBarcodeWrapper;
     private handleFilteredBarcodeTappedWrapper;
     private handleRecognizedBarcodeNotInListTappedWrapper;
     private handleRecognizedBarcodeTappedWrapper;

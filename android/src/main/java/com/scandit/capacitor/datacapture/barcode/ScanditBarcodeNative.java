@@ -214,6 +214,11 @@ public class ScanditBarcodeNative extends Plugin implements Emitter {
     return this.hasListenersForEvent(eventName);
   }
 
+  @Override
+  public boolean hasRegisteredViewListenersForEvent(int viewId, @NonNull String eventName) {
+    return false;
+  }
+
   @PluginMethod
   public void getDynamicDefaults(PluginCall call) {
     try {
