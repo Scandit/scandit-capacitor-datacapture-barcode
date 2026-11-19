@@ -1,6 +1,6 @@
-import { getBarcodeDefaults, SymbologyDescription, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeCountView, BaseBarcodeFindView, BaseSparkScanView, BaseBarcodePickView, BaseBarcodeArView, loadBarcodeDefaults, loadBarcodeCaptureDefaults, buildStaticBarcodeCaptureDefaultsJson, barcodeCapturePlaceholderCameraSettings, loadBarcodeBatchDefaults, buildStaticBarcodeBatchDefaultsJson, barcodeBatchPlaceholderCameraSettings, loadBarcodeSelectionDefaults, buildStaticBarcodeSelectionDefaultsJson, barcodeSelectionPlaceholderCameraSettings, loadBarcodeCountDefaults, buildStaticBarcodeCountDefaultsJson, barcodeCountPlaceholderCameraSettings, placeholderBarcodeCountView, loadBarcodeFindDefaults, buildStaticBarcodeFindDefaultsJson, barcodeFindPlaceholderCameraSettings, placeholderBarcodeFindView, loadBarcodePickDefaults, buildStaticBarcodePickDefaultsJson, barcodePickPlaceholderCameraSettings, placeholderBarcodePickViewSettings, placeholderBarcodePickViewHighlightStyle, loadSparkScanDefaults, buildStaticSparkScanDefaultsJson, placeholderBarcodeSparkScanView, loadBarcodeArDefaults, buildStaticBarcodeArDefaultsJson, barcodeArPlaceholderCameraSettings, placeholderBarcodeArView, getBarcodeCountDefaults, AdaptiveRecognitionErrorReason, AdaptiveRecognitionFrameMetadata, ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeAr, BarcodeArAnnotationTrigger, BarcodeArCircleHighlight, BarcodeArCircleHighlightPreset, BarcodeArFeedback, BarcodeArInfoAnnotation, BarcodeArInfoAnnotationAnchor, BarcodeArInfoAnnotationBodyComponent, BarcodeArInfoAnnotationFooter, BarcodeArInfoAnnotationHeader, BarcodeArInfoAnnotationWidthPreset, BarcodeArPopoverAnnotation, BarcodeArPopoverAnnotationAnchor, BarcodeArPopoverAnnotationButton, BarcodeArRectangleHighlight, BarcodeArResponsiveAnnotation, BarcodeArSession, BarcodeArSettings, BarcodeArStatusIconAnnotation, BarcodeArStatusIconAnnotationAnchor, BarcodeArViewSettings, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchLicenseInfo, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureLicenseInfo, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountIcon, BarcodeCountMappingFlowSettings, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSessionSnapshot, BarcodeCountSettings, BarcodeCountStatus, BarcodeCountStatusItem, BarcodeCountStatusProviderCallback, BarcodeCountStatusResultAbort, BarcodeCountStatusResultError, BarcodeCountStatusResultSuccess, BarcodeCountToolbarSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodeInfo, BarcodePick, BarcodePickAction, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickStatusIconStyle, BarcodePickViewHighlightStyleCustomView, BarcodePickViewHighlightStyleCustomViewResponse, BarcodePickViewHighlightStyleRequest, BarcodePickViewHighlightStyleResponse, BarcodePickViewHighlightStyleResponseBuilder, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerBehavior, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionLicenseInfo, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, CapturePreset, Checksum, Cluster, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, CompositeTypeDescription, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, Pdf417BarcodeGeneratorBuilder, Pdf417CompactionMode, Pdf417Dimensions, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanLicenseInfo, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, TrackedObject, UpcaBarcodeGeneratorBuilder, BarcodeDefaultsType, registerBarcodeProxies } from './barcode.js';
-export { AdaptiveRecognitionErrorReason, AdaptiveRecognitionFrameMetadata, ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeAr, BarcodeArAnnotationTrigger, BarcodeArCircleHighlight, BarcodeArCircleHighlightPreset, BarcodeArFeedback, BarcodeArInfoAnnotation, BarcodeArInfoAnnotationAnchor, BarcodeArInfoAnnotationBodyComponent, BarcodeArInfoAnnotationFooter, BarcodeArInfoAnnotationHeader, BarcodeArInfoAnnotationWidthPreset, BarcodeArPopoverAnnotation, BarcodeArPopoverAnnotationAnchor, BarcodeArPopoverAnnotationButton, BarcodeArRectangleHighlight, BarcodeArResponsiveAnnotation, BarcodeArSession, BarcodeArSettings, BarcodeArStatusIconAnnotation, BarcodeArStatusIconAnnotationAnchor, BarcodeArViewSettings, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchLicenseInfo, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureLicenseInfo, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountIcon, BarcodeCountMappingFlowSettings, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSessionSnapshot, BarcodeCountSettings, BarcodeCountStatus, BarcodeCountStatusItem, BarcodeCountStatusProviderCallback, BarcodeCountStatusResultAbort, BarcodeCountStatusResultError, BarcodeCountStatusResultSuccess, BarcodeCountToolbarSettings, BarcodeCountViewStyle, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodeInfo, BarcodePick, BarcodePickAction, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickStatusIconStyle, BarcodePickViewHighlightStyleCustomView, BarcodePickViewHighlightStyleCustomViewResponse, BarcodePickViewHighlightStyleRequest, BarcodePickViewHighlightStyleResponse, BarcodePickViewHighlightStyleResponseBuilder, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerBehavior, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionLicenseInfo, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, CapturePreset, Checksum, Cluster, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, CompositeTypeDescription, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, Pdf417BarcodeGeneratorBuilder, Pdf417CompactionMode, Pdf417Dimensions, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanLicenseInfo, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologyDescription, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, TrackedObject, UpcaBarcodeGeneratorBuilder } from './barcode.js';
-import { DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize, ignoreFromSerialization, FactoryMaker } from 'scandit-capacitor-datacapture-core/dist/core';
+import { SymbologyDescription, BaseBarcodeBatchAdvancedOverlay, BaseBarcodeCountView, BaseBarcodeFindView, BaseSparkScanView, BaseBarcodePickView, BaseBarcodeArView, getBarcodeCountDefaults, ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeAr, BarcodeArAnnotationTrigger, BarcodeArCircleHighlight, BarcodeArCircleHighlightPreset, BarcodeArFeedback, BarcodeArInfoAnnotation, BarcodeArInfoAnnotationAnchor, BarcodeArInfoAnnotationBodyComponent, BarcodeArInfoAnnotationFooter, BarcodeArInfoAnnotationHeader, BarcodeArInfoAnnotationWidthPreset, BarcodeArPopoverAnnotation, BarcodeArPopoverAnnotationAnchor, BarcodeArPopoverAnnotationButton, BarcodeArRectangleHighlight, BarcodeArResponsiveAnnotation, BarcodeArSession, BarcodeArSettings, BarcodeArStatusIconAnnotation, BarcodeArStatusIconAnnotationAnchor, BarcodeArViewSettings, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchLicenseInfo, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureLicenseInfo, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountMappingFlowSettings, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountStatus, BarcodeCountStatusItem, BarcodeCountStatusProviderCallback, BarcodeCountStatusResultAbort, BarcodeCountStatusResultError, BarcodeCountStatusResultSuccess, BarcodeCountToolbarSettings, BarcodeCountViewStyle as BarcodeCountViewStyle$1, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodeInfo, BarcodePick, BarcodePickAction, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickStatusIconStyle, BarcodePickViewHighlightStyleCustomView, BarcodePickViewHighlightStyleCustomViewResponse, BarcodePickViewHighlightStyleRequest, BarcodePickViewHighlightStyleResponse, BarcodePickViewHighlightStyleResponseBuilder, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionLicenseInfo, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, CapturePreset, Checksum, Cluster, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, Pdf417BarcodeGeneratorBuilder, Pdf417CompactionMode, Pdf417Dimensions, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanLicenseInfo, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, TrackedObject, UpcaBarcodeGeneratorBuilder, loadAllBarcodeDefaults, getBarcodeDefaults, registerBarcodeProxies } from './barcode.js';
+export { ArucoDictionary, ArucoDictionaryPreset, ArucoMarker, AztecBarcodeGeneratorBuilder, Barcode, BarcodeAr, BarcodeArAnnotationTrigger, BarcodeArCircleHighlight, BarcodeArCircleHighlightPreset, BarcodeArFeedback, BarcodeArInfoAnnotation, BarcodeArInfoAnnotationAnchor, BarcodeArInfoAnnotationBodyComponent, BarcodeArInfoAnnotationFooter, BarcodeArInfoAnnotationHeader, BarcodeArInfoAnnotationWidthPreset, BarcodeArPopoverAnnotation, BarcodeArPopoverAnnotationAnchor, BarcodeArPopoverAnnotationButton, BarcodeArRectangleHighlight, BarcodeArResponsiveAnnotation, BarcodeArSession, BarcodeArSettings, BarcodeArStatusIconAnnotation, BarcodeArStatusIconAnnotationAnchor, BarcodeArViewSettings, BarcodeBatch, BarcodeBatchBasicOverlay, BarcodeBatchBasicOverlayStyle, BarcodeBatchLicenseInfo, BarcodeBatchSession, BarcodeBatchSettings, BarcodeCapture, BarcodeCaptureFeedback, BarcodeCaptureLicenseInfo, BarcodeCaptureOverlay, BarcodeCaptureSession, BarcodeCaptureSettings, BarcodeCount, BarcodeCountCaptureList, BarcodeCountCaptureListSession, BarcodeCountFeedback, BarcodeCountMappingFlowSettings, BarcodeCountNotInListActionSettings, BarcodeCountSession, BarcodeCountSettings, BarcodeCountStatus, BarcodeCountStatusItem, BarcodeCountStatusProviderCallback, BarcodeCountStatusResultAbort, BarcodeCountStatusResultError, BarcodeCountStatusResultSuccess, BarcodeCountToolbarSettings, BarcodeCountViewStyle, BarcodeDefinition, BarcodeDefinitionBuilder, BarcodeFilterHighlightSettingsBrush, BarcodeFilterHighlightType, BarcodeFilterSettings, BarcodeFind, BarcodeFindFeedback, BarcodeFindItem, BarcodeFindItemContent, BarcodeFindItemSearchOptions, BarcodeFindSession, BarcodeFindSettings, BarcodeFindViewSettings, BarcodeGenerator, BarcodeGeneratorBuilder, BarcodeIdentifier, BarcodeInfo, BarcodePick, BarcodePickAction, BarcodePickActionCallback, BarcodePickAsyncMapperProductProvider, BarcodePickProduct, BarcodePickProductProviderCallback, BarcodePickProductProviderCallbackItem, BarcodePickScanningSession, BarcodePickSession, BarcodePickSettings, BarcodePickState, BarcodePickStatusIconSettings, BarcodePickStatusIconStyle, BarcodePickViewHighlightStyleCustomView, BarcodePickViewHighlightStyleCustomViewResponse, BarcodePickViewHighlightStyleRequest, BarcodePickViewHighlightStyleResponse, BarcodePickViewHighlightStyleResponseBuilder, BarcodePickViewSettings, BarcodeSelection, BarcodeSelectionAimerSelection, BarcodeSelectionAutoSelectionStrategy, BarcodeSelectionBasicOverlay, BarcodeSelectionBasicOverlayStyle, BarcodeSelectionFeedback, BarcodeSelectionFreezeBehavior, BarcodeSelectionLicenseInfo, BarcodeSelectionManualSelectionStrategy, BarcodeSelectionSession, BarcodeSelectionSettings, BarcodeSelectionTapBehavior, BarcodeSelectionTapSelection, BarcodeSpatialGrid, BatterySavingMode, CapturePreset, Checksum, Cluster, Code128BarcodeGeneratorBuilder, Code39BarcodeGeneratorBuilder, CompositeFlag, CompositeType, DataMatrixBarcodeGeneratorBuilder, Dot, DotWithIcons, Ean13BarcodeGeneratorBuilder, Ean13UpcaClassification, EncodingRange, InterleavedTwoOfFiveBarcodeGeneratorBuilder, LocalizedOnlyBarcode, Pdf417BarcodeGeneratorBuilder, Pdf417CompactionMode, Pdf417Dimensions, QrCodeBarcodeGeneratorBuilder, QrCodeErrorCorrectionLevel, Range, Rectangular, RectangularWithIcons, ScanComponentBarcodePreset, ScanComponentTextSemanticType, ScanItemDefinition, ScanItemIdentifier, ScannedBarcode, ScannedComponentIdentifier, ScannedItem, ScannedItemIdentifier, ScannedText, SparkScan, SparkScanBarcodeErrorFeedback, SparkScanBarcodeFeedback, SparkScanBarcodeSuccessFeedback, SparkScanLicenseInfo, SparkScanMiniPreviewSize, SparkScanPreviewBehavior, SparkScanScanningBehavior, SparkScanScanningModeDefault, SparkScanScanningModeTarget, SparkScanSession, SparkScanSettings, SparkScanToastSettings, SparkScanViewSettings, SparkScanViewState, StructuredAppendData, Symbology, SymbologyDescription, SymbologySettings, TargetBarcode, TextDefinition, TextDefinitionBuilder, TextIdentifier, TrackedBarcode, TrackedObject, UpcaBarcodeGeneratorBuilder } from './barcode.js';
+import { DefaultSerializeable, Size, HTMLElementState, HtmlElementPosition, HtmlElementSize, ignoreFromSerialization } from 'scandit-capacitor-datacapture-core/dist/core';
 import { capacitorExec, CapacitorCore, CapacitorNativeCaller } from 'scandit-capacitor-datacapture-core';
 
 class TrackedBarcodeView extends DefaultSerializeable {
@@ -172,18 +172,6 @@ class BarcodeCountView {
     static get defaultRejectedBrush() {
         return BaseBarcodeCountView.defaultRejectedBrush;
     }
-    static get defaultRecognizedIcon() {
-        return BaseBarcodeCountView.defaultRecognizedIcon;
-    }
-    static get defaultNotInListIcon() {
-        return BaseBarcodeCountView.defaultNotInListIcon;
-    }
-    static get defaultAcceptedIcon() {
-        return BaseBarcodeCountView.defaultAcceptedIcon;
-    }
-    static get defaultRejectedIcon() {
-        return BaseBarcodeCountView.defaultRejectedIcon;
-    }
     static get hardwareTriggerSupported() {
         return BaseBarcodeCountView.hardwareTriggerSupported;
     }
@@ -299,19 +287,7 @@ class BarcodeCountView {
         return this.baseBarcodeCountView.rejectedBrush;
     }
     set rejectedBrush(newValue) {
-        this.baseBarcodeCountView.rejectedBrush = newValue;
-    }
-    get logoStyle() {
-        return this.baseBarcodeCountView.logoStyle;
-    }
-    set logoStyle(newValue) {
-        this.baseBarcodeCountView.logoStyle = newValue;
-    }
-    get logoAnchor() {
-        return this.baseBarcodeCountView.logoAnchor;
-    }
-    set logoAnchor(newValue) {
-        this.baseBarcodeCountView.logoAnchor = newValue;
+        this.rejectedBrush = newValue;
     }
     get filterSettings() {
         return this.baseBarcodeCountView.filterSettings;
@@ -656,18 +632,6 @@ class BarcodeCountView {
     }
     setBrushForRejectedBarcode(trackedBarcode, brush) {
         return this.baseBarcodeCountView.setBrushForRejectedBarcode(trackedBarcode, brush);
-    }
-    setIconForRecognizedBarcode(trackedBarcode, icon) {
-        return this.baseBarcodeCountView.setIconForRecognizedBarcode(trackedBarcode, icon);
-    }
-    setIconForRecognizedBarcodeNotInList(trackedBarcode, icon) {
-        return this.baseBarcodeCountView.setIconForRecognizedBarcodeNotInList(trackedBarcode, icon);
-    }
-    setIconForAcceptedBarcode(trackedBarcode, icon) {
-        return this.baseBarcodeCountView.setIconForAcceptedBarcode(trackedBarcode, icon);
-    }
-    setIconForRejectedBarcode(trackedBarcode, icon) {
-        return this.baseBarcodeCountView.setIconForRejectedBarcode(trackedBarcode, icon);
     }
     enableHardwareTrigger(hardwareTriggerKeyCode) {
         return this.baseBarcodeCountView.enableHardwareTrigger(hardwareTriggerKeyCode);
@@ -1183,9 +1147,6 @@ class SparkScanView {
             yield this.baseSparkScanView.showToast(text);
         });
     }
-    getScanningMode() {
-        return this.baseSparkScanView.getScanningMode();
-    }
     toJSON() {
         return this.baseSparkScanView.toJSON();
     }
@@ -1608,8 +1569,6 @@ __decorate([
 
 var BarcodeExports = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    get AdaptiveRecognitionErrorReason () { return AdaptiveRecognitionErrorReason; },
-    AdaptiveRecognitionFrameMetadata: AdaptiveRecognitionFrameMetadata,
     ArucoDictionary: ArucoDictionary,
     get ArucoDictionaryPreset () { return ArucoDictionaryPreset; },
     ArucoMarker: ArucoMarker,
@@ -1654,11 +1613,9 @@ var BarcodeExports = /*#__PURE__*/Object.freeze({
     BarcodeCountCaptureList: BarcodeCountCaptureList,
     BarcodeCountCaptureListSession: BarcodeCountCaptureListSession,
     BarcodeCountFeedback: BarcodeCountFeedback,
-    BarcodeCountIcon: BarcodeCountIcon,
     BarcodeCountMappingFlowSettings: BarcodeCountMappingFlowSettings,
     BarcodeCountNotInListActionSettings: BarcodeCountNotInListActionSettings,
     BarcodeCountSession: BarcodeCountSession,
-    BarcodeCountSessionSnapshot: BarcodeCountSessionSnapshot,
     BarcodeCountSettings: BarcodeCountSettings,
     get BarcodeCountStatus () { return BarcodeCountStatus; },
     BarcodeCountStatusItem: BarcodeCountStatusItem,
@@ -1708,7 +1665,6 @@ var BarcodeExports = /*#__PURE__*/Object.freeze({
     BarcodePickViewHighlightStyleResponseBuilder: BarcodePickViewHighlightStyleResponseBuilder,
     BarcodePickViewSettings: BarcodePickViewSettings,
     BarcodeSelection: BarcodeSelection,
-    get BarcodeSelectionAimerBehavior () { return BarcodeSelectionAimerBehavior; },
     BarcodeSelectionAimerSelection: BarcodeSelectionAimerSelection,
     BarcodeSelectionAutoSelectionStrategy: BarcodeSelectionAutoSelectionStrategy,
     BarcodeSelectionBasicOverlay: BarcodeSelectionBasicOverlay,
@@ -1730,7 +1686,6 @@ var BarcodeExports = /*#__PURE__*/Object.freeze({
     Code39BarcodeGeneratorBuilder: Code39BarcodeGeneratorBuilder,
     get CompositeFlag () { return CompositeFlag; },
     get CompositeType () { return CompositeType; },
-    CompositeTypeDescription: CompositeTypeDescription,
     DataMatrixBarcodeGeneratorBuilder: DataMatrixBarcodeGeneratorBuilder,
     Dot: Dot,
     DotWithIcons: DotWithIcons,
@@ -2434,62 +2389,17 @@ const Capacitor = {
     defaults: {},
     exec: (success, error, functionName, args) => capacitorExec(success, error, pluginName, functionName, args),
 };
-const staticPlatform = Capacitor$1.getPlatform() === 'ios' ? 'ios' : 'android';
-/**
- * Loaded synchronously at module-import time for all 8 submodules with a static builder (see
- * scandit-datacapture-frameworks-barcode/src/defaults/staticDefaults.ts). The top-level
- * "Barcode" block (SymbologySettings/SymbologyDescriptions/CompositeTypeDescriptions) is
- * entirely engine-owned/dynamic, so it's seeded with an empty-but-valid placeholder here and
- * only ever gets real values from applyDynamicDefaults() below.
- *
- * Each submodule's RecommendedCameraSettings, plus the view blocks native's
- * getDynamicDefaults() also refreshes (BarcodeCountView, BarcodeFindView, BarcodePick's
- * ViewSettings/HighlightStyle/SymbologySettings, SparkScanView, BarcodeArView), are seeded from
- * src/defaults/dynamicPlaceholders.ts — transient stand-ins overwritten within one native
- * round-trip.
- */
-function loadStaticBarcodeDefaults() {
-    loadBarcodeDefaults({ SymbologySettings: {}, SymbologyDescriptions: [], CompositeTypeDescriptions: [] });
-    loadBarcodeCaptureDefaults(Object.assign(Object.assign({}, buildStaticBarcodeCaptureDefaultsJson()), { RecommendedCameraSettings: barcodeCapturePlaceholderCameraSettings }));
-    loadBarcodeBatchDefaults(Object.assign(Object.assign({}, buildStaticBarcodeBatchDefaultsJson(staticPlatform)), { RecommendedCameraSettings: barcodeBatchPlaceholderCameraSettings }));
-    loadBarcodeSelectionDefaults(Object.assign(Object.assign({}, buildStaticBarcodeSelectionDefaultsJson(staticPlatform)), { RecommendedCameraSettings: barcodeSelectionPlaceholderCameraSettings }));
-    loadBarcodeCountDefaults(Object.assign(Object.assign({}, buildStaticBarcodeCountDefaultsJson(staticPlatform)), { RecommendedCameraSettings: barcodeCountPlaceholderCameraSettings, BarcodeCountView: placeholderBarcodeCountView(staticPlatform) }));
-    loadBarcodeFindDefaults(Object.assign(Object.assign({}, buildStaticBarcodeFindDefaultsJson(staticPlatform)), { RecommendedCameraSettings: barcodeFindPlaceholderCameraSettings, BarcodeFindView: placeholderBarcodeFindView() }));
-    loadBarcodePickDefaults(Object.assign(Object.assign({}, buildStaticBarcodePickDefaultsJson()), { RecommendedCameraSettings: barcodePickPlaceholderCameraSettings, ViewSettings: placeholderBarcodePickViewSettings(), BarcodePickViewHighlightStyle: placeholderBarcodePickViewHighlightStyle(), SymbologySettings: {} }));
-    loadSparkScanDefaults(Object.assign(Object.assign({}, buildStaticSparkScanDefaultsJson(staticPlatform)), { SparkScanView: placeholderBarcodeSparkScanView(staticPlatform) }));
-    loadBarcodeArDefaults(Object.assign(Object.assign({}, buildStaticBarcodeArDefaultsJson(staticPlatform)), { RecommendedCameraSettings: barcodeArPlaceholderCameraSettings, 
-        // Placeholder only — see the doc comment above; corrected in applyDynamicDefaults().
-        BarcodeArView: placeholderBarcodeArView() }));
-}
-loadStaticBarcodeDefaults();
-Capacitor.defaults = getBarcodeDefaults();
-/**
- * Fetches the narrow dynamic residual set (see BarcodeModule.getDynamicDefaults on Android) and
- * reloads every submodule singleton with it merged in. Errors propagate — no swallowing.
- */
-const applyDynamicDefaults = () => __awaiter(void 0, void 0, void 0, function* () {
-    const dynamicJson = yield window.Capacitor.Plugins[pluginName]['getDynamicDefaults']();
-    // Rebind (not bindInstanceIfNotExists, which would no-op on this second load) each submodule
-    // with its static build plus the freshly-fetched dynamic residual.
-    FactoryMaker.instances.delete(BarcodeDefaultsType.Barcode);
-    loadBarcodeDefaults(dynamicJson.Barcode);
-    FactoryMaker.instances.delete(BarcodeDefaultsType.BarcodeCapture);
-    loadBarcodeCaptureDefaults(Object.assign(Object.assign({}, buildStaticBarcodeCaptureDefaultsJson()), { RecommendedCameraSettings: dynamicJson.BarcodeCapture.RecommendedCameraSettings }));
-    FactoryMaker.instances.delete(BarcodeDefaultsType.BarcodeBatch);
-    loadBarcodeBatchDefaults(Object.assign(Object.assign({}, buildStaticBarcodeBatchDefaultsJson(staticPlatform)), { RecommendedCameraSettings: dynamicJson.BarcodeBatch.RecommendedCameraSettings }));
-    FactoryMaker.instances.delete(BarcodeDefaultsType.BarcodeSelection);
-    loadBarcodeSelectionDefaults(Object.assign(Object.assign({}, buildStaticBarcodeSelectionDefaultsJson(staticPlatform)), { RecommendedCameraSettings: dynamicJson.BarcodeSelection.RecommendedCameraSettings }));
-    FactoryMaker.instances.delete(BarcodeDefaultsType.BarcodeCount);
-    loadBarcodeCountDefaults(Object.assign(Object.assign({}, buildStaticBarcodeCountDefaultsJson(staticPlatform)), { RecommendedCameraSettings: dynamicJson.BarcodeCount.RecommendedCameraSettings, BarcodeCountView: dynamicJson.BarcodeCount.BarcodeCountView }));
-    FactoryMaker.instances.delete(BarcodeDefaultsType.BarcodeFind);
-    loadBarcodeFindDefaults(Object.assign(Object.assign({}, buildStaticBarcodeFindDefaultsJson(staticPlatform)), { RecommendedCameraSettings: dynamicJson.BarcodeFind.RecommendedCameraSettings, BarcodeFindView: dynamicJson.BarcodeFind.BarcodeFindView }));
-    FactoryMaker.instances.delete(BarcodeDefaultsType.BarcodePick);
-    loadBarcodePickDefaults(Object.assign(Object.assign({}, buildStaticBarcodePickDefaultsJson()), { RecommendedCameraSettings: dynamicJson.BarcodePick.RecommendedCameraSettings, ViewSettings: dynamicJson.BarcodePick.ViewSettings, BarcodePickViewHighlightStyle: dynamicJson.BarcodePick.BarcodePickViewHighlightStyle, SymbologySettings: dynamicJson.BarcodePick.SymbologySettings }));
-    FactoryMaker.instances.delete(BarcodeDefaultsType.SparkScan);
-    loadSparkScanDefaults(Object.assign(Object.assign({}, buildStaticSparkScanDefaultsJson(staticPlatform)), { SparkScanView: dynamicJson.SparkScan.SparkScanView }));
-    FactoryMaker.instances.delete(BarcodeDefaultsType.BarcodeAr);
-    loadBarcodeArDefaults(Object.assign(Object.assign({}, buildStaticBarcodeArDefaultsJson(staticPlatform)), { RecommendedCameraSettings: dynamicJson.BarcodeAr.RecommendedCameraSettings, BarcodeArView: dynamicJson.BarcodeAr.BarcodeArView }));
-    Capacitor.defaults = getBarcodeDefaults();
+const getDefaults = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const defaultsJSON = yield window.Capacitor.Plugins[pluginName]['getDefaults']();
+        loadAllBarcodeDefaults(defaultsJSON);
+        // TODO: Review this
+        Capacitor.defaults = getBarcodeDefaults();
+    }
+    catch (error) {
+        // tslint:disable-next-line:no-console
+        console.warn(error);
+    }
     return Capacitor.defaults;
 });
 // To circumvent a circular dependency
@@ -2509,7 +2419,7 @@ class ScanditBarcodePluginImplementation {
     initialize(coreDefaults) {
         return __awaiter(this, void 0, void 0, function* () {
             CapacitorCore.defaults = coreDefaults;
-            const barcodeDefaults = yield applyDynamicDefaults();
+            const barcodeDefaults = yield getDefaults();
             Capacitor.defaults = barcodeDefaults;
             initBarcodeProxy();
             const api = Object.assign({}, BarcodeExports);

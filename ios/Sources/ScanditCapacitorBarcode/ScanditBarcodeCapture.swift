@@ -15,7 +15,7 @@ class ScanditCapacitorBarcode: CAPPlugin, CAPBridgedPlugin {
     public let identifier = "ScanditCapacitorBarcode"
     public let jsName = "ScanditBarcodeNative"
     public let pluginMethods: [CAPPluginMethod] = [
-        CAPPluginMethod(name: "getDynamicDefaults", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getDefaults", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setBarcodeCountViewPositionAndSize", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "createBarcodeCountView", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "removeBarcodeCountView", returnType: CAPPluginReturnPromise),
@@ -50,27 +50,26 @@ class ScanditCapacitorBarcode: CAPPlugin, CAPBridgedPlugin {
 
     override func load() {
         let emitter = CapacitorEventEmitter(with: self)
-        let registryEmitter = RegistryEmitter(platformEmitter: emitter)
         DefaultServiceLocator.shared.register(module: barcodeModule)
 
-        barcodeCaptureModule = BarcodeCaptureModule(emitter: registryEmitter)
+        barcodeCaptureModule = BarcodeCaptureModule(emitter: emitter)
         DefaultServiceLocator.shared.register(module: barcodeCaptureModule)
 
-        barcodeBatchModule = BarcodeBatchModule(emitter: registryEmitter, viewFromJsonResolver: nil)
+        barcodeBatchModule = BarcodeBatchModule(emitter: emitter, viewFromJsonResolver: nil)
         DefaultServiceLocator.shared.register(module: barcodeBatchModule)
 
         barcodeSelectionModule = BarcodeSelectionModule(
-            emitter: registryEmitter,
+            emitter: emitter,
             aimedBrushProvider: FrameworksBarcodeSelectionAimedBrushProvider(
-                emitter: registryEmitter
+                emitter: emitter
             ),
             trackedBrushProvider: FrameworksBarcodeSelectionTrackedBrushProvider(
-                emitter: registryEmitter
+                emitter: emitter
             )
         )
         DefaultServiceLocator.shared.register(module: barcodeSelectionModule)
 
-        barcodeCountModule = BarcodeCountModule(emitter: registryEmitter)
+        barcodeCountModule = BarcodeCountModule(emitter: emitter)
         DefaultServiceLocator.shared.register(module: barcodeCountModule)
 
         barcodeFindModule = BarcodeFindModule(emitter: emitter)
@@ -121,10 +120,10 @@ class ScanditCapacitorBarcode: CAPPlugin, CAPBridgedPlugin {
         barcodeArModule.didStop()
     }
 
-    @objc(getDynamicDefaults:)
-    func getDynamicDefaults(_ call: CAPPluginCall) {
+    @objc(getDefaults:)
+    func getDefaults(_ call: CAPPluginCall) {
         dispatchMain {
-            let defaults = self.barcodeModule.getDynamicDefaults()
+            let defaults = self.barcodeModule.getDefaults()
             call.resolve(defaults as PluginCallResultData)
         }
     }
