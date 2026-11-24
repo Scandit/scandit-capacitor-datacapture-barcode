@@ -1,6 +1,6 @@
 {
   "name": "scandit-capacitor-datacapture-barcode",
-  "version": "8.6.3",
+  "version": "8.7.2",
   "description": "Scandit Data Capture SDK for Capacitor",
   "license": "Apache-2.0",
   "private": false,
@@ -14,6 +14,7 @@
   "types": "dist/dts/index.d.ts",
   "scripts": {
     "jest": "jest",
+    "test": "jest --coverage --maxWorkers=12 --passWithNoTests",
     "coverage": "jest --coverage",
     "lint": "eslint ./src",
     "build": "rollup -c rollup.config.js --bundleConfigAsCjs",
@@ -21,7 +22,7 @@
     "watch": "tsc -p tsconfig.build.json --watch"
   },
   "dependencies": {
-    "scandit-capacitor-datacapture-core": "8.6.3"
+    "scandit-capacitor-datacapture-core": "8.7.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
